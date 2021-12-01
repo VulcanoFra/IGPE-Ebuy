@@ -177,6 +177,10 @@ public class LoginController {
 				SceneHandlerVecchio.getInstance().showError("Cannot load the page");
 			}
     	}
+    	else if(resLogin.equals(Protocol.USER_ALREADY_LOGGED)) {
+    		SceneHandlerVecchio.getInstance().showWarning("Utente già connesso su un altro dispositivo");
+    		Client.getInstance().resetClient();
+    	}
     	else {
     		if(resLogin.equals(Protocol.OK_ADMIN)) {
         		clearField();

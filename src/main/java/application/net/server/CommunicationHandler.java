@@ -49,6 +49,8 @@ public class CommunicationHandler implements Runnable{
 			if(server.disconnectUser(serverUsername))
 				DatabaseHandler.getInstance().updateLastAccess(serverUsername);
 		} catch (SQLException i) {/*nulla}*/
+		server.removeActiveUser(usernameLoggato);
+		usernameLoggato = null;
 		closeStreams();
 	}
 	
@@ -63,6 +65,12 @@ public class CommunicationHandler implements Runnable{
 				
 				if(input.equals(Protocol.LOGIN)){
 					User user = (User) in.readObject();
+					
+					if(server.isLogged(user.getUsername()) != null) {
+						sendMessage(Protocol.USER_ALREADY_LOGGED);
+						closeStreams();
+						return;
+					}
 					
 					if(!DatabaseHandler.getInstance().existUser(user)) {
 						sendMessage(Protocol.USER_NOT_EXISTS);
@@ -103,7 +111,6 @@ public class CommunicationHandler implements Runnable{
 					}
 				}
 			}
-			System.out.println(usernameLoggato);
 			
 			server.addActiveUser(usernameLoggato, out);
 			

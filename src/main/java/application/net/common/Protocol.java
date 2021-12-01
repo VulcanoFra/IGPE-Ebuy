@@ -7,7 +7,7 @@ public class Protocol {
 	public final static String BAD_REQUEST= "Richiesta non corretta";
 	
 	public final static String AUTHENTICATION_ERROR = "Errore durante l'autenticazione";
-	public final static String USER_LOGGED_ERROR = "Utente già collegato";
+	public final static String USER_ALREADY_LOGGED = "Utente già collegato";
 	public final static String LENGTH_PASSWORD_ERROR = "La password deve essere lunga almeno 8 caratteri";
 	
 	public final static String USERNAME_ERROR = "Username must be a number, lecter and _ or -";
