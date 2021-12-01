@@ -1,0 +1,44 @@
+.button {
+	/*-fx-background-color: rgba(255,255,255,1.5);*/
+	-fx-background-color: rgba(255,255,255,0.4);
+	-fx-background-radius: 5em ;
+	-fx-border-radius: 5em;
+	-fx-border-color: #808080;
+	-fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10.0, 0.0, 0.0, 10.0 );
+	-fx-text-fill: white;
+}
+
+.button:hover{
+	-fx-cursor: hand;
+	-fx-background-color: rgb(179, 179, 179);
+}
+
+.button:pressed{
+	-fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+	-fx-background-color: rgb(134, 134, 134);
+}
+
+/*#vBoxColorata{
+	-fx-background-color: linear-gradient(to bottom, #E7F3FF, #fabdb9);
+}*/
+
+.text-field{
+	-fx-background-color: transparent;
+	-fx-background-radius: 15px ;
+	/*-fx-background-color: rgba(255,255,255,0.4);*/
+	-fx-border-color: rgba(255,255,255,0.4);
+	-fx-border-width: 0 0 2 0;
+	-fx-prompt-text-fill: rgba(255,255,255,0.4);
+	-fx-text-fill: rgba(255, 255, 255, 1);
+	-fx-font-size: 15px;
+	
+}
+
+/*#benvenutoLabel{
+	-fx-text-fill: rgb(255, 0, 0);
+}*/
+
+.glyph-icon{
+	-fx-fill: rgba(255,255,255,0.8);
+}

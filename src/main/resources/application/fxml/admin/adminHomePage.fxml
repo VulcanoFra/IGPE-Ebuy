@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPaneHomeAdmin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AdminHomePageController">
+   <left>
+      <VBox prefHeight="600.0" prefWidth="170.0" spacing="10.0" style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="bntGestisciProdotti" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickGestisciProdotti" prefHeight="31.0" prefWidth="172.0" text="Gestisci Prodotti" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="bntGestisciAdmin" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="31.0" prefWidth="172.0" text="Gestisci Admin" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="btnDownloadCatalogo" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="172.0" text="Scarica pdf catalogo" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Separator prefWidth="200.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets right="30.0" top="100.0" />
+               </VBox.margin>
+            </Separator>
+            <MenuButton fx:id="btnProfilo" mnemonicParsing="false" prefHeight="31.0" prefWidth="172.0" text="Profilo" VBox.vgrow="ALWAYS">
+              <items>
+                <MenuItem fx:id="btnChangePassword" mnemonicParsing="false" style="-fx-text-fill: black;" text="Cambia Password" />
+                <MenuItem fx:id="btnLogOut" mnemonicParsing="false" onAction="#clickExit" style="-fx-text-fill: black;" text="LogOut" />
+              </items>
+               <VBox.margin>
+                  <Insets top="100.0" />
+               </VBox.margin>
+            </MenuButton>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="stackPaneAdminHome" alignment="TOP_LEFT" />
+   </center>
+</BorderPane>

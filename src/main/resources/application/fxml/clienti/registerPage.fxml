@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="registerPrincPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RegisterController">
+   <children>
+      <VBox layoutX="81.0" layoutY="-82.0" spacing="10.0" style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="538.0">
+               <children>
+                  <Pane prefHeight="100.0" prefWidth="75.0" />
+                  <FontAwesomeIcon glyphName="USER_PLUS" size="2.8em" wrappingWidth="45.42856979370117" />
+                  <Label prefHeight="41.0" prefWidth="201.0" text="Registrazione" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="logo" fitHeight="96.0" fitWidth="168.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <Label text="Benvenuto, inserisci i tuoi dati di registrazione" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="80.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameField" prefHeight="31.0" prefWidth="500.0" promptText="Username">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="80.0" right="125.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="lblUsernameEsistente" prefHeight="21.0" prefWidth="495.0" text="Username già esistente" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="80.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nomeField" prefHeight="30.0" prefWidth="500.0" promptText="Nome">
+               <VBox.margin>
+                  <Insets left="80.0" right="125.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="cognomeField" prefHeight="31.0" prefWidth="500.0" promptText="Cognome">
+               <VBox.margin>
+                  <Insets left="80.0" right="125.0" />
+               </VBox.margin>
+            </TextField>
+            <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="487.0" promptText="Password">
+               <VBox.margin>
+                  <Insets left="80.0" right="125.0" top="40.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Label fx:id="lblPasswordErrata" prefHeight="21.0" prefWidth="495.0" text="Password deve essere di almeno 8 caratteri" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="80.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Leelawadee UI" size="15.0" />
+               </font>
+            </Label>
+            <HBox nodeOrientation="RIGHT_TO_LEFT" VBox.vgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btnRegister" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clickRegistrati" prefHeight="31.0" prefWidth="121.0" text="Registrati">
+                     <HBox.margin>
+                        <Insets left="80.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="15.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="165.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label prefHeight="21.0" prefWidth="119.0" text="Sei già registrato?" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets left="50.0" top="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#clickAccedi" prefHeight="31.0" prefWidth="106.0" text="Accedi">
+                     <HBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

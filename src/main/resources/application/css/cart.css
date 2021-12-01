@@ -1,0 +1,24 @@
+.Quantita{
+	-fx-background-color: transparent;
+	-fx-text-fill: rgba(255,255,255,0.9);
+	-fx-font-weight: bold;
+}
+
+.button:hover{
+	-fx-cursor: hand;
+	-fx-background-color: rgba(255,255,255,0.2);
+	-fx-border-width: 0 0 0 0;
+
+}
+
+#btnProcediAllOrdine{
+	-fx-background-radius: 50;
+	-fx-border-radius: 50;
+	-fx-background-color: rgba(157, 16, 2, 0.8);
+}
+
+#btnProcediAllOrdine:hover{
+	-fx-cursor: hand;
+	-fx-background-color: rgba(157, 16, 2, 0.6);
+	-fx-border-width: 0 0 0 0;
+}

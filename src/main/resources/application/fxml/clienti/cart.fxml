@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.pannable.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="vBoxCart" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CartController">
+   <children>
+      <ScrollPane pannable="true" prefHeight="574.0" prefWidth="730.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+         <content>
+            <GridPane fx:id="gridPaneCart" hgap="10.0" vgap="10.0">
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ScrollPane>
+      <HBox alignment="CENTER" prefHeight="55.0" prefWidth="730.0">
+         <children>
+            <Pane prefHeight="38.0" prefWidth="290.0" />
+            <Button fx:id="btnProcediAllOrdine" alignment="CENTER" mnemonicParsing="false" onAction="#clickProcediBtn" prefHeight="31.0" prefWidth="150.0" text="Procedi all'ordine" HBox.hgrow="ALWAYS" />
+            <Pane prefHeight="38.0" prefWidth="290.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
