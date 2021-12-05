@@ -45,10 +45,6 @@ public class CommunicationHandler implements Runnable{
 	}
 	
 	private void disconnect() {
-		/*try {
-			if(server.disconnectUser(serverUsername))
-				DatabaseHandler.getInstance().updateLastAccess(serverUsername);
-		} catch (SQLException i) {/*nulla}*/
 		server.removeActiveUser(usernameLoggato);
 		usernameLoggato = null;
 		closeStreams();
@@ -173,17 +169,27 @@ public class CommunicationHandler implements Runnable{
 					String usernameUtenteDaProcessare = usernameLoggato;
 					
 				}
+				else if(input.equals(Protocol.EXIT)) {
+					System.out.println(usernameLoggato + " si è scollegato");
+					disconnect();
+					closeStreams();
+					loggato = false;
+					return;
+				}
 				else {
 					//sendMessage(Protocol.ERROR);
 					System.out.println("[SERVER] Errore e chiudo stream");
+					disconnect();
 					closeStreams();
 					return;
 				}
 			}
 		} catch (IOException e) {
-			System.out.println(usernameLoggato + " si è scollegato");
-			disconnect();
-			loggato = false;
+			if(usernameLoggato != null) {
+				System.out.println(usernameLoggato + " si è scollegato");
+				disconnect();
+				loggato = false;				
+			}
 			return;
 		} catch (SQLException e) {
 			sendMessage(Protocol.ERROR);

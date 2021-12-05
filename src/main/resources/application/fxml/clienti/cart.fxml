@@ -25,9 +25,9 @@
       </ScrollPane>
       <HBox alignment="CENTER" prefHeight="55.0" prefWidth="730.0">
          <children>
-            <Pane prefHeight="38.0" prefWidth="290.0" />
+            <Pane prefHeight="38.0" prefWidth="290.0" HBox.hgrow="ALWAYS" />
             <Button fx:id="btnProcediAllOrdine" alignment="CENTER" mnemonicParsing="false" onAction="#clickProcediBtn" prefHeight="31.0" prefWidth="150.0" text="Procedi all'ordine" HBox.hgrow="ALWAYS" />
-            <Pane prefHeight="38.0" prefWidth="290.0" />
+            <Pane prefHeight="38.0" prefWidth="290.0" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>

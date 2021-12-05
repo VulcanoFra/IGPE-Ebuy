@@ -202,5 +202,5 @@ public class LoginController {
     void clickRegistrati(ActionEvent event) throws Exception {
     	SceneHandlerVecchio.getInstance().setRegisterScene();
     }
-
+    
 }

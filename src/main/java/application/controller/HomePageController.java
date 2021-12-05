@@ -146,7 +146,7 @@ public class HomePageController {
     
     @FXML
     void clickExit(ActionEvent event) {
-    	Client.getInstance().resetClient();
+    	Client.getInstance().exit();
     	try {
 			SceneHandlerVecchio.getInstance().resetPage(stackPaneHome);
 			SceneHandlerVecchio.getInstance().setLoginScene();

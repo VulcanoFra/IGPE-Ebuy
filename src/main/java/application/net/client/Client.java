@@ -194,6 +194,11 @@ public class Client implements Runnable{
 		
 	}
 	
+	public void exit() {
+		sendMessageString(Protocol.EXIT);
+		resetClient();
+	}
+	
 	public void procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
 	}
