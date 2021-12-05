@@ -104,7 +104,4 @@
             <DropShadow />
          </effect></HBox>
    </top>
-   <center>
-      <StackPane fx:id="stackPaneHome" alignment="TOP_LEFT" BorderPane.alignment="TOP_LEFT" />
-   </center>
 </BorderPane>

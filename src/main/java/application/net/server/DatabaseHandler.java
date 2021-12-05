@@ -225,7 +225,7 @@ public class DatabaseHandler {
 				return Protocol.PRODUCT_IS_ALREADY_IN_CART;
 			}
 			
-			String query = "INSERT INTO ordini VALUES(null, ?, ?, 0)";
+			String query = "INSERT INTO ordini VALUES(null, ?, ?, 0, 1)";
 			PreparedStatement p = con.prepareStatement(query);
 			p.setString(1, username);
 			p.setString(2, nomeProdotto);
@@ -270,8 +270,26 @@ public class DatabaseHandler {
 		}
 		catch(SQLException e) {
 			return null;
-		}
-		
-		
+		}	
+	}
+	
+	public synchronized boolean removeProductFromCartOfUser(String usernameUser, String nomeProdotto) {
+		try {
+			if(con == null || con.isClosed()) 
+				return false;
+			
+			String query = "DELETE FROM Ordini WHERE username_utente=? AND nome_prodotto=? AND evaso=0";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, usernameUser);
+			pr.setString(2, nomeProdotto);
+			
+			pr.execute();
+			
+			return true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}	
 	}
 }

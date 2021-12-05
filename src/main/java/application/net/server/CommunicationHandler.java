@@ -102,8 +102,6 @@ public class CommunicationHandler implements Runnable{
 						return;
 					}else {
 						sendMessage(Protocol.OK);
-						usernameLoggato = user.getUsername();
-						loggato = true;
 					}
 				}
 			}
@@ -168,6 +166,14 @@ public class CommunicationHandler implements Runnable{
 				else if(input.equals(Protocol.PROCEED_TO_ORDER)) {
 					String usernameUtenteDaProcessare = usernameLoggato;
 					
+				}
+				else if(input.equals(Protocol.REMOVE_PRODUCT_FROM_CART)) {
+					String prodotto = (String) in.readObject();
+					if(DatabaseHandler.getInstance().removeProductFromCartOfUser(usernameLoggato, prodotto)) {
+						sendMessage(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART);
+					} else {
+						sendMessage(Protocol.IMPOSSIBLE_REMOVE_PRODUCT_FROM_CART);
+					}
 				}
 				else if(input.equals(Protocol.EXIT)) {
 					System.out.println(usernameLoggato + " si è scollegato");

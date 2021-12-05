@@ -4,6 +4,7 @@ import application.model.PdfGenerator;
 import application.net.client.Client;
 import application.net.common.Protocol;
 import application.view.SceneHandlerVecchio;
+import application.view.StackPaneHome;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class HomePageController {
@@ -55,8 +55,8 @@ public class HomePageController {
     @FXML
     private ImageView imgLogo;
     
-    @FXML
-    private StackPane stackPaneHome;
+    /*@FXML
+    private StackPane StackPaneHome.getInstance();*/
     
     @FXML
     private MenuItem itemExit;
@@ -67,7 +67,7 @@ public class HomePageController {
     	borderPaneHome.getStylesheets().add(getClass().getResource("/application/css/homePage.css").toExternalForm());
     	btnProfilo.getStyleClass().add("Profilo");
     	imgLogo.setImage(new Image(getClass().getResourceAsStream("/application/image/logoBasso.png"),180 ,60 ,true,true));
-    	
+    	borderPaneHome.setCenter(StackPaneHome.getInstance());
     	/*btnInfo.getStyleClass().add("buttonLeft");
     	btnContatti.getStyleClass().add("buttonLeft");
     	btnProfilo.getStyleClass().add("buttonLeft");
@@ -94,7 +94,7 @@ public class HomePageController {
 				slide.play();
 				
 				slider.setTranslateX(UtilitiesView.DIM_X_SLIDER_HOMEPAGE * -1);				
-				stackPaneHome.setTranslateX(0);
+				StackPaneHome.getInstance().setTranslateX(0);
 				
 				slide.setOnFinished(new EventHandler<ActionEvent>(){
 					@Override
@@ -123,7 +123,7 @@ public class HomePageController {
 				slide.setOnFinished(new EventHandler<ActionEvent>(){
 					@Override
 					public void handle(ActionEvent event) {
-						stackPaneHome.setTranslateX(UtilitiesView.DIM_X_SLIDER_HOMEPAGE * -1);
+						StackPaneHome.getInstance().setTranslateX(UtilitiesView.DIM_X_SLIDER_HOMEPAGE * -1);
 						lblMenu.setVisible(true);
 						lblMenuClose.setVisible(false);
 					}
@@ -138,7 +138,7 @@ public class HomePageController {
     @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
     	//if(AllProductController.sizeLista() > 0)
-    		SceneHandlerVecchio.getInstance().setAllProductInHome(stackPaneHome, ricercaField.getText());
+    		SceneHandlerVecchio.getInstance().setAllProductInHome(StackPaneHome.getInstance(), ricercaField.getText());
     	//else {
     		/*..............*/
     	//}
@@ -148,7 +148,7 @@ public class HomePageController {
     void clickExit(ActionEvent event) {
     	Client.getInstance().exit();
     	try {
-			SceneHandlerVecchio.getInstance().resetPage(stackPaneHome);
+			SceneHandlerVecchio.getInstance().resetPage(StackPaneHome.getInstance());
 			SceneHandlerVecchio.getInstance().setLoginScene();
 		} catch (Exception e) {
 			SceneHandlerVecchio.getInstance().showError(Protocol.ERROR);
@@ -159,7 +159,8 @@ public class HomePageController {
     @FXML
     void clickCart(ActionEvent event) {
     	//if(CartController.sizeListInCart() > 0) {
-        	SceneHandlerVecchio.getInstance().setCartInHome(stackPaneHome);
+        	//SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+    	setCartInHome();
     	//}
     	//else {
     		/*SceneHandlerVecchio.getInstance().setEmptyCart();*/
@@ -176,4 +177,7 @@ public class HomePageController {
 		}
     }
     
+    public void setCartInHome() {
+    	SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+    }
 }

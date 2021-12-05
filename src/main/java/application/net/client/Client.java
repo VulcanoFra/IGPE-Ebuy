@@ -5,12 +5,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Vector;
-
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
 import application.net.common.Protocol;
 import application.view.SceneHandlerVecchio;
+import application.view.StackPaneHome;
+
 
 public class Client implements Runnable{
 	
@@ -18,6 +19,7 @@ public class Client implements Runnable{
 	private static Client instance = null;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
+	private boolean isLogged = false;
 	
 	private Client() {
 		try {
@@ -62,7 +64,9 @@ public class Client implements Runnable{
 	
 	@Override
 	public void run(){
-		while(out != null && in != null) {
+		try {
+			while(out != null && in != null && isLogged) {
+				Thread.sleep(10000);	
 			/*try {
 				Object message = (Object) in.readObject();
 				if(message.equals(Protocol.ERROR)) {
@@ -73,8 +77,10 @@ public class Client implements Runnable{
 				out = null;
 				//SceneHandlerVecchio.getInstance().showError("Cannot connect");
 			}*/
-		}
-		
+			}
+		} catch(InterruptedException e) {
+			
+		}	
 	}
 	
 	
@@ -85,8 +91,8 @@ public class Client implements Runnable{
 			if(in == null)
 				in = new ObjectInputStream(socket.getInputStream());
 			String res = (String) in.readObject();
-			/*if(res.equals(Protocol.OK) || res.equals(Protocol.OK_ADMIN))
-				actualUser = new User(username ,password);*/
+			if(res.equals(Protocol.OK) || res.equals(Protocol.OK_ADMIN))
+				isLogged = true;
 			return res;			
 		} catch (Exception e) {
 			out = null;
@@ -101,6 +107,8 @@ public class Client implements Runnable{
 			if(in == null)
 				in = new ObjectInputStream(socket.getInputStream());
 			String res = (String) in.readObject();
+			if(res.equals(Protocol.OK))
+				isLogged = true;
 			return res;			
 		} catch (Exception e) {
 			out = null;
@@ -196,11 +204,34 @@ public class Client implements Runnable{
 	
 	public void exit() {
 		sendMessageString(Protocol.EXIT);
+		isLogged = false;
 		resetClient();
 	}
 	
 	public void procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
+	}
+	
+	public void removeProductFromCart(String nomeProdotto) {
+		sendMessageString(Protocol.REMOVE_PRODUCT_FROM_CART);
+		sendMessageString(nomeProdotto);
+		
+		try {
+			String res = (String) in.readObject();
+			if(res.equals(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART)) {
+				String idPane = StackPaneHome.getInstance().getChildren().get(1).getId();
+				if(idPane.equals("vBoxCart")) {
+					StackPaneHome.getInstance().getChildren().remove(1);
+					SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+				}
+			} else {
+				System.out.println("Stamo nell'altrimenti");
+			}
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
 	

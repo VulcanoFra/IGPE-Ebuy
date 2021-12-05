@@ -11,6 +11,7 @@
  * 		altrimenti avvertire che non è disponibile in tal quantità. Inoltre ogni volta che clicca su l'aumentare della quantità
  * 		di un prodotto si dovrà controllare se questo è effettivamente disponibile altrimenti non farlo aumentare.
  * 14) mettere tutti i controlli sulla registrazione
+ * 15) ATTENZIONE! Gestisci meglio visualizzazione quando l'utente rimuove un prodotto dal carrello
  */
 
 package application;

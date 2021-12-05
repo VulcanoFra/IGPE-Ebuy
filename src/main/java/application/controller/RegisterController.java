@@ -78,9 +78,10 @@ public class RegisterController {
     	
     	if(res.equals(Protocol.OK)) {
         	try {
-        		//Client.getInstance().setActualUser(new User(usernameField.getText()));
         		clearField();
-        		SceneHandlerVecchio.getInstance().setHomeScene();
+        		Client.getInstance().resetClient();
+        		SceneHandlerVecchio.getInstance().showInfo("Utente registrato correttamente");
+        		SceneHandlerVecchio.getInstance().setLoginScene();
 			} catch (Exception e) {
 				SceneHandlerVecchio.getInstance().showError("Cannot load the page");
 			}

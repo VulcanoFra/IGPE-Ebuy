@@ -141,6 +141,9 @@ public class SceneHandlerVecchio {
 	
 	public void setCartInHome(StackPane stackPaneHome) {
 
+		/*if(stackPaneHome.getChildren().get(0)) {
+			
+		}*/
 		boolean trovati = cartController.setProdottiInCart();
 		System.out.println("DOPO");
 		if(!trovati) {
