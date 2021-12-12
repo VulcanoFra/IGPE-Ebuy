@@ -6,9 +6,9 @@ public class ProductInCart extends Product{
 	
 	private int quantitaNelCarrello;
 	
-	public ProductInCart(String nome, double prezzo, byte[] img, String descrizione) {
+	public ProductInCart(String nome, double prezzo, byte[] img, String descrizione, int quantita) {
 		super(nome, prezzo, img, descrizione);
-		this.quantitaNelCarrello = 1;
+		this.quantitaNelCarrello = quantita;
 	}
 	
 	public int getQuantità() {

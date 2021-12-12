@@ -2,11 +2,13 @@ package application.view;
 
 import application.controller.AllProductController;
 import application.controller.CartController;
+import application.controller.HomePageController;
 import application.net.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -27,6 +29,7 @@ public class SceneHandlerVecchio {
 	private AllProductController prdContrl;
 	private CartController cartController;
 	private AnchorPane gestioneProdottiAdminPane;
+	private AnchorPane dashboard;
 	
 	private static SceneHandlerVecchio instance = null;
 	
@@ -56,6 +59,8 @@ public class SceneHandlerVecchio {
 		adminHomePage = (BorderPane) loader.load();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/gestioneProdottiAdmin.fxml"));
 		gestioneProdottiAdminPane = (AnchorPane) loader.load();
+		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/dashboard.fxml"));
+		dashboard = (AnchorPane) loader.load();
 		
 		initScene();
 		stage.setScene(scena);
@@ -108,7 +113,8 @@ public class SceneHandlerVecchio {
 			stage.hide();*/
 		stage.hide();
 		scena.setRoot(homePage);
-
+		setDashboardInHome();
+		//StackPaneHome.getInstance().getChildren().add(dashboard);
     	//stage.setResizable(false);
     	stage.setWidth(900);
     	stage.setHeight(750);
@@ -118,17 +124,24 @@ public class SceneHandlerVecchio {
 	}
 	
 
-	public void setAllProductInHome(StackPane stackPaneHome, String parametro) {
+	public void setDashboardInHome() {
+		if(StackPaneHome.getInstance().getChildren().contains(dashboard)) {
+			StackPaneHome.getInstance().getChildren().remove(dashboard);
+		}
+		StackPaneHome.getInstance().getChildren().add(dashboard);
+	}
+
+	public void setAllProductInHome(String parametro) {
 		
 		/*if(!(stackPaneHome.getChildren().size() == 0) || stackPaneHome.getChildren().get(0).equals(allProductPane))
 			return;*/
 		
-		stackPaneHome.prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
-		if(stackPaneHome.getChildren().contains(allProductPane)) {
-			stackPaneHome.getChildren().remove(allProductPane);
+		StackPaneHome.getInstance().prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
+		if(StackPaneHome.getInstance().getChildren().contains(allProductPane)) {
+			StackPaneHome.getInstance().getChildren().remove(allProductPane);
 			//allProductPane.getChildren().get(2).;
 		}
-		stackPaneHome.getChildren().add(allProductPane);
+		StackPaneHome.getInstance().getChildren().add(allProductPane);
 		//System.out.println(allProductPane.getChildren().get(1));
 		try {
 			prdContrl.setProdottiPane(parametro);		//NON MI PIACE FAR COSì
@@ -211,4 +224,13 @@ public class SceneHandlerVecchio {
 		alert.setContentText(message);
 		alert.show();
     }
+
+	public String showInput() {
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setHeaderText("Inserisci il numero della carta di credito");
+		
+		dialog.showAndWait();
+		
+		return dialog.getEditor().getText();
+	}
 }

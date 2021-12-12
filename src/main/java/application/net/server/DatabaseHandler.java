@@ -248,8 +248,7 @@ public class DatabaseHandler {
 			Vector<ProductInCart> prodotti = new Vector<ProductInCart>();
 			
 			String query = "SELECT * FROM ordini,prodotto WHERE evaso=0 AND username_utente=? AND nome_prodotto=nome;";
-			
-			
+
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setString(1, username);
 			
@@ -261,8 +260,9 @@ public class DatabaseHandler {
 				double prezzo = rs.getDouble("prezzo_generico");
 				byte img[] = rs.getBytes("immagine");
 				String descrizione = rs.getString("descrizione");
+				int quantita = rs.getInt("quantita");
 				
-				ProductInCart product = new ProductInCart(nomeP, prezzo, img, descrizione);
+				ProductInCart product = new ProductInCart(nomeP, prezzo, img, descrizione, quantita);
 				prodotti.add(product);
 			}
 
@@ -291,5 +291,65 @@ public class DatabaseHandler {
 			e.printStackTrace();
 			return false;
 		}	
+	}
+
+	//Se ritorna 0 allora il prodotto è disponibile nella quantità richiesta.
+	//Altrimenti se non è disponibile nella quantità richeista ritorna la quantità disponibile
+	public synchronized Integer quantityIsAvailable(String nomeProdotto, Integer number) {
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "SELECT * FROM prodotto WHERE nome=?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, nomeProdotto);
+			
+			ResultSet rs = pr.executeQuery();
+			
+			if(rs.getInt("quantita_disponibile") >= number) {
+				return 0;
+			}
+
+			setQuantitaProdottoInOrdine(nomeProdotto, query, number);
+			return rs.getInt("quantita_disponibile");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public synchronized void setQuantitaProdottoInOrdine(String nomeProdotto, String username, Integer number) {
+		try {
+			if(con == null || con.isClosed()) 
+				return;
+			String query = "UPDATE ordini SET quantita=? WHERE evaso=0 AND nome_prodotto=? AND username_utente=?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setInt(1, number);
+			pr.setString(2, nomeProdotto);
+			pr.setString(3, username);
+			pr.execute();
+		} catch(SQLException e) {
+			
+		}
+		
+	}
+	
+	public synchronized void proceedToOrder(String usernameUtenteDaProcessare) {
+		try {
+			if(con == null || con.isClosed()) 
+				return;
+			
+			String query = "SELECT * FROM ordini WHERE evaso=0 AND username_utente=?";
+			PreparedStatement pr = con.prepareStatement(query);
+			ResultSet rs = pr.executeQuery();
+			
+			while(rs.next()) {
+				//if(quantityIsAvailable(query, null))
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

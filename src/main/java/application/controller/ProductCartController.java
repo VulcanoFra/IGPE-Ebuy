@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import application.model.ProductInCart;
 import application.net.client.Client;
+import application.view.SceneHandlerVecchio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -46,8 +47,8 @@ public class ProductCartController {
     
     @FXML
     void diminuisciQuantità(ActionEvent event) {
-    	int number = Integer.parseInt(quantità.getText());
-    	if(number == 1) {
+    	Integer number = Integer.parseInt(quantità.getText()) - 1;
+    	if(number == 0) {
     		Alert alert = new Alert(AlertType.CONFIRMATION);
     		alert.setTitle("Confirmation Dialog");
 
@@ -65,18 +66,30 @@ public class ProductCartController {
     		}
     		
     	} else {
-    		number--;
-			quantità.setText(number + "");
+    		int risposta = Client.getInstance().isAvailbleProduct(lblNomeProdotto.getText(), number);
+    		if(risposta == 0) {
+        		quantità.setText(number + "");
+        	} else {
+        		SceneHandlerVecchio.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
+        				+ number +" richiesta, non è disponibile");
+        		quantità.setText(risposta + "");
+        	}
     	}
-    	  	
-    	
     }
 
     @FXML
     void aumentaQuantià(ActionEvent event) {
-    	int number = Integer.parseInt(quantità.getText());
-    	number++;
-    	quantità.setText(number + "");
+    	Integer number = Integer.parseInt(quantità.getText()) + 1 ;
+    	
+    	int risposta = Client.getInstance().isAvailbleProduct(lblNomeProdotto.getText(), number);
+    	if(risposta == 0) {
+    		quantità.setText(number + "");
+    	} else {
+    		SceneHandlerVecchio.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
+    				+ number +" richiesta, non è disponibile");
+    		quantità.setText(risposta + "");
+    	}
+    	
     }
     
     public void setData(ProductInCart p) {

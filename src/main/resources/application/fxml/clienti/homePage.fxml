@@ -17,7 +17,7 @@
       <VBox fx:id="slider" alignment="TOP_CENTER" prefHeight="656.0" prefWidth="170.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="7.0" prefWidth="99.0" />
-            <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="37.0" prefWidth="170.0" text="DashBoard">
+            <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickDashboardbtn" prefHeight="37.0" prefWidth="170.0" text="DashBoard">
                <graphic>
                   <FontAwesomeIcon glyphName="HOME" size="1.8em" />
                </graphic>

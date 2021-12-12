@@ -210,6 +210,9 @@ public class Client implements Runnable{
 	
 	public void procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
+		String carta = SceneHandlerVecchio.getInstance().showInput();
+
+		sendMessageString(carta);
 	}
 	
 	public void removeProductFromCart(String nomeProdotto) {
@@ -219,11 +222,14 @@ public class Client implements Runnable{
 		try {
 			String res = (String) in.readObject();
 			if(res.equals(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART)) {
-				String idPane = StackPaneHome.getInstance().getChildren().get(1).getId();
-				if(idPane.equals("vBoxCart")) {
-					StackPaneHome.getInstance().getChildren().remove(1);
-					SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+				if(StackPaneHome.getInstance().getChildren().get(1)!=null){
+					String idPane = StackPaneHome.getInstance().getChildren().get(1).getId();
+					if(idPane.equals("vBoxCart")) {
+						StackPaneHome.getInstance().getChildren().remove(1);
+						SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+					}
 				}
+				
 			} else {
 				System.out.println("Stamo nell'altrimenti");
 			}
@@ -232,6 +238,27 @@ public class Client implements Runnable{
 			e.printStackTrace();
 		}
 		
+	}
+
+	public Integer isAvailbleProduct(String nomeProdotto, Integer number) {
+		sendMessageString(Protocol.CHECK_QUANTITY_AVAILABILITY);
+		sendMessageString(nomeProdotto);
+		sendMessageString(number.toString());
+		
+		try {
+			String risposta = (String) in.readObject();
+			
+			if(risposta.equals(Protocol.QUANTITY_AVAILABLE)) {
+				return 0;
+			}
+			String quantitaDisponibile = (String) in.readObject();
+			
+			return Integer.parseInt(quantitaDisponibile);
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-
+			e.printStackTrace();
+			return null;
+		} 
 	}
 }
 	

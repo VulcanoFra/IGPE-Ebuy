@@ -163,9 +163,27 @@ public class CommunicationHandler implements Runnable{
 					}
 					sendObject(prodotti);
 				}
+				else if(input.equals(Protocol.CHECK_QUANTITY_AVAILABILITY)) {
+					String nomeProdotto = (String) in.readObject();
+					String number = (String) in.readObject();
+					
+					int rispostaDB = DatabaseHandler.getInstance().quantityIsAvailable(nomeProdotto, Integer.parseInt(number));
+					if(rispostaDB == 0) {
+						sendMessage(Protocol.QUANTITY_AVAILABLE);
+						DatabaseHandler.getInstance().setQuantitaProdottoInOrdine(nomeProdotto, 
+								usernameLoggato, Integer.parseInt(number));
+					} else {
+						sendMessage(Protocol.QUANTITY_UNAVAILABLE);
+						sendMessage(rispostaDB + "");
+						DatabaseHandler.getInstance().setQuantitaProdottoInOrdine(nomeProdotto, 
+								usernameLoggato, rispostaDB);
+					}
+				}
 				else if(input.equals(Protocol.PROCEED_TO_ORDER)) {
 					String usernameUtenteDaProcessare = usernameLoggato;
+					String numberCard = (String) in.readObject();
 					
+					DatabaseHandler.getInstance().proceedToOrder(usernameUtenteDaProcessare);
 				}
 				else if(input.equals(Protocol.REMOVE_PRODUCT_FROM_CART)) {
 					String prodotto = (String) in.readObject();

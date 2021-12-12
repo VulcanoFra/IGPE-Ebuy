@@ -34,7 +34,11 @@ public class Protocol {
 	public final static String REMOVE_PRODUCT_FROM_CART = "Rimuovi il prodotto dal carrello";
 	public final static String PRODUCT_CORRECTLY_REMOVED_FROM_CART = "Prodotto rimosso correttamente";
 	public final static String IMPOSSIBLE_REMOVE_PRODUCT_FROM_CART = "ERRORE! Non è stato possibile rimuovere il prodotto dal carrello";
+	public final static String CHECK_QUANTITY_AVAILABILITY = "Controllo sulla disponibilità del prodotto";
+	public final static String QUANTITY_AVAILABLE = "Quantità disponibile";
+	public final static String QUANTITY_UNAVAILABLE = "Quantità non disponibile";
 
+	
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
 
 	public final static String EXIT = "Fai il LogOut";

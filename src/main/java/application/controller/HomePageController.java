@@ -136,9 +136,14 @@ public class HomePageController {
     */
     
     @FXML
+    void clickDashboardbtn(ActionEvent event) {
+    	SceneHandlerVecchio.getInstance().setDashboardInHome();
+    }
+    
+    @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
     	//if(AllProductController.sizeLista() > 0)
-    		SceneHandlerVecchio.getInstance().setAllProductInHome(StackPaneHome.getInstance(), ricercaField.getText());
+    		SceneHandlerVecchio.getInstance().setAllProductInHome( ricercaField.getText());
     	//else {
     		/*..............*/
     	//}
