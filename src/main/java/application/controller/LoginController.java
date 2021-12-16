@@ -112,47 +112,23 @@ public class LoginController {
     public boolean risposte(String resUsername, String resPassword) {
     	boolean risposta = true;
     	
-    	if(resUsername.equals(Rules.USERNAME_CORTO)) {
+    	if(!resUsername.equals(Rules.USERNAME_OK)) {
     		risposta = false;
     		if(!labelUsername.isVisible())
     			labelUsername.setVisible(true);
-    		labelUsername.setText(Rules.USERNAME_CORTO);
-    	}
-    	else if(resUsername.equals(Rules.USERNAME_ERROR)) {
-    		risposta = false;
-    		if(!labelUsername.isVisible())
-    			labelUsername.setVisible(true);
-    		labelUsername.setText(Rules.USERNAME_ERROR);
-    	}
-    	else if(resUsername.equals(Rules.USERNAME_LUNGO)) {
-    		risposta = false;
-    		if(!labelUsername.isVisible())
-    			labelUsername.setVisible(true);
-    		labelUsername.setText(Rules.USERNAME_LUNGO);
-    	}
-    	else if(resUsername.equals(Rules.USERNAME_OK)) 
+    		labelUsername.setText(resUsername);
+    	} else {
     		labelUsername.setVisible(false);    	
+    	}
     	
-    	if(resPassword.equals(Rules.PASSWORD_CORTA)) {
+    	if(!resPassword.equals(Rules.PASSWORD_OK)) {
     		risposta = false;
     		if(!labelPassword.isVisible())
     			labelPassword.setVisible(true);
-    		labelPassword.setText(Rules.PASSWORD_CORTA);
-    	}
-    	else if(resPassword.equals(Rules.PASSWORD_ERROR)){
-    		risposta = false;
-    		if(!labelPassword.isVisible())
-    			labelPassword.setVisible(true);
-    		labelPassword.setText(Rules.PASSWORD_ERROR);
-    	}
-    	else if(resPassword.equals(Rules.PASSWORD_LUNGA)){
-    		risposta = false;
-    		if(!labelPassword.isVisible())
-    			labelPassword.setVisible(true);
-    		labelPassword.setText(Rules.PASSWORD_LUNGA);
-    	}
-    	else if(resPassword.equals(Rules.PASSWORD_OK))
+    		labelPassword.setText(resPassword);
+    	} else { 
     		labelPassword.setVisible(false);
+    	}
     	
     	return risposta;
     }

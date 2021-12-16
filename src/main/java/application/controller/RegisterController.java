@@ -23,16 +23,19 @@ public class RegisterController {
     private TextField usernameField;
 
     @FXML
-    private Label lblPasswordErrata;
+    private Label labelPassword;
 
     @FXML
-    private Label lblUsernameEsistente;
+    private Label labelUsername;
     
     @FXML
     private ImageView logo;
 
     @FXML
     private VBox vBoxColorata;
+    
+    @FXML
+    private Label labelNomeCognome;
     
     @FXML
     private Button btnLogin;
@@ -59,8 +62,9 @@ public class RegisterController {
     void initialize() {
     	logo.setImage(new Image(getClass().getResourceAsStream("/application/image/logo.png"), 200, 200, true, true));
     	registerPrincPane.getStylesheets().add(getClass().getResource("/application/css/loginAndRegister.css").toExternalForm());
-    	lblPasswordErrata.setVisible(false);
-    	lblUsernameEsistente.setVisible(false);
+    	labelPassword.setVisible(false);
+    	labelUsername.setVisible(false);
+    	labelNomeCognome.setVisible(false);
     }
     
     private void clearField() {
@@ -68,12 +72,64 @@ public class RegisterController {
     	passwordField.setText("");
     	nomeField.setText("");
     	cognomeField.setText("");
-    	lblPasswordErrata.setVisible(false);
-    	lblUsernameEsistente.setVisible(false);
+    	labelPassword.setVisible(false);
+    	labelUsername.setVisible(false);
+    }
+    
+    public boolean risposte(String resUsername, String resPassword, String resNome, String resCognome) {
+    	boolean risposta = true;
+
+    	if(!resUsername.equals(Rules.USERNAME_OK)) {
+    		risposta = false;
+    		if(!labelUsername.isVisible())
+    			labelUsername.setVisible(true);
+    		labelUsername.setText(resUsername);
+    	} else {
+    		labelUsername.setVisible(false);    	
+    	}
+    	
+    	if(!resPassword.equals(Rules.PASSWORD_OK)) {
+    		risposta = false;
+    		if(!labelPassword.isVisible())
+    			labelPassword.setVisible(true);
+    		labelPassword.setText(resPassword);
+    	} else { 
+    		labelPassword.setVisible(false);
+    	}
+    	
+    	if(!resNome.equals(Rules.WORD_OK)) {
+    		risposta = false;
+    		if(!labelNomeCognome.isVisible())
+    			labelNomeCognome.setVisible(true);
+    		labelNomeCognome.setText(resNome);
+    	}
+    	else {
+    		labelNomeCognome.setVisible(false);
+    	}
+    	
+    	if(!resCognome.equals(Rules.WORD_OK)) {
+    		risposta = false;
+    		if(!labelNomeCognome.isVisible())
+    			labelNomeCognome.setVisible(true);
+    		labelNomeCognome.setText(resCognome);
+    	}
+    	else {
+    		labelNomeCognome.setVisible(false);
+    	}
+    	
+    	return risposta;
     }
     
     @FXML
     void clickRegistrati(ActionEvent event) throws Exception {
+    	String resUsername = Rules.getInstance().checkRulesUsername(usernameField.getText());
+    	String resPassword = Rules.getInstance().checkRulesPassword(passwordField.getText());
+    	String resNome = Rules.getInstance().checkRulesWords(nomeField.getText());
+    	String resCognome = Rules.getInstance().checkRulesWords(cognomeField.getText());
+
+    	if(!risposte(resUsername, resPassword, resNome, resCognome))
+    		return;
+    	
     	String res = Client.getInstance().registration(new User(usernameField.getText(), passwordField.getText(), nomeField.getText(), cognomeField.getText()));
     	
     	if(res.equals(Protocol.OK)) {
@@ -87,14 +143,14 @@ public class RegisterController {
 			}
     	}else if(res.equals(Rules.USERNAME_CORTO)){
     		//SceneHandlerVecchio.getInstance().showError(res);
-    		if(!lblUsernameEsistente.isVisible())
-    			lblUsernameEsistente.setVisible(true);
-    		lblUsernameEsistente.setText("Username deve essere di almeno 4 caratteri");
+    		if(!labelUsername.isVisible())
+    			labelUsername.setVisible(true);
+    		labelUsername.setText("Username deve essere di almeno 4 caratteri");
     		Client.getInstance().resetClient();
     	} else if(res.equals(Rules.USERNAME_ERROR)) {
-    		if(!lblUsernameEsistente.isVisible())
-    			lblUsernameEsistente.setVisible(true);
-    		lblUsernameEsistente.setText("Ci sono caratteri non ammessi nell'username");
+    		if(!labelUsername.isVisible())
+    			labelUsername.setVisible(true);
+    		labelUsername.setText("Ci sono caratteri non ammessi nell'username");
     	}
     }
 

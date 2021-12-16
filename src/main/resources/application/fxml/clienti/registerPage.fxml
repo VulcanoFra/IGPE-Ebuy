@@ -50,12 +50,12 @@
                   <Insets left="80.0" right="125.0" top="10.0" />
                </VBox.margin>
             </TextField>
-            <Label fx:id="lblUsernameEsistente" prefHeight="21.0" prefWidth="495.0" text="Username già esistente" textFill="WHITE">
+            <Label fx:id="labelUsername" prefHeight="21.0" prefWidth="495.0" text="Username già esistente" textFill="WHITE" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="80.0" top="5.0" />
                </VBox.margin>
                <font>
-                  <Font name="Leelawadee UI" size="15.0" />
+                  <Font name="Leelawadee UI" size="11.0" />
                </font>
             </Label>
             <TextField fx:id="nomeField" prefHeight="30.0" prefWidth="500.0" promptText="Nome">
@@ -68,17 +68,25 @@
                   <Insets left="80.0" right="125.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="487.0" promptText="Password">
-               <VBox.margin>
-                  <Insets left="80.0" right="125.0" top="40.0" />
-               </VBox.margin>
-            </PasswordField>
-            <Label fx:id="lblPasswordErrata" prefHeight="21.0" prefWidth="495.0" text="Password deve essere di almeno 8 caratteri" textFill="WHITE">
+            <Label fx:id="labelNomeCognome" prefHeight="21.0" prefWidth="493.0" text="Nome e cognomi non ammassi" textFill="WHITE" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets left="80.0" top="5.0" />
                </VBox.margin>
                <font>
-                  <Font name="Leelawadee UI" size="15.0" />
+                  <Font name="Leelawadee UI" size="11.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="487.0" promptText="Password">
+               <VBox.margin>
+                  <Insets left="80.0" right="125.0" top="15.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Label fx:id="labelPassword" prefHeight="21.0" prefWidth="495.0" text="Password deve essere di almeno 8 caratteri" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="80.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Leelawadee UI" size="11.0" />
                </font>
             </Label>
             <HBox nodeOrientation="RIGHT_TO_LEFT" VBox.vgrow="ALWAYS">

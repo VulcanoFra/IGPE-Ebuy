@@ -12,6 +12,11 @@ public class Rules {
 	public final static String USERNAME_LUNGO = "L'username deve essere al massimo di 20 caratteri";
 	public final static String USERNAME_ERROR = "Ci sono caratteri non ammessi nell'username";
 	public final static String USERNAME_OK = "L'username è valido";
+	
+	public final static String NO_WORD = "Nessuna parola";
+	public final static String WORD_LUNGA = "Nome o cognome troppo lunghi";
+	public final static String WORD_OK = "Parola valida";
+	public final static String WORD_ERROR = "Nome o cognome non ammessi. Solo lettere consentite";
 
 	private static Rules instance = null;
 	
@@ -44,5 +49,17 @@ public class Rules {
 		if(!Pattern.matches(regex, password))
 			return PASSWORD_ERROR;
 		return PASSWORD_OK;
+	}
+
+	public String checkRulesWords(String word) {
+		if(word == null)
+			return NO_WORD;
+		if(word.length() > 20)
+			return WORD_LUNGA;
+		
+		String regex = "[a-zA-Z]+";
+		if(!Pattern.matches(regex, word))
+			return WORD_ERROR;
+		return WORD_OK;
 	}
 }
