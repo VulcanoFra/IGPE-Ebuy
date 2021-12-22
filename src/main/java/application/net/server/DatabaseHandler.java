@@ -28,7 +28,7 @@ public class DatabaseHandler {
 	
 	private DatabaseHandler() {
 		try {
-			con = DriverManager.getConnection("jdbc:sqlite:database.db");
+			con = DriverManager.getConnection("jdbc:sqlite:ebuyDatabase.db");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -199,12 +199,44 @@ public class DatabaseHandler {
 		
 	}
 	
+	private synchronized int getIdCartUser(String username) {
+		try {
+			String query = "SELECT ID FROM ordini WHERE username_utente=? AND data IS NULL";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, username);
+			
+			ResultSet rs = pr.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getInt("ID");
+			} else {
+				//Vuol dire che non ha un'istanza del suo carrello vuoto al momento
+				String creaCart = "INSERT INTO ordini VALUES(null, ?, null);";
+				PreparedStatement pr2 = con.prepareStatement(creaCart);
+				pr2.setString(1, username);
+				
+				pr2.execute();
+				
+				return getIdCartUser(username);
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		//Se ritorna 0 vuol dire che c'è stato qualche problema
+		return 0;
+	}
+	
+	//OK
 	private synchronized boolean isAlreadyInCart(String username, String nomeProdotto)  {
 		try {
-			String query = "SELECT * FROM ordini WHERE username_utente=? AND nome_prodotto=? AND evaso=0";
+			
+			int id = getIdCartUser(username);
+			
+			String query = "SELECT * FROM ordini,include WHERE ID=? AND ID=idOrdine AND nome_prodotto=?";
 			PreparedStatement p = con.prepareStatement(query);
 			
-			p.setString(1, username);
+			p.setInt(1, id);
 			p.setString(2, nomeProdotto);
 			
 			ResultSet rs = p.executeQuery();
@@ -216,6 +248,7 @@ public class DatabaseHandler {
 		
 	}
 	
+	//OK
 	public synchronized String addOrder(String username, String nomeProdotto) {
 		try {	
 			if(con == null || con.isClosed()) 
@@ -226,21 +259,28 @@ public class DatabaseHandler {
 				return Protocol.PRODUCT_IS_ALREADY_IN_CART;
 			}
 			
-			String query = "INSERT INTO ordini VALUES(null, ?, ?, 0, 1)";
-			PreparedStatement p = con.prepareStatement(query);
-			p.setString(1, username);
-			p.setString(2, nomeProdotto);
+			int id = getIdCartUser(username);
 			
-			p.executeUpdate();
-			p.close();
-			
-			return Protocol.PRODUCT_CORRECTLY_ADDED_IN_CART;
+			if(id != 0) {
+				String query = "INSERT INTO include VALUES(" + id + ", ?, 1)";
+				PreparedStatement p = con.prepareStatement(query);
+				p.setString(1, nomeProdotto);
+				
+				p.executeUpdate();
+				p.close();
+				
+				return Protocol.PRODUCT_CORRECTLY_ADDED_IN_CART;
+			}
+			else {
+				return Protocol.IMPOSSIBLE_ADD_PRODUCT_IN_CART;
+			}
 			
 		} catch(SQLException e) {
 			return Protocol.IMPOSSIBLE_ADD_PRODUCT_IN_CART;
 		}
 	}
 	
+	//OK
 	public synchronized Vector<ProductInCart> getProductInCart(String username) {
 		try {
 			if(con == null || con.isClosed()) 
@@ -248,10 +288,11 @@ public class DatabaseHandler {
 			
 			Vector<ProductInCart> prodotti = new Vector<ProductInCart>();
 			
-			String query = "SELECT * FROM ordini,prodotto WHERE evaso=0 AND username_utente=? AND nome_prodotto=nome;";
+			int id = getIdCartUser(username);
+			
+			String query = "SELECT * FROM include, prodotto WHERE idOrdine=" + id + " AND nome_prodotto=nome;";
 
 			PreparedStatement pr = con.prepareStatement(query);
-			pr.setString(1, username);
 			
 			ResultSet rs = pr.executeQuery();
 			
@@ -274,15 +315,17 @@ public class DatabaseHandler {
 		}	
 	}
 	
-	public synchronized boolean removeProductFromCartOfUser(String usernameUser, String nomeProdotto) {
+	//OK
+	public synchronized boolean removeProductFromCartOfUser(String username, String nomeProdotto) {
 		try {
 			if(con == null || con.isClosed()) 
 				return false;
 			
-			String query = "DELETE FROM Ordini WHERE username_utente=? AND nome_prodotto=? AND evaso=0";
+			int id = getIdCartUser(username);
+			
+			String query = "DELETE FROM include WHERE idOrdine="+ id +"nome_prodotto=?";
 			PreparedStatement pr = con.prepareStatement(query);
-			pr.setString(1, usernameUser);
-			pr.setString(2, nomeProdotto);
+			pr.setString(1, nomeProdotto);
 			
 			pr.execute();
 			
@@ -320,15 +363,18 @@ public class DatabaseHandler {
 		}
 	}
 
+	//OK
 	public synchronized void setQuantitaProdottoInOrdine(String nomeProdotto, String username, Integer number) {
 		try {
 			if(con == null || con.isClosed()) 
 				return;
-			String query = "UPDATE ordini SET quantita=? WHERE evaso=0 AND nome_prodotto=? AND username_utente=?";
+			
+			int id = getIdCartUser(username);
+			
+			String query = "UPDATE include SET quantita=? WHERE idOrdine=" + id + " AND nome_prodotto=?"; 
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setInt(1, number);
 			pr.setString(2, nomeProdotto);
-			pr.setString(3, username);
 			pr.execute();
 		} catch(SQLException e) {
 			
