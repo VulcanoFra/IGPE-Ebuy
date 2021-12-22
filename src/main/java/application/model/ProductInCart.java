@@ -11,11 +11,11 @@ public class ProductInCart extends Product{
 		this.quantitaNelCarrello = quantita;
 	}
 	
-	public int getQuantità() {
+	public int getQuantitaNelCarrello() {
 		return quantitaNelCarrello;
 	}
 	
-	public void setQuantità(int quantità) {
+	public void setQuantitaNelCarrello(int quantità) {
 		this.quantitaNelCarrello = quantità;
 	}
 

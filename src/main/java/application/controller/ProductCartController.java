@@ -101,7 +101,7 @@ public class ProductCartController {
     	else {
     		imgProduct.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png")));
     	}
-    	quantità.setText(p.getQuantità()+"");
+    	quantità.setText(p.getQuantitaNelCarrello()+"");
     	descrizione.setText(p.getDescrizione());
     }
 }

@@ -40,6 +40,8 @@ public class CartController {
 
 		Vector<ProductInCart> prodotti = Client.getInstance().getProductInCart();
 
+		double totale = 0.0;
+		
 		if(prodotti == null || prodotti.size() == 0)
 			return false;
 		
@@ -50,9 +52,11 @@ public class CartController {
 				ProductCartController controller = loader.getController();	
 				controller.setData(prodotti.get(i));
 				
+				totale += prodotti.get(i).getPrezzoGenerico() * prodotti.get(i).getQuantitaNelCarrello();
+				
 				gridPaneCart.add(prodotto,column,row++);
 			}
-			
+			System.out.println(totale);
 			return true;
 		} catch (IOException e) {
 			System.out.println("Errore nel cart controller" + e.getMessage());

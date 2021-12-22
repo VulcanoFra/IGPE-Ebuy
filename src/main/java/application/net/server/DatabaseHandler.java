@@ -161,7 +161,8 @@ public class DatabaseHandler {
 		
 		while(res.next()) {
 			try {
-				Product prod = new Product(res.getString(1), res.getDouble(2), res.getInt(3), res.getBytes(4), res.getString(5), res.getString(6));
+				Product prod = new Product(res.getString("nome"), res.getDouble("prezzo_generico"), 
+						res.getInt("quantita_disponibile"), res.getBytes("immagine"), res.getString("categoria"), res.getString("descrizione"));
 				prodotti.add(prod);
 			} catch (SQLException e) {
 				System.out.println("Cannot read one or more product from DB");
