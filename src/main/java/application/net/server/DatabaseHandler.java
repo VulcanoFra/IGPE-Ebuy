@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Types;
 import java.util.Vector;
 
@@ -323,7 +324,7 @@ public class DatabaseHandler {
 			
 			int id = getIdCartUser(username);
 			
-			String query = "DELETE FROM include WHERE idOrdine="+ id +"nome_prodotto=?";
+			String query = "DELETE FROM include WHERE idOrdine="+ id +" AND nome_prodotto=?";
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setString(1, nomeProdotto);
 			
@@ -339,7 +340,7 @@ public class DatabaseHandler {
 
 	//Se ritorna 0 allora il prodotto è disponibile nella quantità richiesta.
 	//Altrimenti se non è disponibile nella quantità richeista ritorna la quantità disponibile
-	public synchronized Integer quantityIsAvailable(String nomeProdotto, Integer number) {
+	public synchronized Integer quantityIsAvailable(String nomeProdotto, String username, Integer number) {
 		try {
 			if(con == null || con.isClosed()) 
 				return null;
@@ -354,7 +355,7 @@ public class DatabaseHandler {
 				return 0;
 			}
 
-			setQuantitaProdottoInOrdine(nomeProdotto, query, number);
+			setQuantitaProdottoInOrdine(nomeProdotto, username, number);
 			return rs.getInt("quantita_disponibile");
 			
 		} catch (SQLException e) {
@@ -375,28 +376,89 @@ public class DatabaseHandler {
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setInt(1, number);
 			pr.setString(2, nomeProdotto);
-			pr.execute();
+			pr.executeUpdate();
 		} catch(SQLException e) {
 			
 		}
 		
 	}
 	
-	public synchronized void proceedToOrder(String usernameUtenteDaProcessare) {
+	private synchronized boolean quantityOfEachProductInCartIsAvailable(Integer idOrdine) {
 		try {
 			if(con == null || con.isClosed()) 
-				return;
+				return false;
 			
-			String query = "SELECT * FROM ordini WHERE evaso=0 AND username_utente=?";
+			String query = "Select * from include where idOrdine=" + idOrdine;
+			PreparedStatement prst = con.prepareStatement(query);
+			ResultSet rs = prst.executeQuery();
+			
+			Statement st = con.createStatement();
+			
+			while(rs.next()) {
+				
+				Integer quantita_richiesta = rs.getInt("quantita");
+				
+				String check = "select quantita_disponibile from prodotto where nome=\"" + rs.getString("nome_prodotto") + "\"";
+				ResultSet result = st.executeQuery(check);
+				
+				
+				Integer quantitaDisponibile = result.getInt("quantita_disponibile");
+				
+				if(quantitaDisponibile < quantita_richiesta) {
+					System.out.println(quantitaDisponibile + " - " + quantita_richiesta);
+					
+					return false;
+				}
+					
+			}
+			
+			return true;
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public synchronized String proceedToOrder(String usernameUtenteDaProcessare) {
+		try {
+			if(con == null || con.isClosed()) 
+				return Protocol.ERROR_DB;
+			
+			int idOrdine = getIdCartUser(usernameUtenteDaProcessare);
+						
+			if(!quantityOfEachProductInCartIsAvailable(idOrdine)) {
+				return Protocol.SOME_PRODUCT_ARE_UNAVAILABLE;
+			}
+			
+			
+			String query = "SELECT nome_prodotto, quantita FROM include WHERE idOrdine=" + idOrdine;
 			PreparedStatement pr = con.prepareStatement(query);
 			ResultSet rs = pr.executeQuery();
 			
+			//Per ogni prodotto nell'ordine diminuisci la quantità disponibile
 			while(rs.next()) {
-				//if(quantityIsAvailable(query, null))
+				String update = "UPDATE prodotto SET quantita_disponibile=quantita_disponibile-" + rs.getInt("quantita") + " WHERE "
+						+ "nome=\"" + rs.getString("nome_prodotto") + "\""; 
+				
+				Statement st = con.createStatement();
+				st.executeUpdate(update);
+				
 			}
 			
+			String chiudiOrdine = "Update ordini set data=date('now') where ID=\"" + idOrdine + "\"";
+			Statement statement = con.createStatement();
+			
+			statement.executeUpdate(chiudiOrdine);
+			
+			pr.close();
+			statement.close();
+			
+			return Protocol.OK;
 		} catch (SQLException e) {
+
 			e.printStackTrace();
+			return Protocol.ERROR_DB;
 		}
 	}
 }

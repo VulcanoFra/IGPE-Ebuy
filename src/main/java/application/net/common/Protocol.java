@@ -37,7 +37,9 @@ public class Protocol {
 	public final static String CHECK_QUANTITY_AVAILABILITY = "Controllo sulla disponibilità del prodotto";
 	public final static String QUANTITY_AVAILABLE = "Quantità disponibile";
 	public final static String QUANTITY_UNAVAILABLE = "Quantità non disponibile";
-
+	public final static String ORDER_SUCCESS = "Ordine processato con successo";
+	public final static String IMPOSSIBLE_PROCEED_ORDER = "Impossibile procedere all'ordine";
+	public final static String SOME_PRODUCT_ARE_UNAVAILABLE = "Attenzione! Qualche prodotto non è disponibile nella quantità richiesta";
 	
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
 

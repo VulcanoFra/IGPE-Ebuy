@@ -208,11 +208,21 @@ public class Client implements Runnable{
 		resetClient();
 	}
 	
-	public void procediAllOrdine() {
+	public String procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
 		String carta = SceneHandlerVecchio.getInstance().showInput();
 
 		sendMessageString(carta);
+		
+		try {
+			String rispostaServer = (String) in.readObject();
+			return rispostaServer;
+			
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+			return Protocol.ERROR;
+		}
+		
 	}
 	
 	public void removeProductFromCart(String nomeProdotto) {

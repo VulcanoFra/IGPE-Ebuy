@@ -5,6 +5,8 @@ import java.util.Vector;
 
 import application.model.ProductInCart;
 import application.net.client.Client;
+import application.net.common.Protocol;
+import application.view.SceneHandlerVecchio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +68,16 @@ public class CartController {
     
     @FXML
     void clickProcediBtn(ActionEvent event) {
-    	Client.getInstance().procediAllOrdine();
+    	String risposta = Client.getInstance().procediAllOrdine();
+    	
+    	if(risposta.equals(Protocol.ORDER_SUCCESS)) {
+    		SceneHandlerVecchio.getInstance().showInfo(risposta);
+    		SceneHandlerVecchio.getInstance().setDashboardInHome();
+    	} else if(risposta.equals(Protocol.SOME_PRODUCT_ARE_UNAVAILABLE)){
+    		SceneHandlerVecchio.getInstance().showWarning(risposta);
+    	} else if(risposta.equals(Protocol.ERROR_DB)){
+    		SceneHandlerVecchio.getInstance().showError(risposta);
+    	}
     }
     
 }
