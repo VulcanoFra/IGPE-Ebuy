@@ -3,7 +3,7 @@ package application.controller;
 import application.model.PdfGenerator;
 import application.net.client.Client;
 import application.net.common.Protocol;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import application.view.StackPaneHome;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -137,13 +137,13 @@ public class HomePageController {
     
     @FXML
     void clickDashboardbtn(ActionEvent event) {
-    	SceneHandlerVecchio.getInstance().setDashboardInHome();
+    	SceneHandler.getInstance().setDashboardInHome();
     }
     
     @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
     	//if(AllProductController.sizeLista() > 0)
-    		SceneHandlerVecchio.getInstance().setAllProductInHome( ricercaField.getText());
+    		SceneHandler.getInstance().setAllProductInHome( ricercaField.getText());
     	//else {
     		/*..............*/
     	//}
@@ -153,10 +153,10 @@ public class HomePageController {
     void clickExit(ActionEvent event) {
     	Client.getInstance().exit();
     	try {
-			SceneHandlerVecchio.getInstance().resetPage(StackPaneHome.getInstance());
-			SceneHandlerVecchio.getInstance().setLoginScene();
+			SceneHandler.getInstance().resetPage(StackPaneHome.getInstance());
+			SceneHandler.getInstance().setLoginScene();
 		} catch (Exception e) {
-			SceneHandlerVecchio.getInstance().showError(Protocol.ERROR);
+			SceneHandler.getInstance().showError(Protocol.ERROR);
 			/*OPPURE IL PROBLEMA DEVE ESSERE NEL FILE DI LOG*/
 		}
     }
@@ -178,11 +178,11 @@ public class HomePageController {
 			PdfGenerator.getInstance().pdfs();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			SceneHandlerVecchio.getInstance().showError("Non è stato possibile scaricale il catalogo, riprova più tardi");
+			SceneHandler.getInstance().showError("Non è stato possibile scaricale il catalogo, riprova più tardi");
 		}
     }
     
     public void setCartInHome() {
-    	SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+    	SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
     }
 }

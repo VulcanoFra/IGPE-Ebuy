@@ -2,7 +2,7 @@ package application.controller;
 
 import application.net.client.Client;
 import application.net.common.Protocol;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,17 +45,17 @@ public class AdminHomePageController {
     
     @FXML
     void clickGestisciProdotti(ActionEvent event) {
-    	SceneHandlerVecchio.getInstance().setGestioneProdottiAdmin(stackPaneAdminHome);
+    	SceneHandler.getInstance().setGestioneProdottiAdmin(stackPaneAdminHome);
     }
     
     @FXML
     void clickExit(ActionEvent event) {
     	Client.getInstance().resetClient();
     	try {
-			SceneHandlerVecchio.getInstance().resetPage(stackPaneAdminHome);
-			SceneHandlerVecchio.getInstance().setLoginScene();
+			SceneHandler.getInstance().resetPage(stackPaneAdminHome);
+			SceneHandler.getInstance().setLoginScene();
 		} catch (Exception e) {
-			SceneHandlerVecchio.getInstance().showError(Protocol.ERROR);
+			SceneHandler.getInstance().showError(Protocol.ERROR);
 			/*OPPURE IL PROBLEMA DEVE ESSERE NEL FILE DI LOG*/
 		}
     }

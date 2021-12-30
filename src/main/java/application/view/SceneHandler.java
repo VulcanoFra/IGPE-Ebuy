@@ -2,7 +2,6 @@ package application.view;
 
 import application.controller.AllProductController;
 import application.controller.CartController;
-import application.controller.HomePageController;
 import application.net.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SceneHandlerVecchio {
+public class SceneHandler {
 	private Scene scena;
 	private Stage stage;
 	
@@ -31,11 +30,11 @@ public class SceneHandlerVecchio {
 	private AnchorPane gestioneProdottiAdminPane;
 	private AnchorPane dashboard;
 	
-	private static SceneHandlerVecchio instance = null;
+	private static SceneHandler instance = null;
 	
-	public static SceneHandlerVecchio getInstance() {
+	public static SceneHandler getInstance() {
 		if(instance == null)
-			instance = new SceneHandlerVecchio();
+			instance = new SceneHandler();
 		return instance;
 	} 
 	

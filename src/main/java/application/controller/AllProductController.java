@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import application.model.Product;
 import application.net.client.Client;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -34,7 +34,7 @@ public class AllProductController {
 		System.out.println("sto qui");
 		
 		if(prodotti == null || prodotti.size() == 0) {
-			SceneHandlerVecchio.getInstance().showWarning("Non sono presenti prodotti ricercati");
+			SceneHandler.getInstance().showWarning("Non sono presenti prodotti ricercati");
 			return;
 		}
 		

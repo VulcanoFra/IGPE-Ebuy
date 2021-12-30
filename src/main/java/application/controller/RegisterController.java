@@ -5,7 +5,7 @@ import application.model.User;
 import application.net.client.Client;
 import application.net.client.Rules;
 import application.net.common.Protocol;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -136,10 +136,10 @@ public class RegisterController {
         	try {
         		clearField();
         		Client.getInstance().resetClient();
-        		SceneHandlerVecchio.getInstance().showInfo("Utente registrato correttamente");
-        		SceneHandlerVecchio.getInstance().setLoginScene();
+        		SceneHandler.getInstance().showInfo("Utente registrato correttamente");
+        		SceneHandler.getInstance().setLoginScene();
 			} catch (Exception e) {
-				SceneHandlerVecchio.getInstance().showError("Cannot load the page");
+				SceneHandler.getInstance().showError("Cannot load the page");
 			}
     	}else if(res.equals(Rules.USERNAME_CORTO)){
     		//SceneHandlerVecchio.getInstance().showError(res);
@@ -156,7 +156,7 @@ public class RegisterController {
 
     @FXML
     void clickAccedi(ActionEvent event) throws Exception {
-    	SceneHandlerVecchio.getInstance().setLoginScene();
+    	SceneHandler.getInstance().setLoginScene();
     }
     
 }

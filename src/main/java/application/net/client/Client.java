@@ -9,7 +9,7 @@ import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
 import application.net.common.Protocol;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import application.view.StackPaneHome;
 
 
@@ -27,7 +27,7 @@ public class Client implements Runnable{
 			out = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			out = null;
-			SceneHandlerVecchio.getInstance().showError("Client cannot connect");
+			SceneHandler.getInstance().showError("Client cannot connect");
 		}
 	}
 	
@@ -66,17 +66,8 @@ public class Client implements Runnable{
 	public void run(){
 		try {
 			while(out != null && in != null && isLogged) {
+				
 				Thread.sleep(10000);	
-			/*try {
-				Object message = (Object) in.readObject();
-				if(message.equals(Protocol.ERROR)) {
-					out = null;
-					return;
-				}
-			} catch (ClassNotFoundException | IOException e) {
-				out = null;
-				//SceneHandlerVecchio.getInstance().showError("Cannot connect");
-			}*/
 			}
 		} catch(InterruptedException e) {
 			
@@ -107,8 +98,6 @@ public class Client implements Runnable{
 			if(in == null)
 				in = new ObjectInputStream(socket.getInputStream());
 			String res = (String) in.readObject();
-			if(res.equals(Protocol.OK))
-				isLogged = true;
 			return res;			
 		} catch (Exception e) {
 			out = null;
@@ -184,14 +173,14 @@ public class Client implements Runnable{
 			String risposta = (String) in.readObject();
 			
 			if(risposta.equals(Protocol.PRODUCT_CORRECTLY_ADDED_IN_CART)) {
-				SceneHandlerVecchio.getInstance().showInfo("Prodotto aggiunto correttamente al carrello");
+				SceneHandler.getInstance().showInfo("Prodotto aggiunto correttamente al carrello");
 				return;
 			}
 			else if(risposta.equals(Protocol.ERROR_DB)) {
-				SceneHandlerVecchio.getInstance().showError("Errore interno al database, invitiamoa riprovare più tardi. A breve una manutenzione");
+				SceneHandler.getInstance().showError("Errore interno al database, invitiamoa riprovare più tardi. A breve una manutenzione");
 			}
 			else {
-				SceneHandlerVecchio.getInstance().showWarning(risposta);
+				SceneHandler.getInstance().showWarning(risposta);
 				return;
 			}
 		} catch (ClassNotFoundException e) {
@@ -210,7 +199,7 @@ public class Client implements Runnable{
 	
 	public String procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
-		String carta = SceneHandlerVecchio.getInstance().showInput();
+		String carta = SceneHandler.getInstance().showInput();
 
 		sendMessageString(carta);
 		
@@ -236,7 +225,7 @@ public class Client implements Runnable{
 					String idPane = StackPaneHome.getInstance().getChildren().get(1).getId();
 					if(idPane.equals("vBoxCart")) {
 						StackPaneHome.getInstance().getChildren().remove(1);
-						SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
+						SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
 					}
 				}
 				

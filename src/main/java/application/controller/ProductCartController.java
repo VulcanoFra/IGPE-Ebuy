@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import application.model.ProductInCart;
 import application.net.client.Client;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -70,7 +70,7 @@ public class ProductCartController {
     		if(risposta == 0) {
         		quantità.setText(number + "");
         	} else {
-        		SceneHandlerVecchio.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
+        		SceneHandler.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
         				+ number +" richiesta, non è disponibile");
         		quantità.setText(risposta + "");
         	}
@@ -85,7 +85,7 @@ public class ProductCartController {
     	if(risposta == 0) {
     		quantità.setText(number + "");
     	} else {
-    		SceneHandlerVecchio.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
+    		SceneHandler.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
     				+ number +" richiesta, non è disponibile");
     		quantità.setText(risposta + "");
     	}

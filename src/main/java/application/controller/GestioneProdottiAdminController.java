@@ -7,7 +7,7 @@ import java.nio.file.Files;
 import application.model.Product;
 import application.net.client.Client;
 import application.net.common.Protocol;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -78,7 +78,7 @@ public class GestioneProdottiAdminController {
     	}
     	catch(RuntimeException e) {
     		if(imgCurrentProduct == null)
-    			SceneHandlerVecchio.getInstance().showWarning("Attenzione! Il prodotto non avrà nessuna immagine");
+    			SceneHandler.getInstance().showWarning("Attenzione! Il prodotto non avrà nessuna immagine");
     		return;
     	}
     }
@@ -95,7 +95,7 @@ public class GestioneProdottiAdminController {
     @FXML
     void clickAddProduct(ActionEvent event) {
     	if(nomeField.getText().equals("") || prezzoField.getText().equals("") || quantitaField.getText().equals("") || categoriaField.getText().equals("")) {
-    		SceneHandlerVecchio.getInstance().showError("Hai lasciato dei campi vuoti");
+    		SceneHandler.getInstance().showError("Hai lasciato dei campi vuoti");
     		return;
     	}
     	
@@ -105,9 +105,9 @@ public class GestioneProdottiAdminController {
 		String res = Client.getInstance().addProduct(p);
 		
 		if(res.equals(Protocol.OK)) 
-			SceneHandlerVecchio.getInstance().showInfo("Prodotto aggiunto correttamente");
+			SceneHandler.getInstance().showInfo("Prodotto aggiunto correttamente");
 		else if(res.equals(Protocol.CANNOT_ADD_PRODUCT)) 
-			SceneHandlerVecchio.getInstance().showInfo(res);
+			SceneHandler.getInstance().showInfo(res);
 		
 		clearField();
     }

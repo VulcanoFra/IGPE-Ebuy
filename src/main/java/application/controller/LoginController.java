@@ -3,7 +3,7 @@ package application.controller;
 import application.net.client.Client;
 import application.net.client.Rules;
 import application.net.common.Protocol;
-import application.view.SceneHandlerVecchio;
+import application.view.SceneHandler;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -148,27 +148,27 @@ public class LoginController {
         	try {
         		//Client.getInstance().setActualUser(new User(usernameField.getText()));
         		clearField();
-				SceneHandlerVecchio.getInstance().setHomeScene();
+				SceneHandler.getInstance().setHomeScene();
 			} catch (Exception e) {
-				SceneHandlerVecchio.getInstance().showError("Cannot load the page");
+				SceneHandler.getInstance().showError("Cannot load the page");
 			}
     	}
     	else if(resLogin.equals(Protocol.USER_ALREADY_LOGGED)) {
-    		SceneHandlerVecchio.getInstance().showWarning("Utente già connesso su un altro dispositivo");
+    		SceneHandler.getInstance().showWarning("Utente già connesso su un altro dispositivo");
     		Client.getInstance().resetClient();
     	}
     	else {
     		if(resLogin.equals(Protocol.OK_ADMIN)) {
         		clearField();
-        		SceneHandlerVecchio.getInstance().setAdminPage();
+        		SceneHandler.getInstance().setAdminPage();
         		return;
         	}
     		else if(resLogin.equals(Protocol.AUTHENTICATION_ERROR)) {
-        		SceneHandlerVecchio.getInstance().showError("Hai sbagliato la combinazione di username/password");
+        		SceneHandler.getInstance().showError("Hai sbagliato la combinazione di username/password");
     			//System.out.println("NO");
         	}
     		else if(resLogin.equals(Protocol.USER_NOT_EXISTS)){
-        		SceneHandlerVecchio.getInstance().showError("Attenzione non esiste nessuno account con questo username. Prova a registrarti");
+        		SceneHandler.getInstance().showError("Attenzione non esiste nessuno account con questo username. Prova a registrarti");
 			}
     		Client.getInstance().resetClient();
     	}
@@ -176,7 +176,7 @@ public class LoginController {
 
     @FXML
     void clickRegistrati(ActionEvent event) throws Exception {
-    	SceneHandlerVecchio.getInstance().setRegisterScene();
+    	SceneHandler.getInstance().setRegisterScene();
     }
     
 }
