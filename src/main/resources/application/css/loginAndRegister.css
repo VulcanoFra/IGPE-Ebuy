@@ -39,6 +39,29 @@
 	-fx-text-fill: rgb(255, 0, 0);
 }*/
 
+.text-area {
+    -fx-font-size: 15;
+    -fx-text-fill: #ffffff;
+    -fx-display-caret: true;
+    -fx-background-color: transparent;
+
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+	-fx-border-color: rgba(255,255,255,0.4);
+	-fx-border-width: 0 0 2 0;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+
+}
+
 .glyph-icon{
 	-fx-fill: rgba(255,255,255,0.8);
 }

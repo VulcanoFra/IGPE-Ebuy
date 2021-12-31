@@ -9,18 +9,26 @@ import application.net.client.Client;
 import application.net.common.Protocol;
 import application.view.SceneHandler;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class GestioneProdottiAdminController {
 
+	@FXML
+    private ImageView removeImage;
+	
     @FXML
 	private TextArea descrizioneTextArea;
 	
@@ -53,6 +61,25 @@ public class GestioneProdottiAdminController {
     @FXML
     void initialize() {
     	adminAnchorPane.getStylesheets().add(getClass().getResource("/application/css/loginAndRegister.css").toExternalForm());
+    	imageSelected.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png"), 200, 200, true, true));
+    	removeImage.setVisible(false);
+    	addListener();
+    }
+    
+    private void addListener() {
+    	removeImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				Alert alert = new Alert(AlertType.CONFIRMATION, "Sei sicuro di voler rimuovere l'immagine?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+		    	alert.showAndWait();
+
+		    	if(alert.getResult() == ButtonType.YES) {
+		    		imageSelected.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png"), 200, 200, true, true));
+		        	removeImage.setVisible(false);
+		    	}		    	
+			}
+		});
     }
     
     @FXML
@@ -67,11 +94,11 @@ public class GestioneProdottiAdminController {
         	fileChooser.setTitle("Open Resource File");
         	File file = fileChooser.showOpenDialog(new Stage());
 
-        	System.out.println(file.toPath());
         	try {
         		byte[] imageBytes = Files.readAllBytes(file.toPath());
         	    imgCurrentProduct = imageBytes;
-        	    imageSelected.setImage(new Image(file.toURI().toString()));
+        	    imageSelected.setImage(new Image(file.toURI().toString(), 200, 200, true, true));
+        	    removeImage.setVisible(true);
         	} catch (IOException e) {
         		System.out.println("File couldn't be read to byte[].");
         	}

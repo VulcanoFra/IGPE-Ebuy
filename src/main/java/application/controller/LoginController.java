@@ -54,7 +54,7 @@ public class LoginController {
     
     @FXML
     void initialize() {
-    	logo.setImage(new Image(getClass().getResourceAsStream("/application/image/logo.png"), 200, 200, true, true));
+    	logo.setImage(new Image(getClass().getResourceAsStream("/application/image/logoBasso.png"), 200, 200, true, true));
     	labelPassword.setVisible(false);
     	labelUsername.setVisible(false);
     	

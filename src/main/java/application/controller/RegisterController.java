@@ -60,7 +60,7 @@ public class RegisterController {
 
     @FXML
     void initialize() {
-    	logo.setImage(new Image(getClass().getResourceAsStream("/application/image/logo.png"), 200, 200, true, true));
+    	logo.setImage(new Image(getClass().getResourceAsStream("/application/image/logoBasso.png"), 200, 200, true, true));
     	registerPrincPane.getStylesheets().add(getClass().getResource("/application/css/loginAndRegister.css").toExternalForm());
     	labelPassword.setVisible(false);
     	labelUsername.setVisible(false);

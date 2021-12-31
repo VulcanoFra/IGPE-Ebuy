@@ -9,7 +9,7 @@
    <left>
       <VBox prefHeight="600.0" prefWidth="170.0" spacing="10.0" style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bntGestisciProdotti" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickGestisciProdotti" prefHeight="31.0" prefWidth="172.0" text="Gestisci Prodotti" VBox.vgrow="ALWAYS">
+            <Button fx:id="bntGestisciProdotti" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickGestisciProdotti" prefHeight="31.0" prefWidth="172.0" text="Aggiungi Prodotto" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets top="100.0" />
                </VBox.margin>
