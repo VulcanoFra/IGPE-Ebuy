@@ -2,6 +2,7 @@ package application.view;
 
 import application.controller.AllProductController;
 import application.controller.CartController;
+import application.controller.GestioneProdottiAdminController;
 import application.net.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,7 +28,8 @@ public class SceneHandler {
 	private BorderPane adminHomePage;
 	private AllProductController prdContrl;
 	private CartController cartController;
-	private AnchorPane gestioneProdottiAdminPane;
+	private VBox gestioneProdottiAdminPane;
+	private GestioneProdottiAdminController gestioneProdottiAdminController;
 	private AnchorPane dashboard;
 	
 	private static SceneHandler instance = null;
@@ -57,7 +59,8 @@ public class SceneHandler {
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/adminHomePage.fxml"));
 		adminHomePage = (BorderPane) loader.load();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/gestioneProdottiAdmin.fxml"));
-		gestioneProdottiAdminPane = (AnchorPane) loader.load();
+		gestioneProdottiAdminPane = (VBox) loader.load();
+		gestioneProdottiAdminController = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/dashboard.fxml"));
 		dashboard = (AnchorPane) loader.load();
 		
@@ -103,7 +106,6 @@ public class SceneHandler {
 	}
 	
 	public void setHomeScene() throws Exception {
-		//TODO Sicuro che il thread vada messo qua?
 		Thread t = new Thread(Client.getInstance());
     	t.setDaemon(true);
     	t.start();
@@ -189,11 +191,14 @@ public class SceneHandler {
 	public void setGestioneProdottiAdmin(StackPane stackPaneHome) {
 		stackPaneHome.prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
 		//stackPane.prefHeightProperty().bind(homePage.heightProperty());
-		if(stackPaneHome.getChildren().contains(gestioneProdottiAdminPane)) 
+		if(stackPaneHome.getChildren().contains(gestioneProdottiAdminPane)) {
 			stackPaneHome.getChildren().remove(gestioneProdottiAdminPane);
+			gestioneProdottiAdminController.pulisciCombo();
+		}	
 		gestioneProdottiAdminPane.prefWidthProperty().bind(stackPaneHome.widthProperty().multiply(1));
 		gestioneProdottiAdminPane.prefHeightProperty().bind(stackPaneHome.heightProperty().multiply(1));
 		stackPaneHome.getChildren().add(gestioneProdottiAdminPane);
+		gestioneProdottiAdminController.riempiCombo();
 	}
 	
 	public void resetPage(StackPane stackPaneHome) {

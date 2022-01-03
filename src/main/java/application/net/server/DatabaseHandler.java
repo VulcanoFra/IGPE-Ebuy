@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -126,8 +127,6 @@ public class DatabaseHandler {
 
 		prep.setString(5, p.getCategoria());
 		prep.setString(6, p.getDescrizione());
-		
-		System.out.println("[SERVER] Stampo il prod" + p);
 		
 		prep.executeUpdate();
 		prep.close();
@@ -460,5 +459,27 @@ public class DatabaseHandler {
 			e.printStackTrace();
 			return Protocol.ERROR_DB;
 		}
+	}
+	
+	public synchronized ArrayList<String> getAllCategories(){
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "SELECT nome FROM categoria";
+			Statement st = con.createStatement();
+			
+			ResultSet rs = st.executeQuery(query);
+			
+			ArrayList<String> categorie = new ArrayList<>();
+			while(rs.next()) {
+				categorie.add(rs.getString("nome"));
+			}
+			
+			return categorie;
+		} catch(SQLException e) {
+			return null;
+		}
+		
 	}
 }

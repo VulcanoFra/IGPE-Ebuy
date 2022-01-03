@@ -1,25 +1,35 @@
-.button {
+#btnAddProduct, #btnScegliImage{
 	/*-fx-background-color: rgba(255,255,255,1.5);*/
 	-fx-background-color: rgba(255,255,255,0.4);
 	-fx-background-radius: 5em ;
 	-fx-border-radius: 5em;
 	-fx-border-color: #808080;
+	-fx-border-width: 0 0 0 0;
 	-fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10.0, 0.0, 0.0, 10.0 );
 	-fx-text-fill: white;
 }
-
-.button:hover{
+#btnAddProduct:hover, #btnScegliImage:hover{
 	-fx-cursor: hand;
 	-fx-background-color: rgb(179, 179, 179);
 }
 
-.button:pressed{
+#btnAddProduct:pressed, #btnScegliImage:pressed{
 	-fx-scale-y: 0.9;
     -fx-scale-x: 0.9;
 	-fx-background-color: rgb(134, 134, 134);
 }
 
-.text-field{
+
+.combo-box-base .text{
+	-fx-fill: rgba(255, 255, 255, 1);
+}
+
+.combo-box .list-view .list-cell{
+	-fx-background-color: #004abc;
+	
+
+}
+.text-field, .combo-box{
 	-fx-background-color: transparent;
 	-fx-background-radius: 15px ;
 	/*-fx-background-color: rgba(255,255,255,0.4);*/
@@ -31,6 +41,26 @@
 	
 }
 
-.glyph-icon{
-	-fx-fill: rgba(255,255,255,0.8);
+.text-area {
+    -fx-font-size: 15;
+    -fx-text-fill: #ffffff;
+    -fx-display-caret: true;
+    -fx-background-color: transparent;
+
 }
+
+.text-area .content {
+    -fx-background-color: transparent;
+	-fx-border-color: rgba(255,255,255,0.4);
+	-fx-border-width: 0 0 2 0;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+
+}
+

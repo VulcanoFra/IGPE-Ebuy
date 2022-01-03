@@ -43,6 +43,8 @@ public class Protocol {
 	
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
 
+	public final static String GET_ALL_CATEGORIES = "Restituisci tutte le categorie";
+	
 	public final static String EXIT = "Fai il LogOut";
 
 }

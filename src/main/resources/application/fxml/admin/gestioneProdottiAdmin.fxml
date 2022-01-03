@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import org.controlsfx.control.*?>
 <?import javafx.scene.*?>
 <?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.scene.image.*?>
@@ -14,65 +15,78 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="adminAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
+<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
    <children>
-      <VBox layoutY="7.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label prefHeight="28.0" prefWidth="538.0" text="Aggiungi un prodotto" textFill="WHITE" VBox.vgrow="ALWAYS">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="20.0" left="25.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="nomeField" prefHeight="31.0" prefWidth="205.0" promptText="Nome" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+      </TextField>
+      <TextArea fx:id="descrizioneTextArea" mouseTransparent="true" prefHeight="90.0" promptText="Descrizione" wrapText="true" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+      </TextArea>
+      <ComboBox fx:id="comboBoxCategoria" maxWidth="1.7976931348623157E308" promptText="Categoria" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+      </ComboBox>
+      <TextField fx:id="quantitaField" promptText="Quantità" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+      </TextField>
+      <TextField fx:id="prezzoField" promptText="Prezzo" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="100.0" right="100.0" />
+         </VBox.margin>
+      </TextField>
+      <Pane prefHeight="16.0" prefWidth="730.0" VBox.vgrow="ALWAYS" />
+      <HBox prefHeight="110.0" prefWidth="730.0">
          <children>
-            <Label prefHeight="28.0" prefWidth="538.0" text="Aggiungi un prodotto" textFill="WHITE" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="System Bold" size="19.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" left="25.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="nomeField" prefHeight="31.0" prefWidth="205.0" promptText="Nome" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-            <TextArea fx:id="descrizioneTextArea" mouseTransparent="true" prefHeight="19.0" prefWidth="530.0" promptText="Descrizione" wrapText="true" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextArea>
-            <TextField fx:id="categoriaField" prefHeight="31.0" prefWidth="205.0" promptText="Categoria" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="quantitaField" promptText="Quantità" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-            <TextField fx:id="prezzoField" promptText="Prezzo" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="100.0" right="100.0" />
-               </VBox.margin>
-            </TextField>
-            <AnchorPane prefHeight="99.0" prefWidth="730.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <ImageView fx:id="imageSelected" fitHeight="95.0" fitWidth="167.0" layoutX="158.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button fx:id="btnScegliImage" layoutX="542.0" layoutY="40.0" mnemonicParsing="false" onAction="#clickScegliImmagine" prefHeight="31.0" prefWidth="152.0" text="Scegli immagine" />
-                  <ImageView fx:id="removeImage" fitHeight="28.0" fitWidth="25.0" layoutX="325.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../image/Xclose.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <Button fx:id="btnAddProduct" mnemonicParsing="false" onAction="#clickAddProduct" text="Aggiungi Prodotto" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="410.0" />
-               </VBox.margin>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <ImageView fx:id="imageSelected" fitHeight="95.0" fitWidth="167.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="removeImage" fitHeight="28.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../image/Xclose.png" />
+               </image>
+            </ImageView>
+            <Pane prefHeight="110.0" prefWidth="231.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnScegliImage" mnemonicParsing="false" onAction="#clickScegliImmagine" prefHeight="31.0" prefWidth="192.0" text="Scegli immagine">
+               <HBox.margin>
+                  <Insets top="30.0" />
+               </HBox.margin>
             </Button>
-            <Pane prefHeight="58.0" prefWidth="619.0">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0" />
          </children>
-      </VBox>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <Pane VBox.vgrow="ALWAYS" />
+      <HBox prefHeight="0.0" prefWidth="730.0">
+         <children>
+            <Pane prefHeight="89.0" prefWidth="303.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnAddProduct" mnemonicParsing="false" onAction="#clickAddProduct" prefHeight="31.0" prefWidth="190.0" text="Aggiungi Prodotto">
+               <HBox.margin>
+                  <Insets bottom="20.0" top="30.0" />
+               </HBox.margin>
+            </Button>
+            <Pane prefWidth="30.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
    </children>
-</AnchorPane>
+</VBox>

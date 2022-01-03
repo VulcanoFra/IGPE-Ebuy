@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Vector;
 import application.model.Product;
 import application.model.ProductInCart;
@@ -258,6 +259,18 @@ public class Client implements Runnable{
 			e.printStackTrace();
 			return null;
 		} 
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<String> getCategories() {
+		sendMessageString(Protocol.GET_ALL_CATEGORIES);
+		try {
+			ArrayList<String> categorie = (ArrayList<String>) in.readObject();
+			return categorie;
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
 	
