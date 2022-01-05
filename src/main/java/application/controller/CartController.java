@@ -37,6 +37,8 @@ public class CartController {
     }
     
     public boolean setProdottiInCart(){
+    	clearCart();
+    	
     	int column = 0;
 		int row = 1;	
 
@@ -65,6 +67,10 @@ public class CartController {
 			return false;
 		}
 	}
+    
+    public void clearCart() {
+    	gridPaneCart.getChildren().clear();
+    }
     
     @FXML
     void clickProcediBtn(ActionEvent event) {

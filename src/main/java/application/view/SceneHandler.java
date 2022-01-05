@@ -110,8 +110,8 @@ public class SceneHandler {
     	t.setDaemon(true);
     	t.start();
 		
-		/*if(scena.getRoot() == loginPage)
-			stage.hide();*/
+		if(scena.getRoot() == loginPage)
+			stage.hide();
 		stage.hide();
 		scena.setRoot(homePage);
 		setDashboardInHome();
