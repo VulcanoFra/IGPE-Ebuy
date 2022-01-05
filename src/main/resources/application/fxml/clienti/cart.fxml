@@ -13,7 +13,7 @@
    <children>
       <ScrollPane pannable="true" prefHeight="574.0" prefWidth="730.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
          <content>
-            <GridPane fx:id="gridPaneCart" hgap="10.0" vgap="10.0">
+            <GridPane fx:id="gridPaneCart" hgap="5.0" prefHeight="0.0" prefWidth="0.0" vgap="10.0">
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>

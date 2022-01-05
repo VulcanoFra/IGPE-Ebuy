@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import application.model.ProductInCart;
 import application.net.client.Client;
+import application.net.common.Protocol;
 import application.view.SceneHandler;
+import application.view.StackPaneHome;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -45,6 +47,19 @@ public class ProductCartController {
     	btnDiminuisciQuantità.getStyleClass().add("Quantita");
     }
     
+    public void setData(ProductInCart p) {
+    	lblNomeProdotto.setText(p.getNomeProdotto());
+    	lblPrezzo.setText(p.getPrezzoGenerico() + "$");
+    	if(p.getImgProdotto() != null) {
+    		imgProduct.setImage(new Image(new ByteArrayInputStream(p.getImgProdotto())));
+    	}
+    	else {
+    		imgProduct.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png")));
+    	}
+    	quantità.setText(p.getQuantitaNelCarrello()+"");
+    	descrizione.setText(p.getDescrizione());
+    }
+    
     @FXML
     void diminuisciQuantità(ActionEvent event) {
     	Integer number = Integer.parseInt(quantità.getText()) - 1;
@@ -58,22 +73,16 @@ public class ProductCartController {
     		Optional<ButtonType> result = alert.showAndWait();
     		
     		if (result.get() == ButtonType.OK){
-    			number--;
     			quantità.setText(number + "");
-    			Client.getInstance().removeProductFromCart(this.lblNomeProdotto.getText());
+    			if(Client.getInstance().removeProductFromCart(lblNomeProdotto.getText())) {
+        			SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
+    			}
     		} else {
     			System.out.println("NO");
     		}
     		
     	} else {
-    		int risposta = Client.getInstance().isAvailbleProduct(lblNomeProdotto.getText(), number);
-    		if(risposta == 0) {
-        		quantità.setText(number + "");
-        	} else {
-        		SceneHandler.getInstance().showWarning("Attenzione! La quantità di prodotto pari a "
-        				+ number +" richiesta, non è disponibile");
-        		quantità.setText(risposta + "");
-        	}
+    		checkAndSetNewQuantity(number);
     	}
     }
 
@@ -81,7 +90,19 @@ public class ProductCartController {
     void aumentaQuantià(ActionEvent event) {
     	Integer number = Integer.parseInt(quantità.getText()) + 1 ;
     	
-    	int risposta = Client.getInstance().isAvailbleProduct(lblNomeProdotto.getText(), number);
+    	checkAndSetNewQuantity(number);
+    	
+    }
+    
+    private void checkAndSetNewQuantity(Integer number) {
+    	Integer risposta = Client.getInstance().isAvailbleProduct(lblNomeProdotto.getText(), number);
+    	
+    	if(risposta == null) {
+    		SceneHandler.getInstance().showError(Protocol.ERROR);
+    		return;
+    	}
+    	//Se la risposta è zero allora la quantità chesta è disponibile, altrimenti viene restituito la disponibilità 
+    	//effettiva
     	if(risposta == 0) {
     		quantità.setText(number + "");
     	} else {
@@ -89,20 +110,6 @@ public class ProductCartController {
     				+ number +" richiesta, non è disponibile");
     		quantità.setText(risposta + "");
     	}
-    	
-    }
-    
-    public void setData(ProductInCart p) {
-    	lblNomeProdotto.setText(p.getNomeProdotto());
-    	lblPrezzo.setText(p.getPrezzoGenerico() + "$");
-    	if(p.getImgProdotto() != null) {
-    		imgProduct.setImage(new Image(new ByteArrayInputStream(p.getImgProdotto())));
-    	}
-    	else {
-    		imgProduct.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png")));
-    	}
-    	quantità.setText(p.getQuantitaNelCarrello()+"");
-    	descrizione.setText(p.getDescrizione());
     }
 }
 

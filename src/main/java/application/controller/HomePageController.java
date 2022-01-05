@@ -81,6 +81,7 @@ public class HomePageController {
     public String getRicerca() {
     	return ricercaField.getText();
     }
+    
     /*private void handler() {
     	lblMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -163,13 +164,8 @@ public class HomePageController {
     
     @FXML
     void clickCart(ActionEvent event) {
-    	//if(CartController.sizeListInCart() > 0) {
-        	//SceneHandlerVecchio.getInstance().setCartInHome(StackPaneHome.getInstance());
     	setCartInHome();
-    	//}
-    	//else {
-    		/*SceneHandlerVecchio.getInstance().setEmptyCart();*/
-    	//}
+    	
     }
     
     @FXML

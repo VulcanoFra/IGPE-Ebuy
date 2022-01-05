@@ -155,22 +155,22 @@ public class SceneHandler {
 	
 	public void setCartInHome(StackPane stackPaneHome) {
 
-		/*if(stackPaneHome.getChildren().get(0)) {
-			
-		}*/
+		System.out.println("CartHome");
 		boolean trovati = cartController.setProdottiInCart();
 		System.out.println("DOPO");
 		if(!trovati) {
 			showInfo("Non è presente alcun articolo nel carrello");
+			setAllProductInHome("");
 			return;
 		}
 			
-		stackPaneHome.prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
-		stackPaneHome.prefHeightProperty().bind(homePage.heightProperty());
-
+		//stackPaneHome.prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
+		//stackPaneHome.prefHeightProperty().bind(homePage.heightProperty());
 		if(stackPaneHome.getChildren().contains(cartPane))
 			stackPaneHome.getChildren().remove(cartPane);
-		stackPaneHome.getChildren().add(cartPane);	
+		//cartController.setProdottiInCart();
+		stackPaneHome.getChildren().add(cartPane);
+		
 		
 	}
 	

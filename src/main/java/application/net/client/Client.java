@@ -11,7 +11,6 @@ import application.model.ProductInCart;
 import application.model.User;
 import application.net.common.Protocol;
 import application.view.SceneHandler;
-import application.view.StackPaneHome;
 
 
 public class Client implements Runnable{
@@ -215,21 +214,14 @@ public class Client implements Runnable{
 		
 	}
 	
-	public void removeProductFromCart(String nomeProdotto) {
+	public boolean removeProductFromCart(String nomeProdotto) {
 		sendMessageString(Protocol.REMOVE_PRODUCT_FROM_CART);
 		sendMessageString(nomeProdotto);
 		
 		try {
 			String res = (String) in.readObject();
 			if(res.equals(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART)) {
-				if(StackPaneHome.getInstance().getChildren().get(1)!=null){
-					String idPane = StackPaneHome.getInstance().getChildren().get(1).getId();
-					if(idPane.equals("vBoxCart")) {
-						StackPaneHome.getInstance().getChildren().remove(1);
-						SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
-					}
-				}
-				
+				return true;
 			} else {
 				System.out.println("Stamo nell'altrimenti");
 			}
@@ -237,7 +229,7 @@ public class Client implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return false;
 	}
 
 	public Integer isAvailbleProduct(String nomeProdotto, Integer number) {

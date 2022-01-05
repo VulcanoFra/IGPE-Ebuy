@@ -14,29 +14,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vBoxProdotto" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onMousePressed="#clickOnProdotto" prefHeight="340.0" prefWidth="166.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductController">
+<VBox fx:id="vBoxProdotto" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" onMousePressed="#clickOnProdotto" prefHeight="311.0" prefWidth="166.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductController">
    <children>
-      <ImageView fx:id="imgProduct" fitHeight="160.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+      <ImageView fx:id="imgProduct" fitHeight="190.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
          <VBox.margin>
-            <Insets top="10.0" />
+            <Insets />
          </VBox.margin></ImageView>
-      <AnchorPane prefHeight="126.0" prefWidth="172.0">
-         <children>
-            <Label fx:id="labelPrezzo" layoutX="8.0" layoutY="16.0" prefHeight="18.0" prefWidth="105.0" text="Prezzo">
-               <font>
-                  <Font name="Eras Bold ITC" size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelNomeProdotto" layoutX="-2.0" layoutY="33.0" prefHeight="58.0" prefWidth="166.0" text="Nome prodotto" textOverrun="WORD_ELLIPSIS" wrapText="true">
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
-            </Label>
-            <Button fx:id="addCartBtn" layoutX="14.0" layoutY="90.0" mnemonicParsing="false" onAction="#clickAddCart" text="Aggiungi al carrello" />
-         </children>
+      <Label fx:id="labelPrezzo" prefHeight="18.0" prefWidth="105.0" text="Prezzo">
+         <font>
+            <Font name="Eras Bold ITC" size="15.0" />
+         </font>
          <VBox.margin>
-            <Insets top="25.0" />
+            <Insets top="5.0" />
          </VBox.margin>
-      </AnchorPane>
+      </Label>
+      <Label fx:id="labelNomeProdotto" prefHeight="58.0" prefWidth="166.0" text="Nome prodotto" textOverrun="WORD_ELLIPSIS" wrapText="true">
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </Label>
+      <Button fx:id="addCartBtn" mnemonicParsing="false" onAction="#clickAddCart" text="Aggiungi al carrello" />
    </children>
 </VBox>

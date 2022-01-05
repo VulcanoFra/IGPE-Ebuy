@@ -164,11 +164,13 @@ public class CommunicationHandler implements Runnable {
 
 					int rispostaDB = DatabaseHandler.getInstance().quantityIsAvailable(nomeProdotto, usernameLoggato,
 							Integer.parseInt(number));
+					//Se la risposta del db è 0 allora c'è disponibilità di prodotto nella quantità richeista
 					if (rispostaDB == 0) {
 						sendMessage(Protocol.QUANTITY_AVAILABLE);
 						DatabaseHandler.getInstance().setQuantitaProdottoInOrdine(nomeProdotto, usernameLoggato,
 								Integer.parseInt(number));
-					} else {
+					} //Altrimenti la quantità richiesta non è possibile averla e verrà aggiunta al carrello la disponibilità massima disponibile
+					else {
 						sendMessage(Protocol.QUANTITY_UNAVAILABLE);
 						sendMessage(rispostaDB + "");
 						DatabaseHandler.getInstance().setQuantitaProdottoInOrdine(nomeProdotto, usernameLoggato,
@@ -189,6 +191,7 @@ public class CommunicationHandler implements Runnable {
 					}
 				} else if (input.equals(Protocol.REMOVE_PRODUCT_FROM_CART)) {
 					String prodotto = (String) in.readObject();
+					
 					if (DatabaseHandler.getInstance().removeProductFromCartOfUser(usernameLoggato, prodotto)) {
 						sendMessage(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART);
 					} else {

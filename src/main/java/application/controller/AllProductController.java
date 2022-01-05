@@ -41,7 +41,7 @@ public class AllProductController {
 		
 		for(int i = 0 ; i < prodotti.size() ; ++i) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/product.fxml"));
-			VBox prodotto= (VBox) loader.load();
+			VBox prodotto = (VBox) loader.load();
 			
 			ProductController pControl = loader.getController();
 			pControl.setData(prodotti.get(i));
