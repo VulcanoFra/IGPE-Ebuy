@@ -146,32 +146,29 @@ public class LoginController {
 
     	if(resLogin.equals(Protocol.OK)) {
         	try {
-        		//Client.getInstance().setActualUser(new User(usernameField.getText()));
         		clearField();
 				SceneHandler.getInstance().setHomeScene();
 			} catch (Exception e) {
 				SceneHandler.getInstance().showError("Cannot load the page");
 			}
+        	return;
     	}
     	else if(resLogin.equals(Protocol.USER_ALREADY_LOGGED)) {
     		SceneHandler.getInstance().showWarning("Utente già connesso su un altro dispositivo");
-    		Client.getInstance().resetClient();
     	}
-    	else {
-    		if(resLogin.equals(Protocol.OK_ADMIN)) {
-        		clearField();
-        		SceneHandler.getInstance().setAdminPage();
-        		return;
-        	}
-    		else if(resLogin.equals(Protocol.AUTHENTICATION_ERROR)) {
-        		SceneHandler.getInstance().showError("Hai sbagliato la combinazione di username/password");
-    			//System.out.println("NO");
-        	}
-    		else if(resLogin.equals(Protocol.USER_NOT_EXISTS)){
-        		SceneHandler.getInstance().showError("Attenzione non esiste nessuno account con questo username. Prova a registrarti");
-			}
-    		Client.getInstance().resetClient();
+    	else if(resLogin.equals(Protocol.OK_ADMIN)) {
+    		clearField();
+    		SceneHandler.getInstance().setAdminPage();
+    		return;
+        }
+		else if(resLogin.equals(Protocol.AUTHENTICATION_ERROR)) {
+    		SceneHandler.getInstance().showError("Hai sbagliato la combinazione di username/password");
     	}
+		else if(resLogin.equals(Protocol.USER_NOT_EXISTS)){
+    		SceneHandler.getInstance().showError("Attenzione non esiste nessuno account con questo username. Prova a registrarti");
+		}
+    	
+		Client.getInstance().resetClient();
     }
 
     @FXML

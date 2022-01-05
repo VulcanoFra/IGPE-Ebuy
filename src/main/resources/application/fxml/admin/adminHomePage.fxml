@@ -42,6 +42,6 @@
       </VBox>
    </left>
    <center>
-      <StackPane fx:id="stackPaneAdminHome" alignment="TOP_LEFT" />
+      <StackPane fx:id="stackPaneAdminHome" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

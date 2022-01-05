@@ -7,6 +7,7 @@ import application.model.ProductInCart;
 import application.net.client.Client;
 import application.net.common.Protocol;
 import application.view.SceneHandler;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,10 +31,9 @@ public class CartController {
     void initialize() {
     	vBoxCart.setPrefSize(730, 630);
     	vBoxCart.getStylesheets().add(getClass().getResource("/application/css/cart.css").toExternalForm());
-    	/*imgCarrelloVuoto.setImage(new Image(getClass().getResourceAsStream("/application/image/emptyCart.jpg"),250,200,true,true));*/
-    	//setProdottiInCart();
-    	/*vBoxCart.prefWidthProperty().bind(SceneHandlerVecchio.getInstance().getStage().widthProperty());/*.multiply(0.3));*/
-    	/*vBoxCart.prefHeightProperty().bind(SceneHandlerVecchio.getInstance().getStage().heightProperty());/*.multiply(0.3));*/
+    	//gridPaneCart.prefWidthProperty().bind(Bindings.add(-5, vBoxCart.widthProperty()));
+    	//gridPaneCart.prefHeightProperty().bind(Bindings.add(-5, vBoxCart.heightProperty()));
+    
     }
     
     public boolean setProdottiInCart(){

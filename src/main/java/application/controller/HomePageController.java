@@ -164,8 +164,7 @@ public class HomePageController {
     
     @FXML
     void clickCart(ActionEvent event) {
-    	setCartInHome();
-    	
+    	SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());	
     }
     
     @FXML
@@ -176,9 +175,5 @@ public class HomePageController {
 			System.out.println(e.getMessage());
 			SceneHandler.getInstance().showError("Non è stato possibile scaricale il catalogo, riprova più tardi");
 		}
-    }
-    
-    public void setCartInHome() {
-    	SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
     }
 }

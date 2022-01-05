@@ -15,7 +15,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
+<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: #DEDEDE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
    <children>
       <Label prefHeight="28.0" prefWidth="538.0" text="Aggiungi un prodotto" textFill="WHITE" VBox.vgrow="ALWAYS">
          <font>

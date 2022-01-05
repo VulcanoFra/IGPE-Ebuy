@@ -42,6 +42,7 @@ public class Client implements Runnable{
 		out = null;
 		in = null;
 		socket = null;
+		isLogged = false;
 	}
 	
 	private boolean sendMessageString(String message) {
@@ -183,12 +184,10 @@ public class Client implements Runnable{
 				SceneHandler.getInstance().showWarning(risposta);
 				return;
 			}
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			out = null;
 		}
-		
 	}
 	
 	public void exit() {
@@ -209,6 +208,7 @@ public class Client implements Runnable{
 			
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
+			out = null;
 			return Protocol.ERROR;
 		}
 		
@@ -226,8 +226,8 @@ public class Client implements Runnable{
 				System.out.println("Stamo nell'altrimenti");
 			}
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			out = null;
 		}
 		return false;
 	}
@@ -249,6 +249,7 @@ public class Client implements Runnable{
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-
 			e.printStackTrace();
+			out = null;
 			return null;
 		} 
 	}

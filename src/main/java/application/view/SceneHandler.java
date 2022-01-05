@@ -160,7 +160,7 @@ public class SceneHandler {
 		System.out.println("DOPO");
 		if(!trovati) {
 			showInfo("Non è presente alcun articolo nel carrello");
-			setAllProductInHome("");
+			setDashboardInHome();
 			return;
 		}
 			

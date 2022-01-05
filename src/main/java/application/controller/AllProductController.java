@@ -6,28 +6,34 @@ import java.util.Vector;
 import application.model.Product;
 import application.net.client.Client;
 import application.view.SceneHandler;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 public class AllProductController {
 
     @FXML
-    private GridPane gridAllProductPane;
+    private FlowPane flowPaneProduct;
 
     @FXML
-    private Label allLabel;
+    private ScrollPane scrollPane;
         
     @FXML
     void initialize() {
+    	flowPaneProduct.prefWidthProperty().bind(Bindings.add(-5, scrollPane.widthProperty()));
+    	flowPaneProduct.prefHeightProperty().bind(Bindings.add(-5, scrollPane.heightProperty()));
+    	scrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+    	scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
     }
     
     public void setProdottiPane(String parametro) throws IOException {
-		int column = 0;
-		int row = 1;	
 
+    	flowPaneProduct.getChildren().clear();
+    	
 		Vector<Product> prodotti = new Vector<Product>();
 		prodotti = Client.getInstance().getProduct(parametro);
 		
@@ -46,12 +52,7 @@ public class AllProductController {
 			ProductController pControl = loader.getController();
 			pControl.setData(prodotti.get(i));
 			
-			if(column == 4) {
-				column = 0;
-				row++;
-			}
-			
-			gridAllProductPane.add(prodotto, column++, row);
+			flowPaneProduct.getChildren().add(prodotto);
 		}
 		
 	}

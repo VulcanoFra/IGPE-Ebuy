@@ -11,7 +11,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductCartController">
+<HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductCartController">
    <children>
       <ImageView fx:id="imgProduct" fitHeight="207.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
          <HBox.margin>

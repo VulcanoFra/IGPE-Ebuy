@@ -50,7 +50,7 @@ public class AdminHomePageController {
     
     @FXML
     void clickExit(ActionEvent event) {
-    	Client.getInstance().resetClient();
+    	Client.getInstance().exit();
     	try {
 			SceneHandler.getInstance().resetPage(stackPaneAdminHome);
 			SceneHandler.getInstance().setLoginScene();
