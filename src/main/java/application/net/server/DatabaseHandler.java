@@ -147,29 +147,66 @@ public class DatabaseHandler {
 		
 	}
 	
-	public synchronized Vector<Product> listaProdotti(String parametro) throws SQLException{
-		if(con == null || con.isClosed()) 
-			return null;
-		
-		String query = "SELECT * FROM prodotto WHERE nome LIKE ?;";
-		PreparedStatement p = con.prepareStatement(query);
-		p.setString(1,"%" + parametro + "%");
+	public synchronized Vector<Product> listaProdotti(String parametro){
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "SELECT * FROM prodotto WHERE nome LIKE ?;";
+			PreparedStatement p = con.prepareStatement(query);
+			p.setString(1,"%" + parametro + "%");
 
-		ResultSet res = p.executeQuery();
-		
-		Vector<Product> prodotti = new Vector<Product>();
-		
-		while(res.next()) {
-			try {
-				Product prod = new Product(res.getString("nome"), res.getDouble("prezzo_generico"), 
-						res.getInt("quantita_disponibile"), res.getBytes("immagine"), res.getString("categoria"), res.getString("descrizione"));
-				prodotti.add(prod);
-			} catch (SQLException e) {
-				System.out.println("Cannot read one or more product from DB");
+			ResultSet res = p.executeQuery();
+			
+			Vector<Product> prodotti = new Vector<Product>();
+			
+			while(res.next()) {
+				try {
+					Product prod = new Product(res.getString("nome"), res.getDouble("prezzo_generico"), 
+							res.getInt("quantita_disponibile"), res.getBytes("immagine"), res.getString("categoria"), res.getString("descrizione"));
+					prodotti.add(prod);
+				} catch (SQLException e) {
+					System.out.println("Cannot read one or more product from DB");
+				}
 			}
+			
+			p.close();
+			return prodotti;
+		} catch(SQLException e) {
+			return null;
 		}
-		p.close();
-		return prodotti;
+		
+		
+	}
+	
+	public synchronized Vector<Product> getProductsByCategory(String categoria) {
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "Select * from prodotto where categoria=?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, categoria);
+			
+			Vector<Product> prodotti = new Vector<Product>();
+			
+			ResultSet rs = pr.executeQuery();
+			
+			while(rs.next()) {
+				try {
+					Product prod = new Product(rs.getString("nome"), rs.getDouble("prezzo_generico"), 
+							rs.getInt("quantita_disponibile"), rs.getBytes("immagine"), rs.getString("categoria"), rs.getString("descrizione"));
+					prodotti.add(prod);
+				} catch (SQLException e) {
+					System.out.println("Cannot read one or more product from DB");
+				}
+			}
+			
+			pr.close();
+			return prodotti;
+		} catch(SQLException e) {
+			return null;
+		}
 	}
 	
 	public synchronized String productIsAvailable(String nomeProdotto) {

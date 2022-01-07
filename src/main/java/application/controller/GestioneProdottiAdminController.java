@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-
 import application.model.Product;
 import application.net.client.Client;
 import application.net.common.Protocol;
@@ -65,7 +64,6 @@ public class GestioneProdottiAdminController {
     	vBoxAddProduct.getStylesheets().add(getClass().getResource("/application/css/pageAdminProduct.css").toExternalForm());
     	imageSelected.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png"), 200, 200, true, true));
     	removeImage.setVisible(false);
-    	comboBoxCategoria.getItems().add("Ciao");
     	addListener();
     }
     
@@ -120,7 +118,8 @@ public class GestioneProdottiAdminController {
     	prezzoField.setText("");
     	descrizioneTextArea.setText("");
     	imgCurrentProduct = null;
-    	imageSelected.setImage(null);
+    	removeImage.setVisible(false);
+		imageSelected.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png"), 200, 200, true, true));
     }
     
     @FXML

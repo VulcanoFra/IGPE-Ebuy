@@ -23,7 +23,9 @@ public class Protocol {
 	public final static String CANNOT_ADD_PRODUCT = "Impossibile aggiungere prodotto";
 	public final static String GET_PRODUCT = "Richiesta dei prodotti all'interno del DB";
 	public final static String GET_PRODUCT_FAILED = "I prodotti ricercati non sono presenti nel catalogo";
+	public final static String GET_PRODUCTS_BY_CATEGORY = "Richiesta dei prodotti per categoria all'interno del DB";
 
+	
 	public final static String ADD_PRODUCT_IN_CART = "Richiesta di inserimento del prodotto nel carrello del cliente";
 	public final static String PRODUCT_IS_ALREADY_IN_CART = "Controlla il carrello, il prodotto scelto è già nel carrello";
 	public final static String PRODUCT_CORRECTLY_ADDED_IN_CART = "Il prodotto è stato correttamente aggiunto al carrello";

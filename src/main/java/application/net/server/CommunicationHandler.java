@@ -135,6 +135,18 @@ public class CommunicationHandler implements Runnable {
 
 					sendObject(prodotti);
 					System.out.println("[SERVER] Prodotti inviati");
+				} else if(input.equals(Protocol.GET_PRODUCTS_BY_CATEGORY)) {
+					String categoria = (String) in.readObject();
+					
+					Vector<Product> prodotti = new Vector<Product>();
+					prodotti = DatabaseHandler.getInstance().getProductsByCategory(categoria);
+					
+					if (prodotti == null) {
+						// sendMessage(Protocol.GET_PRODUCT_FAILED);
+						closeStreams();
+						return;
+					}
+					sendObject(prodotti);
 				} else if (input.equals(Protocol.ADD_PRODUCT_IN_CART)) {
 					String nomeProdotto = (String) in.readObject();
 

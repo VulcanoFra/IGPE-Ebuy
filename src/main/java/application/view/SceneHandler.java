@@ -3,6 +3,7 @@ package application.view;
 import application.controller.AllProductController;
 import application.controller.CartController;
 import application.controller.GestioneProdottiAdminController;
+import application.controller.HomePageController;
 import application.net.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -21,9 +22,10 @@ public class SceneHandler {
 	private Stage stage;
 	
 	private BorderPane homePage;
+	private HomePageController controllerHomePage;
 	private AnchorPane registerPage;
 	private AnchorPane loginPage;
-	private VBox allProductPane;
+	private VBox productPane;
 	private VBox cartPane;
 	private BorderPane adminHomePage;
 	private AllProductController prdContrl;
@@ -46,12 +48,13 @@ public class SceneHandler {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/homePage.fxml"));
 		homePage = (BorderPane) loader.load();
+		controllerHomePage = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/registerPage.fxml"));
 		registerPage =(AnchorPane) loader.load();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/loginPage.fxml"));
 		loginPage = (AnchorPane) loader.load();
-		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/allProductPane.fxml"));
-		allProductPane = (VBox) loader.load();
+		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/productPane.fxml"));
+		productPane = (VBox) loader.load();
 		prdContrl = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/cart.fxml"));
 		cartPane = (VBox) loader.load();
@@ -115,6 +118,7 @@ public class SceneHandler {
 		stage.hide();
 		scena.setRoot(homePage);
 		setDashboardInHome();
+		controllerHomePage.riempiCombo();
 		//StackPaneHome.getInstance().getChildren().add(dashboard);
     	//stage.setResizable(false);
     	stage.setWidth(900);
@@ -132,17 +136,17 @@ public class SceneHandler {
 		StackPaneHome.getInstance().getChildren().add(dashboard);
 	}
 
-	public void setAllProductInHome(String parametro) {
+	public void setProductInHome(String parametro) {
 		
 		/*if(!(stackPaneHome.getChildren().size() == 0) || stackPaneHome.getChildren().get(0).equals(allProductPane))
 			return;*/
 		
 		StackPaneHome.getInstance().prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
-		if(StackPaneHome.getInstance().getChildren().contains(allProductPane)) {
-			StackPaneHome.getInstance().getChildren().remove(allProductPane);
+		if(StackPaneHome.getInstance().getChildren().contains(productPane)) {
+			StackPaneHome.getInstance().getChildren().remove(productPane);
 			//allProductPane.getChildren().get(2).;
 		}
-		StackPaneHome.getInstance().getChildren().add(allProductPane);
+		StackPaneHome.getInstance().getChildren().add(productPane);
 		//System.out.println(allProductPane.getChildren().get(1));
 		try {
 			prdContrl.setProdottiPane(parametro);		//NON MI PIACE FAR COSì
@@ -152,6 +156,22 @@ public class SceneHandler {
 		}
 	
 	}
+	
+	public void setProductInHomeByCategory(String category) {
+		if(StackPaneHome.getInstance().getChildren().contains(productPane)) {
+			StackPaneHome.getInstance().getChildren().remove(productPane);
+			//allProductPane.getChildren().get(2).;
+		}
+		StackPaneHome.getInstance().getChildren().add(productPane);
+		//System.out.println(allProductPane.getChildren().get(1));
+		try {
+			prdContrl.setProdottiPaneByCategory(category);	
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("NON POSSO CARICARE PRODOTTI");
+		}
+	}
+	
 	
 	public void setCartInHome(StackPane stackPaneHome) {
 

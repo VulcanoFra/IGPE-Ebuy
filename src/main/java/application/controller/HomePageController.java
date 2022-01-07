@@ -1,5 +1,7 @@
 package application.controller;
 
+import java.util.ArrayList;
+
 import application.model.PdfGenerator;
 import application.net.client.Client;
 import application.net.common.Protocol;
@@ -8,6 +10,7 @@ import application.view.StackPaneHome;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -21,45 +24,45 @@ public class HomePageController {
 
 	@FXML
     private VBox slider;
-	
-    @FXML
-    private Button btbCart;
-    
-    @FXML
-    private Button btnDashboard;
-    
-    @FXML
-    private Button downloadProductBtn;
-    
-    @FXML
-    private Button btnInfo;
-    
-    @FXML
-    private Button btnContatti;
 
     @FXML
-    private MenuButton btnProfilo;
-    
-    @FXML
-    private Button btnCatalogo;
-	
+    private ComboBox<String> comboBoxCategoria;
+
     @FXML
     private BorderPane borderPaneHome;
 
     @FXML
-    private HBox hBox;
-    
+    private Button btnInfo;
+
     @FXML
-    private TextField ricercaField;
-    
+    private Button btnCatalogo;
+
     @FXML
     private ImageView imgLogo;
-    
-    /*@FXML
-    private StackPane StackPaneHome.getInstance();*/
-    
+
+    @FXML
+    private HBox hBox;
+
+    @FXML
+    private TextField ricercaField;
+
+    @FXML
+    private Button btnDashboard;
+
+    @FXML
+    private Button btnContatti;
+
+    @FXML
+    private Button downloadProductBtn;
+
     @FXML
     private MenuItem itemExit;
+
+    @FXML
+    private Button btnCart;
+
+    @FXML
+    private MenuButton btnProfilo;
     
     @FXML
     void initialize() {
@@ -144,7 +147,7 @@ public class HomePageController {
     @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
     	//if(AllProductController.sizeLista() > 0)
-    		SceneHandler.getInstance().setAllProductInHome( ricercaField.getText());
+    		SceneHandler.getInstance().setProductInHome( ricercaField.getText());
     	//else {
     		/*..............*/
     	//}
@@ -152,8 +155,9 @@ public class HomePageController {
     
     @FXML
     void clickExit(ActionEvent event) {
+    	pulisciCombo();
     	Client.getInstance().exit();
-    	try {
+    	try {		
 			SceneHandler.getInstance().resetPage(StackPaneHome.getInstance());
 			SceneHandler.getInstance().setLoginScene();
 		} catch (Exception e) {
@@ -176,4 +180,21 @@ public class HomePageController {
 			SceneHandler.getInstance().showError("Non è stato possibile scaricale il catalogo, riprova più tardi");
 		}
     }
+    
+    @FXML
+    void clickCategorie(ActionEvent event) {
+    	SceneHandler.getInstance().setProductInHomeByCategory(comboBoxCategoria.getValue());
+    }
+    
+    
+	public void riempiCombo() {
+		ArrayList<String> categorie = Client.getInstance().getCategories();
+    	for(String i : categorie) {
+    		comboBoxCategoria.getItems().add(i);
+    	}
+	}
+
+	public void pulisciCombo() {
+		comboBoxCategoria.getItems().clear();
+	}
 }

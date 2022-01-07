@@ -37,8 +37,6 @@ public class AllProductController {
 		Vector<Product> prodotti = new Vector<Product>();
 		prodotti = Client.getInstance().getProduct(parametro);
 		
-		System.out.println("sto qui");
-		
 		if(prodotti == null || prodotti.size() == 0) {
 			SceneHandler.getInstance().showWarning("Non sono presenti prodotti ricercati");
 			return;
@@ -55,6 +53,29 @@ public class AllProductController {
 			flowPaneProduct.getChildren().add(prodotto);
 		}
 		
+	}
+
+	public void setProdottiPaneByCategory(String category) throws IOException {
+		
+	flowPaneProduct.getChildren().clear();
+    	
+		Vector<Product> prodotti = new Vector<Product>();
+		prodotti = Client.getInstance().getProductByCategory(category);	
+		
+		if(prodotti == null || prodotti.size() == 0) {
+			SceneHandler.getInstance().showWarning("Non sono presenti prodotti ricercati");
+			return;
+		}	
+		
+		for(int i = 0 ; i < prodotti.size() ; ++i) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/product.fxml"));
+			VBox prodotto = (VBox) loader.load();
+			
+			ProductController pControl = loader.getController();
+			pControl.setData(prodotti.get(i));
+			
+			flowPaneProduct.getChildren().add(prodotto);
+		}
 	}
 
 }

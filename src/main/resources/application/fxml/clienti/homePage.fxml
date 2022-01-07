@@ -78,19 +78,15 @@
                   <Insets />
                </HBox.margin>
             </ImageView>
-            <Pane prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="91.0" text="Cerca" HBox.hgrow="ALWAYS">
-               <graphic>
-                  <FontAwesomeIcon glyphName="SEARCH" size="1.1em" wrappingWidth="21.89285659790039" />
-               </graphic>
-            </Button>
+            <Pane prefHeight="69.0" prefWidth="49.0" HBox.hgrow="ALWAYS" />
+            <ComboBox fx:id="comboBoxCategoria" onAction="#clickCategorie" prefHeight="31.0" prefWidth="125.0" promptText="Categoria" HBox.hgrow="ALWAYS" />
             <TextField fx:id="ricercaField" maxWidth="700.0" prefHeight="31.0" prefWidth="228.0" promptText="Ricerca" style="-fx-prompt-text-fill: #c4c4c4;" HBox.hgrow="ALWAYS">
                <tooltip>
                   <Tooltip text="Cosa vuoi cercare?" />
                </tooltip>
             </TextField>
             <Pane layoutX="247.0" layoutY="10.0" prefHeight="60.0" prefWidth="102.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="btbCart" mnemonicParsing="false" onAction="#clickCart" prefHeight="35.0" prefWidth="112.0" text="Carrello" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnCart" mnemonicParsing="false" onAction="#clickCart" prefHeight="35.0" prefWidth="112.0" text="Carrello" HBox.hgrow="ALWAYS">
                <graphic>
                   <FontAwesomeIcon fill="#3c536e" glyphName="SHOPPING_CART" size="1.1em" />
                </graphic>

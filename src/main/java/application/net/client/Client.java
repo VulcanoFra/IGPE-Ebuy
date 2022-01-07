@@ -147,6 +147,28 @@ public class Client implements Runnable{
 	}
 
 	@SuppressWarnings("unchecked")
+	public Vector<Product> getProductByCategory(String category) {
+		sendMessageString(Protocol.GET_PRODUCTS_BY_CATEGORY);
+		sendMessageString(category);
+
+		try {
+			
+			if(in == null) 
+				in = new ObjectInputStream(socket.getInputStream());			
+			
+			Vector<Product> prodotti = new Vector<Product>();
+			prodotti = (Vector<Product>) in.readObject();
+			
+			return prodotti;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			out = null;
+			return null;
+		}	
+	}
+	
+	@SuppressWarnings("unchecked")
 	public Vector<ProductInCart> getProductInCart()  {
 		sendMessageString(Protocol.GET_PRODUCT_IN_CART);
 
@@ -265,6 +287,8 @@ public class Client implements Runnable{
 		}
 		return null;
 	}
+
+	
 }
 	
 	
