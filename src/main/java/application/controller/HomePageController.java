@@ -16,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -147,7 +148,7 @@ public class HomePageController {
     @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
     	//if(AllProductController.sizeLista() > 0)
-    		SceneHandler.getInstance().setProductInHome( ricercaField.getText());
+    		SceneHandler.getInstance().setProductInHome("");
     	//else {
     		/*..............*/
     	//}
@@ -186,6 +187,10 @@ public class HomePageController {
     	SceneHandler.getInstance().setProductInHomeByCategory(comboBoxCategoria.getValue());
     }
     
+    @FXML
+    void insertCharacterInRicercaField(KeyEvent event) {
+    	SceneHandler.getInstance().setProductInHome(ricercaField.getText());
+    }
     
 	public void riempiCombo() {
 		ArrayList<String> categorie = Client.getInstance().getCategories();

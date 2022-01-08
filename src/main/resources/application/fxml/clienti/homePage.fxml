@@ -80,7 +80,7 @@
             </ImageView>
             <Pane prefHeight="69.0" prefWidth="49.0" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="comboBoxCategoria" onAction="#clickCategorie" prefHeight="31.0" prefWidth="125.0" promptText="Categoria" HBox.hgrow="ALWAYS" />
-            <TextField fx:id="ricercaField" maxWidth="700.0" prefHeight="31.0" prefWidth="228.0" promptText="Ricerca" style="-fx-prompt-text-fill: #c4c4c4;" HBox.hgrow="ALWAYS">
+            <TextField fx:id="ricercaField" maxWidth="700.0" onKeyReleased="#insertCharacterInRicercaField" prefHeight="31.0" prefWidth="228.0" promptText="Ricerca" style="-fx-prompt-text-fill: #c4c4c4;" HBox.hgrow="ALWAYS">
                <tooltip>
                   <Tooltip text="Cosa vuoi cercare?" />
                </tooltip>
