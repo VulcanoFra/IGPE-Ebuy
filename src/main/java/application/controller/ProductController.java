@@ -1,9 +1,9 @@
 package application.controller;
 
 import java.io.ByteArrayInputStream;
-
 import application.model.Product;
 import application.net.client.Client;
+import application.view.SceneHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -46,7 +46,7 @@ public class ProductController {
     
     @FXML
     void clickOnProdotto(MouseEvent event) {
-    	System.out.println(labelNomeProdotto.getText());
+    	SceneHandler.getInstance().getPaneAndamentoProdotto(labelNomeProdotto.getText());
     }
 
     @FXML

@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import com.jfoenix.validation.*?>
-<?import javafx.scene.shape.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="700.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductCartController">
+<HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="198.0" prefWidth="700.0" spacing="15.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductCartController">
    <children>
-      <ImageView fx:id="imgProduct" fitHeight="207.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+      <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+      <ImageView fx:id="imgProduct" fitHeight="165.0" fitWidth="249.0" pickOnBounds="true" preserveRatio="true">
          <HBox.margin>
             <Insets left="15.0" top="15.0" />
          </HBox.margin>
       </ImageView>
-      <AnchorPane prefHeight="250.0" prefWidth="297.0" HBox.hgrow="ALWAYS">
-         <HBox.margin>
-            <Insets left="30.0" />
-         </HBox.margin>
+      <VBox prefHeight="232.0" prefWidth="621.0" spacing="15.0">
          <children>
-            <Label fx:id="lblNomeProdotto" alignment="TOP_LEFT" layoutX="21.0" layoutY="14.0" prefHeight="33.0" prefWidth="364.0" text="Nome prodotto" textFill="WHITE" wrapText="true">
+            <Label fx:id="lblNomeProdotto" alignment="TOP_LEFT" prefHeight="33.0" prefWidth="364.0" text="Nome prodotto" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lblPrezzo" layoutX="181.0" layoutY="137.0" text="Prezzo" textFill="WHITE" />
-            <HBox alignment="CENTER" layoutX="103.0" layoutY="158.0" prefHeight="65.0" prefWidth="200.0">
+            <Label fx:id="descrizione" alignment="TOP_LEFT" prefHeight="80.0" prefWidth="393.0" style="-fx-border-color: white;" text="Descrizione" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblPrezzo" prefHeight="21.0" prefWidth="90.0" text="Prezzo" textFill="WHITE">
+               <VBox.margin>
+                  <Insets left="180.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0">
                <children>
                   <Button fx:id="btnDiminuisciQuantità" mnemonicParsing="false" onAction="#diminuisciQuantità">
                      <graphic>
@@ -37,12 +42,12 @@
                      </graphic>
                   </Button>
                   <Label fx:id="quantità" alignment="CENTER" prefHeight="27.0" prefWidth="17.0" text="1" textFill="WHITE">
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </HBox.margin>
                   </Label>
                   <Button fx:id="btnAumentaQuantità" mnemonicParsing="false" onAction="#aumentaQuantià">
                      <graphic>
@@ -51,12 +56,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="descrizione" alignment="TOP_LEFT" layoutX="28.0" layoutY="57.0" prefHeight="74.0" prefWidth="364.0" style="-fx-border-color: white;" text="Descrizione" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
          </children>
-      </AnchorPane>
+      </VBox>
    </children>
 </HBox>

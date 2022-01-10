@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import application.model.DatiAndamentoProdotto;
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
@@ -270,7 +271,7 @@ public class DatabaseHandler {
 			
 			int id = getIdCartUser(username);
 			
-			String query = "SELECT * FROM ordini,include WHERE ID=? AND ID=idOrdine AND nome_prodotto=?";
+			String query = "SELECT * FROM ordini,include WHERE ID=? AND ID=id_ordine AND nome_prodotto=?";
 			PreparedStatement p = con.prepareStatement(query);
 			
 			p.setInt(1, id);
@@ -327,7 +328,7 @@ public class DatabaseHandler {
 			
 			int id = getIdCartUser(username);
 			
-			String query = "SELECT * FROM include, prodotto WHERE idOrdine=" + id + " AND nome_prodotto=nome;";
+			String query = "SELECT * FROM include, prodotto WHERE id_ordine=" + id + " AND nome_prodotto=nome;";
 
 			PreparedStatement pr = con.prepareStatement(query);
 			
@@ -360,7 +361,7 @@ public class DatabaseHandler {
 			
 			int id = getIdCartUser(username);
 			
-			String query = "DELETE FROM include WHERE idOrdine="+ id +" AND nome_prodotto=?";
+			String query = "DELETE FROM include WHERE id_ordine="+ id +" AND nome_prodotto=?";
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setString(1, nomeProdotto);
 			
@@ -408,7 +409,7 @@ public class DatabaseHandler {
 			
 			int id = getIdCartUser(username);
 			
-			String query = "UPDATE include SET quantita=? WHERE idOrdine=" + id + " AND nome_prodotto=?"; 
+			String query = "UPDATE include SET quantita=? WHERE id_ordine=" + id + " AND nome_prodotto=?"; 
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setInt(1, number);
 			pr.setString(2, nomeProdotto);
@@ -424,7 +425,7 @@ public class DatabaseHandler {
 			if(con == null || con.isClosed()) 
 				return false;
 			
-			String query = "Select * from include where idOrdine=" + idOrdine;
+			String query = "Select * from include where id_ordine=" + idOrdine;
 			PreparedStatement prst = con.prepareStatement(query);
 			ResultSet rs = prst.executeQuery();
 			
@@ -468,7 +469,7 @@ public class DatabaseHandler {
 			}
 			
 			
-			String query = "SELECT nome_prodotto, quantita FROM include WHERE idOrdine=" + idOrdine;
+			String query = "SELECT nome_prodotto, quantita FROM include WHERE id_ordine=" + idOrdine;
 			PreparedStatement pr = con.prepareStatement(query);
 			ResultSet rs = pr.executeQuery();
 			
@@ -518,5 +519,55 @@ public class DatabaseHandler {
 			return null;
 		}
 		
+	}
+	
+	public synchronized ArrayList<DatiAndamentoProdotto> getTrendProduct(String nomeProdotto){
+		
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "select data, nome_prodotto, sum(include.quantita) as quantita from ordini, include where include.nome_prodotto=? AND data IS NOT NULL AND include.id_ordine=ordini.ID group by data order by data";
+			
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, nomeProdotto);
+
+			ResultSet rs = pr.executeQuery();
+			
+			ArrayList<DatiAndamentoProdotto> dati = new ArrayList<DatiAndamentoProdotto>();
+			System.out.println("primala rs");
+			
+			while(rs.next()) {
+				System.out.println("dentro la rs");
+				DatiAndamentoProdotto d = new DatiAndamentoProdotto();
+				d.setData(rs.getString("data"));
+				d.setQuantit‡Venduta(rs.getInt("quantita"));
+				
+				dati.add(d);
+			}
+			
+			return dati;
+		} catch(SQLException e) {
+			return null;
+		}
+	}
+
+	public synchronized String addQuantityProduct(String nomeProdotto, Integer quantita) {
+		try {
+			if(con == null || con.isClosed()) 
+				return Protocol.ERROR_DB;
+			
+			String query = "UPDATE prodotto set quantita_disponibile=quantita_disponibile+? where nome=?";
+			
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setInt(1, quantita);
+			pr.setString(2, nomeProdotto);
+			
+			pr.executeUpdate();
+			
+			return Protocol.OK;
+		} catch(SQLException e) {
+			return Protocol.ERROR_DB;
+		}
 	}
 }

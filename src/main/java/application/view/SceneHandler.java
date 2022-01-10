@@ -1,6 +1,9 @@
 package application.view;
 
+import java.io.IOException;
+
 import application.controller.AllProductController;
+import application.controller.AndamentoProdottoController;
 import application.controller.CartController;
 import application.controller.GestioneProdottiAdminController;
 import application.controller.HomePageController;
@@ -219,6 +222,26 @@ public class SceneHandler {
 		gestioneProdottiAdminPane.prefHeightProperty().bind(stackPaneHome.heightProperty().multiply(1));
 		stackPaneHome.getChildren().add(gestioneProdottiAdminPane);
 		gestioneProdottiAdminController.riempiCombo();
+	}
+	
+	public void getPaneAndamentoProdotto(String nome) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/andamentoProdotto.fxml"));
+			BorderPane pane = (BorderPane) loader.load();
+			
+			AndamentoProdottoController controller = loader.getController();
+			controller.setEvent();
+			Stage stage = new Stage();
+			Scene s = new Scene(pane);
+			stage.setScene(s);
+			
+			stage.showAndWait();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void resetPage(StackPane stackPaneHome) {

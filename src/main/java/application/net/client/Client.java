@@ -6,6 +6,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import application.model.DatiAndamentoProdotto;
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
@@ -288,7 +290,35 @@ public class Client implements Runnable{
 		return null;
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	public ArrayList<DatiAndamentoProdotto> getTrendProduct(String nomeProdotto){
+		sendMessageString(Protocol.GET_TREND_PRODUCT);
+		sendMessageString(nomeProdotto);
+		
+		try {
+			ArrayList<DatiAndamentoProdotto> dati = (ArrayList<DatiAndamentoProdotto>) in.readObject();
+			return dati;
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean addQuantityOfProduct(String nomeProdotto, Integer quantita) {
+		sendMessageString(Protocol.ADD_QUANTITY);
+		sendMessageString(nomeProdotto);
+		sendObject(quantita);
+		
+		try {
+			String risultato = (String) in.readObject();
+			
+			if(risultato.equals(Protocol.OK))
+				return true;
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }
 	
 	

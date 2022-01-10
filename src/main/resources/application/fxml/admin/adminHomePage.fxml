@@ -11,10 +11,10 @@
          <children>
             <Button fx:id="bntGestisciProdotti" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickGestisciProdotti" prefHeight="31.0" prefWidth="172.0" text="Aggiungi Prodotto" VBox.vgrow="ALWAYS">
                <VBox.margin>
-                  <Insets top="100.0" />
+                  <Insets top="80.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="bntGestisciAdmin" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="31.0" prefWidth="172.0" text="Gestisci Admin" VBox.vgrow="ALWAYS">
+            <Button fx:id="btnModificaQuantita" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickAggiungiQuantita" prefHeight="54.0" prefWidth="170.0" text="Aggiungi quantità prodotto" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -35,7 +35,7 @@
                 <MenuItem fx:id="btnLogOut" mnemonicParsing="false" onAction="#clickExit" style="-fx-text-fill: black;" text="LogOut" />
               </items>
                <VBox.margin>
-                  <Insets top="100.0" />
+                  <Insets top="50.0" />
                </VBox.margin>
             </MenuButton>
          </children>

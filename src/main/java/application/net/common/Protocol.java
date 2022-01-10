@@ -18,7 +18,9 @@ public class Protocol {
 	public final static String USER_NOT_EXISTS = "L'utente inserito non esiste";
 	
 	public final static String OK_ADMIN= "L'utente è correttamente loggato come admin";
-
+	
+	public final static String ADD_QUANTITY = "Aumenta la quantità del prodotto";
+	
 	public final static String ADD_PRODUCT_IN_CATALOG = "Richiesta di aggiunta prodotto";
 	public final static String CANNOT_ADD_PRODUCT = "Impossibile aggiungere prodotto";
 	public final static String GET_PRODUCT = "Richiesta dei prodotti all'interno del DB";
@@ -43,6 +45,7 @@ public class Protocol {
 	public final static String IMPOSSIBLE_PROCEED_ORDER = "Impossibile procedere all'ordine";
 	public final static String SOME_PRODUCT_ARE_UNAVAILABLE = "Attenzione! Qualche prodotto non è disponibile nella quantità richiesta";
 	
+	public final static String GET_TREND_PRODUCT = "Dammi l'andamento delle vendite del prodotto";
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
 
 	public final static String GET_ALL_CATEGORIES = "Restituisci tutte le categorie";

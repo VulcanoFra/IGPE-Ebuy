@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import application.model.DatiAndamentoProdotto;
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
@@ -213,6 +214,22 @@ public class CommunicationHandler implements Runnable {
 					ArrayList<String> categorie = DatabaseHandler.getInstance().getAllCategories();
 
 					sendObject(categorie);
+				} else if(input.equals(Protocol.GET_TREND_PRODUCT)) {
+					String nomeProdotto = (String) in.readObject();
+
+					ArrayList<DatiAndamentoProdotto> dati = null;
+					
+					dati = DatabaseHandler.getInstance().getTrendProduct(nomeProdotto);
+					
+					sendObject(dati);
+					
+				} else if(input.equals(Protocol.ADD_QUANTITY)) {
+					String nomeProdotto = (String) in.readObject();
+					Integer quantita = (Integer) in.readObject();
+					
+					String rispostaDB = DatabaseHandler.getInstance().addQuantityProduct(nomeProdotto, quantita);
+					
+					sendMessage(rispostaDB);
 				} else if (input.equals(Protocol.EXIT)) {
 					System.out.println(usernameLoggato + " si è scollegato");
 					disconnect();
@@ -224,6 +241,7 @@ public class CommunicationHandler implements Runnable {
 					System.out.println("[SERVER] Errore e chiudo stream");
 					disconnect();
 					closeStreams();
+					loggato = false;
 					return;
 				}
 			}
