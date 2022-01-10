@@ -5,6 +5,7 @@ import java.util.Optional;
 import application.net.client.Client;
 import application.net.common.Protocol;
 import application.view.SceneHandler;
+import application.view.StackPaneHome;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +69,6 @@ public class AdminHomePageController {
 			SceneHandler.getInstance().setLoginScene();
 		} catch (Exception e) {
 			SceneHandler.getInstance().showError(Protocol.ERROR);
-			/*OPPURE IL PROBLEMA DEVE ESSERE NEL FILE DI LOG*/
 		}
     }
     
@@ -135,6 +135,12 @@ public class AdminHomePageController {
 	    		SceneHandler.getInstance().showError("Attenzione! Inserire un numero nel campo quantità");
 	    	}
     	}
+    }
+    
+    @FXML
+    void clickChangePassword(ActionEvent event) {
+    	SceneHandler.getInstance().setChangePassword(stackPaneAdminHome);
+
     }
 }
 

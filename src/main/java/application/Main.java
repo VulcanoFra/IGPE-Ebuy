@@ -3,6 +3,7 @@
  * 4) click sul prodotto fa vedere andamento vendite
  * 8) RISOLVERE ECCEZIONE SE FACCIO LOGOUT CON ADMIN. Non riesce nemmeno a rimuovere l'admin dalla lista delle persone connesse
  * 17) ricercare prodotti o categoria.
+ * 18) risolvere dimensioni in stackpane(chamge password)
  */
 
 package application;

@@ -48,6 +48,9 @@ public class HomePageController {
     private TextField ricercaField;
 
     @FXML
+    private MenuItem itemChangePassword;
+    
+    @FXML
     private Button btnDashboard;
 
     @FXML
@@ -163,7 +166,6 @@ public class HomePageController {
 			SceneHandler.getInstance().setLoginScene();
 		} catch (Exception e) {
 			SceneHandler.getInstance().showError(Protocol.ERROR);
-			/*OPPURE IL PROBLEMA DEVE ESSERE NEL FILE DI LOG*/
 		}
     }
     
@@ -190,6 +192,11 @@ public class HomePageController {
     @FXML
     void insertCharacterInRicercaField(KeyEvent event) {
     	SceneHandler.getInstance().setProductInHome(ricercaField.getText());
+    }
+    
+    @FXML
+    void clickChangePassword(ActionEvent event) {
+    	SceneHandler.getInstance().setChangePassword(StackPaneHome.getInstance());
     }
     
 	public void riempiCombo() {

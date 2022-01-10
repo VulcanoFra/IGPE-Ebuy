@@ -26,7 +26,6 @@ public class Protocol {
 	public final static String GET_PRODUCT = "Richiesta dei prodotti all'interno del DB";
 	public final static String GET_PRODUCT_FAILED = "I prodotti ricercati non sono presenti nel catalogo";
 	public final static String GET_PRODUCTS_BY_CATEGORY = "Richiesta dei prodotti per categoria all'interno del DB";
-
 	
 	public final static String ADD_PRODUCT_IN_CART = "Richiesta di inserimento del prodotto nel carrello del cliente";
 	public final static String PRODUCT_IS_ALREADY_IN_CART = "Controlla il carrello, il prodotto scelto è già nel carrello";
@@ -49,6 +48,9 @@ public class Protocol {
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
 
 	public final static String GET_ALL_CATEGORIES = "Restituisci tutte le categorie";
+	
+	public final static String UPDATE_PASSWORD = "Cambia password";
+	public final static String OLD_PASSWORD_ERROR = "Attenzione! La password inserita non corrisponde a quella dell'utente";
 	
 	public final static String EXIT = "Fai il LogOut";
 

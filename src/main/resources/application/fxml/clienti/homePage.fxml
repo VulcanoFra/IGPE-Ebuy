@@ -53,7 +53,7 @@
             </Separator>
             <MenuButton fx:id="btnProfilo" mnemonicParsing="false" prefWidth="170.0" text="Profilo" VBox.vgrow="ALWAYS">
               <items>
-                <MenuItem mnemonicParsing="false" style="-fx-text-fill: black;" text="Cambia password" />
+                <MenuItem fx:id="itemChangePassword" mnemonicParsing="false" onAction="#clickChangePassword" style="-fx-text-fill: black;" text="Cambia password" />
                 <MenuItem fx:id="itemExit" mnemonicParsing="false" onAction="#clickExit" style="-fx-text-fill: black;" text="Esci" />
               </items>
                <graphic>

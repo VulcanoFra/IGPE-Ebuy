@@ -6,15 +6,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="630.0" prefWidth="730.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AllProductController">
+
+<AnchorPane prefHeight="630.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.AllProductController">
    <children>
-      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <FlowPane fx:id="flowPaneProduct" columnHalignment="CENTER" hgap="10.0" vgap="10.0">
                <opaqueInsets>
                   <Insets />
-               </opaqueInsets></FlowPane>
+               </opaqueInsets>
+            </FlowPane>
          </content>
       </ScrollPane>
    </children>
-</VBox>
+</AnchorPane>

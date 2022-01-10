@@ -28,14 +28,15 @@ public class SceneHandler {
 	private HomePageController controllerHomePage;
 	private AnchorPane registerPage;
 	private AnchorPane loginPage;
-	private VBox productPane;
-	private VBox cartPane;
+	private AnchorPane productPane;
+	private AnchorPane cartPane;
 	private BorderPane adminHomePage;
 	private AllProductController prdContrl;
 	private CartController cartController;
 	private VBox gestioneProdottiAdminPane;
 	private GestioneProdottiAdminController gestioneProdottiAdminController;
 	private AnchorPane dashboard;
+	private AnchorPane changePasswordPage;
 	
 	private static SceneHandler instance = null;
 	
@@ -57,10 +58,10 @@ public class SceneHandler {
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/loginPage.fxml"));
 		loginPage = (AnchorPane) loader.load();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/productPane.fxml"));
-		productPane = (VBox) loader.load();
+		productPane = (AnchorPane) loader.load();
 		prdContrl = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/cart.fxml"));
-		cartPane = (VBox) loader.load();
+		cartPane = (AnchorPane) loader.load();
 		cartController = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/adminHomePage.fxml"));
 		adminHomePage = (BorderPane) loader.load();
@@ -69,6 +70,8 @@ public class SceneHandler {
 		gestioneProdottiAdminController = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/dashboard.fxml"));
 		dashboard = (AnchorPane) loader.load();
+		loader = new FXMLLoader(getClass().getResource("/application/fxml/common/changePassword.fxml"));
+		changePasswordPage = (AnchorPane) loader.load();
 		
 		initScene();
 		stage.setScene(scena);
@@ -141,16 +144,12 @@ public class SceneHandler {
 
 	public void setProductInHome(String parametro) {
 		
-		/*if(!(stackPaneHome.getChildren().size() == 0) || stackPaneHome.getChildren().get(0).equals(allProductPane))
-			return;*/
-		
 		StackPaneHome.getInstance().prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
 		if(StackPaneHome.getInstance().getChildren().contains(productPane)) {
 			StackPaneHome.getInstance().getChildren().remove(productPane);
-			//allProductPane.getChildren().get(2).;
 		}
 		StackPaneHome.getInstance().getChildren().add(productPane);
-		//System.out.println(allProductPane.getChildren().get(1));
+
 		try {
 			prdContrl.setProdottiPane(parametro);		//NON MI PIACE FAR COSì
 		} catch (Exception e) {
@@ -183,7 +182,7 @@ public class SceneHandler {
 		System.out.println("DOPO");
 		if(!trovati) {
 			showInfo("Non è presente alcun articolo nel carrello");
-			setDashboardInHome();
+			setProductInHome("");
 			return;
 		}
 			
@@ -205,7 +204,7 @@ public class SceneHandler {
 		scena.setRoot(adminHomePage);
     	//stage.setResizable(false);
     	stage.setWidth(970);
-    	stage.setHeight(550);
+    	stage.setHeight(750);
     	stage.setMinWidth(900);
     	stage.setMinHeight(750);
     	stage.show();
@@ -222,6 +221,16 @@ public class SceneHandler {
 		gestioneProdottiAdminPane.prefHeightProperty().bind(stackPaneHome.heightProperty().multiply(1));
 		stackPaneHome.getChildren().add(gestioneProdottiAdminPane);
 		gestioneProdottiAdminController.riempiCombo();
+	}
+	
+	public void setChangePassword(StackPane stackPaneHome){
+		//resetPage(stackPaneHome);
+		//changePasswordPage.prefWidthProperty().bind(Bindings.add(-5, stackPaneHome.widthProperty()));
+		//changePasswordPage.prefHeightProperty().bind(Bindings.add(-5,stackPaneHome.heightProperty()));
+		if(stackPaneHome.getChildren().contains(changePasswordPage)) {
+			stackPaneHome.getChildren().remove(changePasswordPage);
+		}	
+		stackPaneHome.getChildren().add(changePasswordPage);
 	}
 	
 	public void getPaneAndamentoProdotto(String nome) {

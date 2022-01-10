@@ -109,7 +109,7 @@ public class LoginController {
     	labelPassword.setVisible(false);
     }
     
-    public boolean risposte(String resUsername, String resPassword) {
+    private boolean risposte(String resUsername, String resPassword) {
     	boolean risposta = true;
     	
     	if(!resUsername.equals(Rules.USERNAME_OK)) {

@@ -15,9 +15,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: #DEDEDE;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
+<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: rgb(240,240,240);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
    <children>
-      <Label prefHeight="28.0" prefWidth="538.0" text="Aggiungi un prodotto" textFill="WHITE" VBox.vgrow="ALWAYS">
+      <Label prefHeight="28.0" prefWidth="538.0" text="Aggiungi un prodotto" VBox.vgrow="ALWAYS">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
@@ -30,7 +30,7 @@
             <Insets left="100.0" right="100.0" />
          </VBox.margin>
       </TextField>
-      <TextArea fx:id="descrizioneTextArea" mouseTransparent="true" prefHeight="90.0" promptText="Descrizione" wrapText="true" VBox.vgrow="ALWAYS">
+      <TextArea fx:id="descrizioneTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Descrizione">
          <VBox.margin>
             <Insets left="100.0" right="100.0" />
          </VBox.margin>
@@ -65,7 +65,7 @@
                </image>
             </ImageView>
             <Pane prefHeight="110.0" prefWidth="231.0" HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnScegliImage" mnemonicParsing="false" onAction="#clickScegliImmagine" prefHeight="31.0" prefWidth="192.0" text="Scegli immagine">
+            <Button fx:id="btnScegliImage" mnemonicParsing="false" onAction="#clickScegliImmagine" prefHeight="31.0" prefWidth="215.0" text="Scegli immagine">
                <HBox.margin>
                   <Insets top="30.0" />
                </HBox.margin>

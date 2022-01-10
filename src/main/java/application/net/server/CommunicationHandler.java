@@ -230,6 +230,13 @@ public class CommunicationHandler implements Runnable {
 					String rispostaDB = DatabaseHandler.getInstance().addQuantityProduct(nomeProdotto, quantita);
 					
 					sendMessage(rispostaDB);
+				} else if(input.equals(Protocol.UPDATE_PASSWORD)) {
+					String oldPassword = (String) in.readObject();
+					String newPassword = (String) in.readObject();
+					
+					String rispostaDB = DatabaseHandler.getInstance().updatePassword(oldPassword, newPassword, usernameLoggato);
+					
+					sendMessage(rispostaDB);
 				} else if (input.equals(Protocol.EXIT)) {
 					System.out.println(usernameLoggato + " si è scollegato");
 					disconnect();

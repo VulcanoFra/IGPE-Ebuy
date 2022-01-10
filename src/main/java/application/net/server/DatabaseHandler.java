@@ -570,4 +570,40 @@ public class DatabaseHandler {
 			return Protocol.ERROR_DB;
 		}
 	}
+
+	public synchronized String updatePassword(String oldPassword, String newPassword, String username) {
+		System.out.println(oldPassword + newPassword + username);
+		try {
+			if(con == null || con.isClosed()) 
+				return Protocol.ERROR_DB;
+			
+			String query = "SELECT * FROM utente WHERE username=?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, username);
+			
+			ResultSet rs = pr.executeQuery();
+			
+			if(rs.next()) {
+				String pw = rs.getString("password");
+				System.out.println(pw);
+				if(!BCrypt.checkpw(oldPassword, pw)){
+					return Protocol.OLD_PASSWORD_ERROR;
+				} else{
+					String hashpw = BCrypt.hashpw(newPassword, BCrypt.gensalt(12));
+					String update = "UPDATE utente SET password=? WHERE username=?";
+					PreparedStatement pr2 = con.prepareStatement(update);
+					pr2.setString(1, hashpw);
+					pr2.setString(2, username);
+					
+					pr2.executeUpdate();
+					
+					return Protocol.OK;
+				}
+			} else {
+				return Protocol.USER_NOT_EXISTS;
+			}
+		} catch(SQLException e) {
+			return Protocol.ERROR_DB;
+		}
+	}
 }

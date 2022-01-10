@@ -319,6 +319,20 @@ public class Client implements Runnable{
 		}
 		return false;
 	}
+
+	public String updatePassword(String oldPassword, String newPassword) {
+		sendMessageString(Protocol.UPDATE_PASSWORD);
+		sendMessageString(oldPassword);
+		sendMessageString(newPassword);
+		
+		String risposta = null;
+		try {
+			risposta = (String) in.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+		return risposta;
+	}
 }
 	
 	
