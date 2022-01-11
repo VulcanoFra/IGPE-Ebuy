@@ -60,14 +60,20 @@
 	-fx-prompt-text-fill: rgba(255,255,255,0.7);
 }
 
-/*#lblMenu:hover{
-	-fx-border-color: white;
+#comboBoxCategoria{
+	-fx-border-radius: 30px;
+	-fx-background-radius: 30px;
+	-fx-background-color: rgba(255,255,255,0.2);
 }
 
-#lblMenuClose:hover{
-	-fx-border-color: white;
+#comboBoxCategoria .text{
+	-fx-fill: white;
 }
-*/
+
+#comboBoxCategoria .list-view .list-cell{
+	-fx-background-color: grey;
+}
+
 .separator > .line{
 	-fx-background-color: rgba(255,255,255,0.9);
 }

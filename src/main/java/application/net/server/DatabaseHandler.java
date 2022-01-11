@@ -535,10 +535,8 @@ public class DatabaseHandler {
 			ResultSet rs = pr.executeQuery();
 			
 			ArrayList<DatiAndamentoProdotto> dati = new ArrayList<DatiAndamentoProdotto>();
-			System.out.println("primala rs");
 			
 			while(rs.next()) {
-				System.out.println("dentro la rs");
 				DatiAndamentoProdotto d = new DatiAndamentoProdotto();
 				d.setData(rs.getString("data"));
 				d.setQuantit‡Venduta(rs.getInt("quantita"));
@@ -572,7 +570,6 @@ public class DatabaseHandler {
 	}
 
 	public synchronized String updatePassword(String oldPassword, String newPassword, String username) {
-		System.out.println(oldPassword + newPassword + username);
 		try {
 			if(con == null || con.isClosed()) 
 				return Protocol.ERROR_DB;
@@ -585,7 +582,6 @@ public class DatabaseHandler {
 			
 			if(rs.next()) {
 				String pw = rs.getString("password");
-				System.out.println(pw);
 				if(!BCrypt.checkpw(oldPassword, pw)){
 					return Protocol.OLD_PASSWORD_ERROR;
 				} else{

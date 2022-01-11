@@ -74,15 +74,7 @@ public class HomePageController {
     	borderPaneHome.getStylesheets().add(getClass().getResource("/application/css/homePage.css").toExternalForm());
     	btnProfilo.getStyleClass().add("Profilo");
     	imgLogo.setImage(new Image(getClass().getResourceAsStream("/application/image/logoBasso.png"),180 ,60 ,true,true));
-    	borderPaneHome.setCenter(StackPaneHome.getInstance());
-    	/*btnInfo.getStyleClass().add("buttonLeft");
-    	btnContatti.getStyleClass().add("buttonLeft");
-    	btnProfilo.getStyleClass().add("buttonLeft");
-    	btnDashboard.getStyleClass().add("buttonLeft");
-    	
-    	btnProdotti.getStyleClass().add("buttonTop");*/
-    	
-    	
+    	borderPaneHome.setCenter(StackPaneHome.getInstance());	
     }
     
     public String getRicerca() {
@@ -150,11 +142,7 @@ public class HomePageController {
     
     @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
-    	//if(AllProductController.sizeLista() > 0)
-    		SceneHandler.getInstance().setProductInHome("");
-    	//else {
-    		/*..............*/
-    	//}
+    	SceneHandler.getInstance().setProductInHome("");
     }
     
     @FXML
@@ -204,6 +192,7 @@ public class HomePageController {
     	for(String i : categorie) {
     		comboBoxCategoria.getItems().add(i);
     	}
+    	comboBoxCategoria.setPromptText("Categoria");
 	}
 
 	public void pulisciCombo() {

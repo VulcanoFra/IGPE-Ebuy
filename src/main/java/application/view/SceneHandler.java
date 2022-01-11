@@ -144,14 +144,13 @@ public class SceneHandler {
 
 	public void setProductInHome(String parametro) {
 		
-		StackPaneHome.getInstance().prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
 		if(StackPaneHome.getInstance().getChildren().contains(productPane)) {
 			StackPaneHome.getInstance().getChildren().remove(productPane);
 		}
 		StackPaneHome.getInstance().getChildren().add(productPane);
 
 		try {
-			prdContrl.setProdottiPane(parametro);		//NON MI PIACE FAR COSì
+			prdContrl.setProdottiPane(parametro);	
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("NON POSSO CARICARE PRODOTTI");
@@ -239,6 +238,7 @@ public class SceneHandler {
 			BorderPane pane = (BorderPane) loader.load();
 			
 			AndamentoProdottoController controller = loader.getController();
+			controller.setNomeProdotto(nome);
 			controller.setEvent();
 			Stage stage = new Stage();
 			Scene s = new Scene(pane);

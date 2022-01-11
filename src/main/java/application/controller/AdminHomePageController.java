@@ -5,7 +5,6 @@ import java.util.Optional;
 import application.net.client.Client;
 import application.net.common.Protocol;
 import application.view.SceneHandler;
-import application.view.StackPaneHome;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
