@@ -240,14 +240,12 @@ public class CommunicationHandler implements Runnable {
 				} else if (input.equals(Protocol.EXIT)) {
 					System.out.println(usernameLoggato + " si è scollegato");
 					disconnect();
-					closeStreams();
 					loggato = false;
 					return;
 				} else {
 					// sendMessage(Protocol.ERROR);
 					System.out.println("[SERVER] Errore e chiudo stream");
 					disconnect();
-					closeStreams();
 					loggato = false;
 					return;
 				}

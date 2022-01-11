@@ -91,7 +91,7 @@ public class SceneHandler {
 	}
 	
 	public void setLoginScene() throws Exception {
-		if(scena.getRoot() == homePage) {
+		if(scena.getRoot() == homePage || scena.getRoot() == adminHomePage) {
 			stage.hide();
 		}
 		scena.setRoot(loginPage);
@@ -134,6 +134,23 @@ public class SceneHandler {
     	stage.show();
 	}
 	
+	public void setAdminPage() {
+		Thread t = new Thread(Client.getInstance());
+    	t.setDaemon(true);
+    	t.start();
+    	
+		if(scena.getRoot() == loginPage)
+			stage.hide();
+		
+		stage.hide();
+		scena.setRoot(adminHomePage);
+    	//stage.setResizable(false);
+    	stage.setWidth(970);
+    	stage.setHeight(750);
+    	stage.setMinWidth(900);
+    	stage.setMinHeight(750);
+    	stage.show();
+	}
 
 	public void setDashboardInHome() {
 		if(StackPaneHome.getInstance().getChildren().contains(dashboard)) {
@@ -193,20 +210,6 @@ public class SceneHandler {
 		stackPaneHome.getChildren().add(cartPane);
 		
 		
-	}
-	
-	public void setAdminPage() {
-		if(scena.getRoot() == loginPage)
-			stage.hide();
-		
-		stage.hide();
-		scena.setRoot(adminHomePage);
-    	//stage.setResizable(false);
-    	stage.setWidth(970);
-    	stage.setHeight(750);
-    	stage.setMinWidth(900);
-    	stage.setMinHeight(750);
-    	stage.show();
 	}
 	
 	public void setGestioneProdottiAdmin(StackPane stackPaneHome) {
