@@ -10,7 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 public class ChangePasswordController {
 
@@ -19,9 +18,6 @@ public class ChangePasswordController {
 	
     @FXML
     private PasswordField lblNewPassword;
-
-    @FXML
-    private VBox vBox;
     
     @FXML
     private PasswordField lblOldPassword;
@@ -37,7 +33,7 @@ public class ChangePasswordController {
     
     @FXML
     void initialize() {
-    	vBox.getStylesheets().add(getClass().getResource("/application/css/pageAdminProduct.css").toExternalForm());
+    	anchorPane.getStylesheets().add(getClass().getResource("/application/css/changePassword.css").toExternalForm());
     	lblErrorNewPassword.setVisible(false);
     	lblErrorOldPassword.setVisible(false);
     }
@@ -50,6 +46,8 @@ public class ChangePasswordController {
     		if(!lblErrorOldPassword.isVisible())
     			lblErrorOldPassword.setVisible(true);
     		lblErrorOldPassword.setText(resOld);
+    	} else {
+    		lblErrorOldPassword.setVisible(false);
     	}
     	
     	if(!resNew.equals(Rules.PASSWORD_OK)) {
@@ -57,6 +55,8 @@ public class ChangePasswordController {
     		if(!lblErrorNewPassword.isVisible())
     			lblErrorNewPassword.setVisible(true);
     		lblErrorNewPassword.setText(resNew);
+    	} else {
+    		lblErrorNewPassword.setVisible(false);
     	}
     	
     	return ok;

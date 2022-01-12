@@ -91,9 +91,9 @@ public class SceneHandler {
 	}
 	
 	public void setLoginScene() throws Exception {
-		if(scena.getRoot() == homePage || scena.getRoot() == adminHomePage) {
+		//if(scena.getRoot() == homePage || scena.getRoot() == adminHomePage) {
 			stage.hide();
-		}
+		//}
 		scena.setRoot(loginPage);
     	//stage.setResizable(false);
     	stage.setWidth(700);
@@ -201,14 +201,9 @@ public class SceneHandler {
 			setProductInHome("");
 			return;
 		}
-			
-		//stackPaneHome.prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
-		//stackPaneHome.prefHeightProperty().bind(homePage.heightProperty());
 		if(stackPaneHome.getChildren().contains(cartPane))
 			stackPaneHome.getChildren().remove(cartPane);
-		//cartController.setProdottiInCart();
 		stackPaneHome.getChildren().add(cartPane);
-		
 		
 	}
 	
@@ -226,9 +221,6 @@ public class SceneHandler {
 	}
 	
 	public void setChangePassword(StackPane stackPaneHome){
-		//resetPage(stackPaneHome);
-		//changePasswordPage.prefWidthProperty().bind(Bindings.add(-5, stackPaneHome.widthProperty()));
-		//changePasswordPage.prefHeightProperty().bind(Bindings.add(-5,stackPaneHome.heightProperty()));
 		if(stackPaneHome.getChildren().contains(changePasswordPage)) {
 			stackPaneHome.getChildren().remove(changePasswordPage);
 		}	

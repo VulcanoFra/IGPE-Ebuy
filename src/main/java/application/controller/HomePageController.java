@@ -148,6 +148,8 @@ public class HomePageController {
     @FXML
     void clickExit(ActionEvent event) {
     	pulisciCombo();
+    	ricercaField.setText("");
+    	SceneHandler.getInstance();
     	Client.getInstance().exit();
     	try {		
 			SceneHandler.getInstance().resetPage(StackPaneHome.getInstance());
@@ -196,6 +198,8 @@ public class HomePageController {
 	}
 
 	public void pulisciCombo() {
+		comboBoxCategoria.getSelectionModel().clearSelection();
 		comboBoxCategoria.getItems().clear();
 	}
+
 }
