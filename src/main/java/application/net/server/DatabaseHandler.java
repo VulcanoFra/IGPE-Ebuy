@@ -116,7 +116,7 @@ public class DatabaseHandler {
 		if(con == null || p == null || con.isClosed()) 
 			return false;
 		
-		String query = "INSERT INTO prodotto VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO prodotto VALUES (?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement prep = con.prepareStatement(query);
 		prep.setString(1, p.getNomeProdotto());
 		prep.setDouble(2, p.getPrezzoGenerico());
@@ -128,6 +128,7 @@ public class DatabaseHandler {
 
 		prep.setString(5, p.getCategoria());
 		prep.setString(6, p.getDescrizione());
+		prep.setDouble(7, p.getPrezzoAttuale());
 		
 		prep.executeUpdate();
 		prep.close();
@@ -163,7 +164,7 @@ public class DatabaseHandler {
 			
 			while(res.next()) {
 				try {
-					Product prod = new Product(res.getString("nome"), res.getDouble("prezzo_generico"), 
+					Product prod = new Product(res.getString("nome"), res.getDouble("prezzo_generico"), res.getDouble("prezzo_attuale"),
 							res.getInt("quantita_disponibile"), res.getBytes("immagine"), res.getString("categoria"), res.getString("descrizione"));
 					prodotti.add(prod);
 				} catch (SQLException e) {
@@ -195,7 +196,7 @@ public class DatabaseHandler {
 			
 			while(rs.next()) {
 				try {
-					Product prod = new Product(rs.getString("nome"), rs.getDouble("prezzo_generico"), 
+					Product prod = new Product(rs.getString("nome"), rs.getDouble("prezzo_generico"), rs.getDouble("prezzo_attuale"),
 							rs.getInt("quantita_disponibile"), rs.getBytes("immagine"), rs.getString("categoria"), rs.getString("descrizione"));
 					prodotti.add(prod);
 				} catch (SQLException e) {
@@ -337,12 +338,13 @@ public class DatabaseHandler {
 			
 			while(rs.next()) {
 				String nomeP = rs.getString("nome");
-				double prezzo = rs.getDouble("prezzo_generico");
+				double prezzoGenerico = rs.getDouble("prezzo_generico");
+				double prezzoAttuale = rs.getDouble("prezzo_Attuale");
 				byte img[] = rs.getBytes("immagine");
 				String descrizione = rs.getString("descrizione");
 				int quantita = rs.getInt("quantita");
 				
-				ProductInCart product = new ProductInCart(nomeP, prezzo, img, descrizione, quantita);
+				ProductInCart product = new ProductInCart(nomeP, prezzoGenerico, prezzoAttuale, img, descrizione, quantita);
 				prodotti.add(product);
 			}
 
@@ -600,6 +602,41 @@ public class DatabaseHandler {
 			}
 		} catch(SQLException e) {
 			return Protocol.ERROR_DB;
+		}
+	}
+
+	public synchronized void checkQuantityAndSetDiscount() {
+		try {
+			if(con == null || con.isClosed()) 
+				return;
+			String query = "SELECT * FROM prodotto";
+			Statement st = con.createStatement();
+		
+			ResultSet rs = st.executeQuery(query);
+			
+			while(rs.next()) {
+				int quantita = rs.getInt("quantita_disponibile");
+				double prezzoGenerico = rs.getDouble("prezzo_generico");
+				String nome = rs.getString("nome");
+				
+				String up1 = "UPDATE prodotto SET prezzo_attuale=? WHERE nome=?;";
+				PreparedStatement pr1 = con.prepareStatement(up1);
+				pr1.setString(2, nome);
+				
+				if(quantita <= 100) {
+					pr1.setDouble(1, prezzoGenerico);
+				} else if(quantita > 100 && quantita <= 199) {
+					pr1.setDouble(1, prezzoGenerico * 0.90);
+				} else if(quantita > 200 && quantita <= 499) {
+					pr1.setDouble(1, prezzoGenerico * 0.75);
+				} else {
+					pr1.setDouble(1, prezzoGenerico * 0.50);
+				}
+				pr1.executeUpdate();
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

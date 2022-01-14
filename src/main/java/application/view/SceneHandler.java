@@ -7,6 +7,7 @@ import application.controller.AndamentoProdottoController;
 import application.controller.CartController;
 import application.controller.GestioneProdottiAdminController;
 import application.controller.HomePageController;
+import application.controller.ProductDetailsController;
 import application.net.client.Client;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -235,6 +236,27 @@ public class SceneHandler {
 			AndamentoProdottoController controller = loader.getController();
 			controller.setNomeProdotto(nome);
 			controller.setEvent();
+			Stage stage = new Stage();
+			Scene s = new Scene(pane);
+			stage.setScene(s);
+			
+			stage.showAndWait();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void getPaneDetailsProduct(String nome, String descrizione, String prezzo, Image img) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/productDetails.fxml"));
+			AnchorPane pane = (AnchorPane) loader.load();
+			
+			ProductDetailsController controller = loader.getController();
+			controller.setData(nome, descrizione, prezzo, img);
+			
 			Stage stage = new Stage();
 			Scene s = new Scene(pane);
 			stage.setScene(s);

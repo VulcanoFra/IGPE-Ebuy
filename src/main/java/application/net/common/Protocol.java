@@ -49,6 +49,8 @@ public class Protocol {
 
 	public final static String GET_ALL_CATEGORIES = "Restituisci tutte le categorie";
 	
+	public final static String CHECK_AND_DISCOUNT = "Controlla la quantità e imposta sconto";
+	
 	public final static String UPDATE_PASSWORD = "Cambia password";
 	public final static String OLD_PASSWORD_ERROR = "Attenzione! La password inserita non corrisponde a quella dell'utente";
 	

@@ -70,13 +70,18 @@ public class Client implements Runnable{
 		try {
 			while(out != null && in != null && isLogged) {
 				
+				checkQuantityAndSetDiscount();
+				
 				Thread.sleep(10000);	
 			}
 		} catch(InterruptedException e) {
-			
+			System.out.println("errore thread client");
 		}	
 	}
 	
+	public void checkQuantityAndSetDiscount() {
+		sendMessageString(Protocol.CHECK_AND_DISCOUNT);
+	}
 	
 	public String login(String username, String password) {		
 		sendMessageString(Protocol.LOGIN);

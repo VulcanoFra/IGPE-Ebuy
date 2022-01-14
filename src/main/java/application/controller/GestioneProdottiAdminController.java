@@ -130,7 +130,16 @@ public class GestioneProdottiAdminController {
     	}
     	
     	try {
-    		Product p = new Product( nomeField.getText(), Double.parseDouble(prezzoField.getText()), Integer.parseInt(quantitaField.getText()), 
+    		int quantita = Integer.parseInt(quantitaField.getText());
+    		double prezzoGenerico =  Double.parseDouble(prezzoField.getText());
+    		double prezzoAttuale;
+    		
+    		if(quantita > 100)
+    			prezzoAttuale = prezzoGenerico * 0.90;
+    		else
+    			prezzoAttuale = prezzoGenerico;
+    		
+    		Product p = new Product( nomeField.getText(), prezzoGenerico, prezzoAttuale, quantita, 
     				imgCurrentProduct, comboBoxCategoria.getValue(), descrizioneTextArea.getText());
     		
     		String res = Client.getInstance().addProduct(p);

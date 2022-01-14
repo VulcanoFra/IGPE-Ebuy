@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -33,6 +34,12 @@
             <Insets left="15.0" />
          </padding>
       </Label>
-      <Button fx:id="addCartBtn" mnemonicParsing="false" onAction="#clickAddCart" text="Aggiungi al carrello" />
+      <Button fx:id="addCartBtn" mnemonicParsing="false" onAction="#clickAddCart" text="Aggiungi al carrello">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
 </VBox>

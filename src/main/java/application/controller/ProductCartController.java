@@ -49,7 +49,15 @@ public class ProductCartController {
     
     public void setData(ProductInCart p) {
     	lblNomeProdotto.setText(p.getNomeProdotto());
-    	lblPrezzo.setText(p.getPrezzoGenerico() + "$");
+    	
+    	if(p.getPrezzoGenerico() == p.getPrezzoAttuale()) {
+    		lblPrezzo.setText(p.getPrezzoGenerico() + "$");
+    		lblPrezzo.setStyle("-fx-text-fill: white;");
+    	} else {
+    		lblPrezzo.setText(p.getPrezzoAttuale() + "$");
+    		lblPrezzo.setStyle("-fx-text-fill: linear-gradient(to bottom, #ec9f05, #ff4e00);");
+    	}
+    	
     	if(p.getImgProdotto() != null) {
     		imgProduct.setImage(new Image(new ByteArrayInputStream(p.getImgProdotto())));
     	}

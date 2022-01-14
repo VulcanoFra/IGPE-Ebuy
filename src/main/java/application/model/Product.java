@@ -12,17 +12,20 @@ public class Product implements Serializable {
 	private String descrizione;
 	private int quantita;
 	private String categoria;
+	private double prezzoAttuale;
 	
-	public Product(String nome, double prezzo, byte[] img, String descrizione) {
+	public Product(String nome, double prezzoGenerico, double prezzoAttuale, byte[] img, String descrizione) {
 		this.nomeProdotto = nome;
-		this.prezzoGenerico = prezzo;
+		this.prezzoGenerico = prezzoGenerico;
+		this.prezzoAttuale = prezzoAttuale;
 		this.imgProdotto = img;
 		this.descrizione = descrizione;
 	}
 	
-	public Product(String nome, double prezzo, int quantita, byte[] img, String categoria, String descrizione){
+	public Product(String nome, double prezzo, double prezzoA, int quantita, byte[] img, String categoria, String descrizione){
 		this.nomeProdotto = nome;
 		this.prezzoGenerico = prezzo;
+		this.prezzoAttuale = prezzoA;
 		this.quantita = quantita;
 		this.imgProdotto = img;
 		this.categoria = categoria;
@@ -47,6 +50,14 @@ public class Product implements Serializable {
 	
 	public String getCategoria() {
 		return categoria;
+	}
+	
+	public double getPrezzoAttuale() {
+		return prezzoAttuale;
+	}
+	
+	public void setPrezzoGenerico(double prezzoGenerico) {
+		this.prezzoGenerico = prezzoGenerico;
 	}
 	
 	public String getDescrizione() {

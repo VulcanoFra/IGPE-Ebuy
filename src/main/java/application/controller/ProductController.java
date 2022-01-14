@@ -30,13 +30,24 @@ public class ProductController {
     @FXML
     private Button addCartBtn;
     
+    private String descrizione;
+    
     public void setData(Product p) {  	
-    	labelPrezzo.setText(p.getPrezzoGenerico()+" $");
+    	if(p.getPrezzoAttuale() == p.getPrezzoGenerico()) {
+        	labelPrezzo.setText(p.getPrezzoGenerico()+" $");
+        	labelPrezzo.setStyle("-fx-text-fill: white;");
+    	} else {
+        	labelPrezzo.setText(p.getPrezzoAttuale()+" $");
+        	labelPrezzo.setStyle("-fx-text-fill: linear-gradient(to bottom, #ec9f05, #ff4e00);");
+    	}
+    	
     	labelNomeProdotto.setText(p.getNomeProdotto());
     	if(p.getImgProdotto() != null)
     		imgProduct.setImage(new Image(new ByteArrayInputStream(p.getImgProdotto()), 160, 160, false, false)); 
     	else 
     		imgProduct.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png")));
+    	
+    	descrizione = p.getDescrizione();
     }
     
     @FXML
@@ -46,7 +57,7 @@ public class ProductController {
     
     @FXML
     void clickOnProdotto(MouseEvent event) {
-    	SceneHandler.getInstance().getPaneAndamentoProdotto(labelNomeProdotto.getText());
+    	SceneHandler.getInstance().getPaneDetailsProduct(labelNomeProdotto.getText(), descrizione, labelPrezzo.getText(), imgProduct.getImage());
     }
 
     @FXML

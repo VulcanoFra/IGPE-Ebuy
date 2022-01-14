@@ -230,6 +230,8 @@ public class CommunicationHandler implements Runnable {
 					String rispostaDB = DatabaseHandler.getInstance().addQuantityProduct(nomeProdotto, quantita);
 					
 					sendMessage(rispostaDB);
+				} else if(input.equals(Protocol.CHECK_AND_DISCOUNT)) {
+					DatabaseHandler.getInstance().checkQuantityAndSetDiscount();
 				} else if(input.equals(Protocol.UPDATE_PASSWORD)) {
 					String oldPassword = (String) in.readObject();
 					String newPassword = (String) in.readObject();
