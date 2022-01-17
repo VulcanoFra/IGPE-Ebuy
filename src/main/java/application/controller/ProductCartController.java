@@ -1,6 +1,7 @@
 package application.controller;
 
 import java.io.ByteArrayInputStream;
+import java.text.DecimalFormat;
 import java.util.Optional;
 
 import application.model.ProductInCart;
@@ -22,9 +23,6 @@ public class ProductCartController {
 
     @FXML
     private ImageView imgProduct;
-
-    @FXML
-    private Label descrizione;
     
     @FXML
     private Button btnDiminuisciQuantità;
@@ -54,7 +52,7 @@ public class ProductCartController {
     		lblPrezzo.setText(p.getPrezzoGenerico() + "$");
     		lblPrezzo.setStyle("-fx-text-fill: white;");
     	} else {
-    		lblPrezzo.setText(p.getPrezzoAttuale() + "$");
+    		lblPrezzo.setText(new DecimalFormat("##.##").format(p.getPrezzoAttuale()) + " $");
     		lblPrezzo.setStyle("-fx-text-fill: linear-gradient(to bottom, #ec9f05, #ff4e00);");
     	}
     	
@@ -65,7 +63,6 @@ public class ProductCartController {
     		imgProduct.setImage(new Image(getClass().getResourceAsStream("/application/image/noImageProduct.png")));
     	}
     	quantità.setText(p.getQuantitaNelCarrello()+"");
-    	descrizione.setText(p.getDescrizione());
     }
     
     @FXML

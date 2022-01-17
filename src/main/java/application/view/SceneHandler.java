@@ -1,6 +1,7 @@
 package application.view;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import application.controller.AllProductController;
 import application.controller.AndamentoProdottoController;
@@ -13,7 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -30,7 +31,7 @@ public class SceneHandler {
 	private AnchorPane registerPage;
 	private AnchorPane loginPage;
 	private AnchorPane productPane;
-	private AnchorPane cartPane;
+	private BorderPane cartPane;
 	private BorderPane adminHomePage;
 	private AllProductController prdContrl;
 	private CartController cartController;
@@ -62,7 +63,7 @@ public class SceneHandler {
 		productPane = (AnchorPane) loader.load();
 		prdContrl = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/cart.fxml"));
-		cartPane = (AnchorPane) loader.load();
+		cartPane = (BorderPane) loader.load();
 		cartController = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/adminHomePage.fxml"));
 		adminHomePage = (BorderPane) loader.load();
@@ -124,7 +125,7 @@ public class SceneHandler {
 			stage.hide();
 		stage.hide();
 		scena.setRoot(homePage);
-		setDashboardInHome();
+		setProductInHome("");
 		controllerHomePage.riempiCombo();
 		//StackPaneHome.getInstance().getChildren().add(dashboard);
     	//stage.setResizable(false);
@@ -228,6 +229,12 @@ public class SceneHandler {
 		stackPaneHome.getChildren().add(changePasswordPage);
 	}
 	
+	public void setAggiungiAdminPage(StackPane stackPaneAdminHome) {
+		//if(stackPaneAdminHome.getChildren().contains(stackPaneAdminHome))
+			//TODO LO FAI?
+		
+	}
+	
 	public void getPaneAndamentoProdotto(String nome) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/andamentoProdotto.fxml"));
@@ -298,12 +305,15 @@ public class SceneHandler {
 		alert.show();
     }
 
-	public String showInput() {
-		TextInputDialog dialog = new TextInputDialog();
-		dialog.setHeaderText("Inserisci il numero della carta di credito");
+	public boolean showConfirm() {
+		Alert dialog = new Alert(AlertType.CONFIRMATION);
+		dialog.setHeaderText("Sei sicuro di voler processare l'ordine?");
 		
-		dialog.showAndWait();
+		Optional<ButtonType> opt = dialog.showAndWait();
 		
-		return dialog.getEditor().getText();
+		if(opt.get() == ButtonType.OK)
+			return true;
+		
+		return false;
 	}
 }

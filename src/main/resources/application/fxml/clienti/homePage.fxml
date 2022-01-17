@@ -26,22 +26,20 @@
                <graphic>
                   <FontAwesomeIcon glyphName="BOOK" size="1.5em" />
                </graphic></Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="170.0" text="Button" />
             <Separator prefHeight="3.0" prefWidth="40.0">
                <VBox.margin>
                   <Insets bottom="25.0" right="20.0" top="20.0" />
                </VBox.margin>
             </Separator>
-            <Button fx:id="btnInfo" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="33.0" prefWidth="170.0" text="Info" textFill="#221212">
-               <graphic>
-                  <FontAwesomeIcon glyphName="INFO" size="1.5em" />
-               </graphic></Button>
             <Button fx:id="downloadProductBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickDownloadProductPDF" prefWidth="170.0" text="Scarica PDF inventario">
                <graphic>
                   <FontAwesomeIcon glyphName="FILE" size="1.5em" />
                </graphic>
             </Button>
-            <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="170.0" text="Button" />
+            <Button fx:id="btnInfo" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="33.0" prefWidth="170.0" text="Info" textFill="#221212">
+               <graphic>
+                  <FontAwesomeIcon glyphName="INFO" size="1.5em" />
+               </graphic></Button>
             <Button fx:id="btnContatti" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="31.0" prefWidth="170.0" text="Contattaci" textFill="#221212">
                <graphic>
                   <FontAwesomeIcon glyphName="PHONE" size="1.5em" />

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
@@ -149,7 +148,7 @@ public class DatabaseHandler {
 		
 	}
 	
-	public synchronized Vector<Product> listaProdotti(String parametro){
+	public synchronized ArrayList<Product> listaProdotti(String parametro){
 		try {
 			if(con == null || con.isClosed()) 
 				return null;
@@ -160,7 +159,7 @@ public class DatabaseHandler {
 
 			ResultSet res = p.executeQuery();
 			
-			Vector<Product> prodotti = new Vector<Product>();
+			ArrayList<Product> prodotti = new ArrayList<Product>();
 			
 			while(res.next()) {
 				try {
@@ -181,7 +180,7 @@ public class DatabaseHandler {
 		
 	}
 	
-	public synchronized Vector<Product> getProductsByCategory(String categoria) {
+	public synchronized ArrayList<Product> getProductsByCategory(String categoria) {
 		try {
 			if(con == null || con.isClosed()) 
 				return null;
@@ -190,7 +189,7 @@ public class DatabaseHandler {
 			PreparedStatement pr = con.prepareStatement(query);
 			pr.setString(1, categoria);
 			
-			Vector<Product> prodotti = new Vector<Product>();
+			ArrayList<Product> prodotti = new ArrayList<Product>();
 			
 			ResultSet rs = pr.executeQuery();
 			
@@ -320,12 +319,12 @@ public class DatabaseHandler {
 	}
 	
 	//OK
-	public synchronized Vector<ProductInCart> getProductInCart(String username) {
+	public synchronized ArrayList<ProductInCart> getProductInCart(String username) {
 		try {
 			if(con == null || con.isClosed()) 
 				return null;
 			
-			Vector<ProductInCart> prodotti = new Vector<ProductInCart>();
+			ArrayList<ProductInCart> prodotti = new ArrayList<ProductInCart>();
 			
 			int id = getIdCartUser(username);
 			
@@ -623,15 +622,21 @@ public class DatabaseHandler {
 				PreparedStatement pr1 = con.prepareStatement(up1);
 				pr1.setString(2, nome);
 				
+				Double prezzo = null;
 				if(quantita <= 100) {
-					pr1.setDouble(1, prezzoGenerico);
+					prezzo = prezzoGenerico;
 				} else if(quantita > 100 && quantita <= 199) {
-					pr1.setDouble(1, prezzoGenerico * 0.90);
+					prezzo = prezzoGenerico * 0.90;
 				} else if(quantita > 200 && quantita <= 499) {
-					pr1.setDouble(1, prezzoGenerico * 0.75);
+					prezzo = prezzoGenerico * 0.75;
 				} else {
-					pr1.setDouble(1, prezzoGenerico * 0.50);
+					prezzo = prezzoGenerico * 0.50;
 				}
+				
+			/*	DecimalFormat dfZero = new DecimalFormat("0.00");
+				double p = Double.parseDouble(dfZero.format(prezzo));*/
+				
+				pr1.setDouble(1, prezzo);
 				pr1.executeUpdate();
 			}
 			

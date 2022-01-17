@@ -9,30 +9,39 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchorPaneCart" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CartController">
-   <children>
-      <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane fx:id="borderPaneCart" prefHeight="629.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.CartController">
+   <center>
+      <HBox style="-fx-background-color: white;">
          <children>
-            <ScrollPane fx:id="scrollPane" pannable="true" prefHeight="574.0" prefWidth="730.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+            <Pane HBox.hgrow="ALWAYS" />
+            <ScrollPane fx:id="scrollPane" pannable="true" prefHeight="630.0" prefWidth="687.0" style="-fx-background-color: transparent;" BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
                <content>
-                  <GridPane fx:id="gridPaneCart" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: red;" vgap="10.0">
+                  <GridPane fx:id="gridPaneCart" hgap="5.0" style="-fx-background-color: transparent;" vgap="10.0">
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
                </content>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
             </ScrollPane>
-            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="730.0">
-               <children>
-                  <Pane prefHeight="38.0" prefWidth="290.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnProcediAllOrdine" alignment="CENTER" mnemonicParsing="false" onAction="#clickProcediBtn" prefHeight="31.0" prefWidth="150.0" text="Procedi all'ordine" HBox.hgrow="ALWAYS" />
-                  <Pane prefHeight="38.0" prefWidth="290.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
+            <Pane HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </center>
+   <right>
+      <VBox prefHeight="630.0" prefWidth="244.0" style="-fx-background-color: E2DBE2;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblRiepilogo" alignment="CENTER" prefHeight="205.0" prefWidth="228.0" text="Ghidsjfjdsfdf" wrapText="true" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="150.0" />
+               </VBox.margin></Label>
+            <Button fx:id="btnProcediAllOrdine" alignment="CENTER" mnemonicParsing="false" onAction="#clickProcediBtn" prefHeight="31.0" prefWidth="180.0" text="Procedi all'ordine">
+               <VBox.margin>
+                  <Insets left="35.0" top="10.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
-   </children>
-</AnchorPane>
+   </right>
+</BorderPane>

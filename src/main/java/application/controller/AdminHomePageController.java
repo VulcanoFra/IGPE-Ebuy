@@ -35,7 +35,7 @@ public class AdminHomePageController {
     private StackPane stackPaneAdminHome;
     
     @FXML
-    private Button bntGestisciProdotti;
+    private Button bntAggiungiProdotto;
 
     @FXML
     private MenuItem btnChangePassword;
@@ -50,13 +50,16 @@ public class AdminHomePageController {
     private MenuButton btnProfilo;
 
     @FXML
+    private Button btnAggiungiAdmin;
+    
+    @FXML
     void initialize() {
     	borderPaneHomeAdmin.getStylesheets().add(getClass().getResource("/application/css/homePage.css").toExternalForm());
     	btnProfilo.getStyleClass().add("Profilo");
     }
     
     @FXML
-    void clickGestisciProdotti(ActionEvent event) {
+    void clickAggiungiProdotto(ActionEvent event) {
     	SceneHandler.getInstance().setGestioneProdottiAdmin(stackPaneAdminHome);
     }
     
@@ -140,6 +143,11 @@ public class AdminHomePageController {
     void clickChangePassword(ActionEvent event) {
     	SceneHandler.getInstance().setChangePassword(stackPaneAdminHome);
 
+    }
+    
+    @FXML
+    void clickAggiungiAdmin(ActionEvent event) {
+    	SceneHandler.getInstance().setAggiungiAdminPage(stackPaneAdminHome);
     }
 }
 

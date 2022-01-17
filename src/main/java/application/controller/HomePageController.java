@@ -166,12 +166,9 @@ public class HomePageController {
     
     @FXML
     void clickDownloadProductPDF(ActionEvent event) {
-    	try {
+
 			PdfGenerator.getInstance().pdfs();
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			SceneHandler.getInstance().showError("Non è stato possibile scaricale il catalogo, riprova più tardi");
-		}
+		
     }
     
     @FXML

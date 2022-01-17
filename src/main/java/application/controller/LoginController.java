@@ -72,15 +72,9 @@ public class LoginController {
 				passwordField.setPromptText(passwordField.getText());
 				passwordField.setText(""); 
 				eyeIcon.requestFocus();
-				//passwordField.setDisable(true);
-	 
+				
 				eyeIcon.setGlyphName("EYE");
-				
-				/*double x = SceneHandler.getInstance().getStageX();
-				double y = SceneHandler.getInstance().getStageY();
-				
-				toolTipPassword.show(passwordField ,x + 500, y +300);
-				toolTipPassword.setText(passwordField.getText());*/
+			
 			}
 		});
     	
@@ -97,7 +91,6 @@ public class LoginController {
 					passwordField.setPromptText("");
 				passwordField.requestFocus();
 				passwordField.positionCaret(passwordField.getLength());
-				//passwordField.setDisable(false);
 			}
 		});
     }

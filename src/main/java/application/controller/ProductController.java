@@ -1,6 +1,8 @@
 package application.controller;
 
 import java.io.ByteArrayInputStream;
+import java.text.DecimalFormat;
+
 import application.model.Product;
 import application.net.client.Client;
 import application.view.SceneHandler;
@@ -37,7 +39,7 @@ public class ProductController {
         	labelPrezzo.setText(p.getPrezzoGenerico()+" $");
         	labelPrezzo.setStyle("-fx-text-fill: white;");
     	} else {
-        	labelPrezzo.setText(p.getPrezzoAttuale()+" $");
+        	labelPrezzo.setText(new DecimalFormat("##.##").format(p.getPrezzoAttuale()) + " $");
         	labelPrezzo.setStyle("-fx-text-fill: linear-gradient(to bottom, #ec9f05, #ff4e00);");
     	}
     	
@@ -50,7 +52,7 @@ public class ProductController {
     	descrizione = p.getDescrizione();
     }
     
-    @FXML
+    @FXML 
     void initialize() {
     	vBoxProdotto.getStylesheets().add(getClass().getResource("/application/css/product.css").toExternalForm());
     }

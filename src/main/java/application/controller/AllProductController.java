@@ -1,7 +1,7 @@
 package application.controller;
 
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import application.model.Product;
 import application.net.client.Client;
@@ -34,7 +34,7 @@ public class AllProductController {
 
     	flowPaneProduct.getChildren().clear();
     	
-		Vector<Product> prodotti = new Vector<Product>();
+		ArrayList<Product> prodotti = new ArrayList<Product>();
 		prodotti = Client.getInstance().getProduct(parametro);
 		
 		if(prodotti == null || prodotti.size() == 0) {
@@ -59,7 +59,7 @@ public class AllProductController {
 		
 	flowPaneProduct.getChildren().clear();
     	
-		Vector<Product> prodotti = new Vector<Product>();
+		ArrayList<Product> prodotti = new ArrayList<Product>();
 		prodotti = Client.getInstance().getProductByCategory(category);	
 		
 		if(prodotti == null || prodotti.size() == 0) {

@@ -14,11 +14,20 @@
 #btnProcediAllOrdine{
 	-fx-background-radius: 50;
 	-fx-border-radius: 50;
-	-fx-background-color: rgba(157, 16, 2, 0.8);
+	-fx-background-color: #FFD814;
+	-fx-text-fill: black;
+	-fx-font-weight: normal;
 }
 
 #btnProcediAllOrdine:hover{
 	-fx-cursor: hand;
-	-fx-background-color: rgba(157, 16, 2, 0.6);
 	-fx-border-width: 0 0 0 0;
+	-fx-background-color: rgb(231, 187, 69);
+}
+
+#lblRiepilogo{
+	-fx-border-radius: 30px;
+	-fx-border-color: black;
+	-fx-border-width: 1 1 1 1;
+	
 }

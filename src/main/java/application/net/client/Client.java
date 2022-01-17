@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import application.model.DatiAndamentoProdotto;
 import application.model.Product;
@@ -59,7 +58,7 @@ public class Client implements Runnable{
 			out.flush();
 			return true;
 		} catch (IOException e) {
-			e.printStackTrace();
+			SceneHandler.getInstance().showError(Protocol.ERROR);
 			out = null;			
 			return false;
 		}
@@ -132,7 +131,7 @@ public class Client implements Runnable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Vector<Product> getProduct(String parametro)  {
+	public ArrayList<Product> getProduct(String parametro)  {
 		sendMessageString(Protocol.GET_PRODUCT);
 		sendMessageString(parametro);
 
@@ -141,8 +140,8 @@ public class Client implements Runnable{
 			if(in == null) 
 				in = new ObjectInputStream(socket.getInputStream());			
 			
-			Vector<Product> prodotti = new Vector<Product>();
-			prodotti = (Vector<Product>) in.readObject();
+			ArrayList<Product> prodotti = new ArrayList<Product>();
+			prodotti = (ArrayList<Product>) in.readObject();
 			
 			return prodotti;
 		}
@@ -154,7 +153,7 @@ public class Client implements Runnable{
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<Product> getProductByCategory(String category) {
+	public ArrayList<Product> getProductByCategory(String category) {
 		sendMessageString(Protocol.GET_PRODUCTS_BY_CATEGORY);
 		sendMessageString(category);
 
@@ -163,8 +162,8 @@ public class Client implements Runnable{
 			if(in == null) 
 				in = new ObjectInputStream(socket.getInputStream());			
 			
-			Vector<Product> prodotti = new Vector<Product>();
-			prodotti = (Vector<Product>) in.readObject();
+			ArrayList<Product> prodotti = new ArrayList<Product>();
+			prodotti = (ArrayList<Product>) in.readObject();
 			
 			return prodotti;
 		}
@@ -176,15 +175,15 @@ public class Client implements Runnable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Vector<ProductInCart> getProductInCart()  {
+	public ArrayList<ProductInCart> getProductInCart()  {
 		sendMessageString(Protocol.GET_PRODUCT_IN_CART);
 
 		try {
 			if(in == null) 
 				in = new ObjectInputStream(socket.getInputStream());			
 			
-			Vector<ProductInCart> prodotti = new Vector<ProductInCart>();
-			prodotti = (Vector<ProductInCart>) in.readObject();
+			ArrayList<ProductInCart> prodotti = new ArrayList<ProductInCart>();
+			prodotti = (ArrayList<ProductInCart>) in.readObject();
 			
 			return prodotti;
 		}
@@ -196,10 +195,10 @@ public class Client implements Runnable{
 	}
 	
 	public void addAProductInCart(String nomeProdotto) {
-		sendMessageString(Protocol.ADD_PRODUCT_IN_CART);
-		sendMessageString(nomeProdotto);
-		
 		try {
+			sendMessageString(Protocol.ADD_PRODUCT_IN_CART);
+			sendMessageString(nomeProdotto);
+			
 			String risposta = (String) in.readObject();
 			
 			if(risposta.equals(Protocol.PRODUCT_CORRECTLY_ADDED_IN_CART)) {
@@ -213,8 +212,8 @@ public class Client implements Runnable{
 				SceneHandler.getInstance().showWarning(risposta);
 				return;
 			}
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			SceneHandler.getInstance().showError(Protocol.ERROR);
 			out = null;
 		}
 	}
@@ -227,9 +226,7 @@ public class Client implements Runnable{
 	
 	public String procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
-		String carta = SceneHandler.getInstance().showInput();
-
-		sendMessageString(carta);
+		//sendMessageString(carta);
 		
 		try {
 			String rispostaServer = (String) in.readObject();
@@ -338,6 +335,11 @@ public class Client implements Runnable{
 		}
 		return risposta;
 	}
+
+	/*public ArrayList<Product> getOrderComplete(String username) {
+		sendMessageString(Protocol.GET_ORDER_COMPLETE);
+		sendMessageString(username);
+	}*/
 }
 	
 	

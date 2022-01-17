@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import application.model.DatiAndamentoProdotto;
 import application.model.Product;
@@ -125,11 +124,10 @@ public class CommunicationHandler implements Runnable {
 				} else if (input.equals(Protocol.GET_PRODUCT)) {
 					String parametro = (String) in.readObject();
 					// String parametro = (String) in.readObject();
-					Vector<Product> prodotti = new Vector<Product>();
+					ArrayList<Product> prodotti = new ArrayList<Product>();
 					prodotti = DatabaseHandler.getInstance().listaProdotti(parametro);
 
 					if (prodotti == null) {
-						// sendMessage(Protocol.GET_PRODUCT_FAILED);
 						closeStreams();
 						return;
 					}
@@ -139,7 +137,7 @@ public class CommunicationHandler implements Runnable {
 				} else if(input.equals(Protocol.GET_PRODUCTS_BY_CATEGORY)) {
 					String categoria = (String) in.readObject();
 					
-					Vector<Product> prodotti = new Vector<Product>();
+					ArrayList<Product> prodotti = new ArrayList<Product>();
 					prodotti = DatabaseHandler.getInstance().getProductsByCategory(categoria);
 					
 					if (prodotti == null) {
@@ -161,7 +159,7 @@ public class CommunicationHandler implements Runnable {
 					}
 				} else if (input.equals(Protocol.GET_PRODUCT_IN_CART)) {
 
-					Vector<ProductInCart> prodotti = new Vector<ProductInCart>();
+					ArrayList<ProductInCart> prodotti = new ArrayList<ProductInCart>();
 
 					prodotti = DatabaseHandler.getInstance().getProductInCart(usernameLoggato);
 					if (prodotti == null) {
@@ -191,7 +189,7 @@ public class CommunicationHandler implements Runnable {
 					}
 				} else if (input.equals(Protocol.PROCEED_TO_ORDER)) {
 					String usernameUtenteDaProcessare = usernameLoggato;
-					String numberCard = (String) in.readObject();
+					//String numberCard = (String) in.readObject();
 
 					String rispostaDB = DatabaseHandler.getInstance().proceedToOrder(usernameUtenteDaProcessare);
 
@@ -232,6 +230,7 @@ public class CommunicationHandler implements Runnable {
 					sendMessage(rispostaDB);
 				} else if(input.equals(Protocol.CHECK_AND_DISCOUNT)) {
 					DatabaseHandler.getInstance().checkQuantityAndSetDiscount();
+					
 				} else if(input.equals(Protocol.UPDATE_PASSWORD)) {
 					String oldPassword = (String) in.readObject();
 					String newPassword = (String) in.readObject();
@@ -245,8 +244,7 @@ public class CommunicationHandler implements Runnable {
 					loggato = false;
 					return;
 				} else {
-					// sendMessage(Protocol.ERROR);
-					System.out.println("[SERVER] Errore e chiudo stream");
+					System.out.println("[SERVER] Errore e chiudo stream mess= " + input);
 					disconnect();
 					loggato = false;
 					return;

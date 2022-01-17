@@ -10,15 +10,17 @@
 }
 
 #addCartBtn{
-	-fx-background-color: rgb(231, 187, 69, 0.8);
+	-fx-background-color: #FFD814;
 	-fx-border-radius: 15;
 	-fx-background-radius: 15;
 	-fx-border-width: 0 0 0 0;
+	-fx-text-fill: black;
+	-fx-font-weight: normal;
 
 }
 
 #addCartBtn:hover{
-	-fx-background-color: rgb(231, 187, 69, 0.6);
+	-fx-background-color: rgb(231, 187, 69);
 }
 
 #addCartBtn:pressed{

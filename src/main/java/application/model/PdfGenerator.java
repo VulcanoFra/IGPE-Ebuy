@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Vector;
+import java.util.ArrayList;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -41,26 +41,19 @@ private static PdfGenerator generatore;
             PdfWriter.getInstance(my_pdf, new FileOutputStream(selectedDirectory.getAbsolutePath() + "/downloadProduct.pdf"));
             my_pdf.open();
             
-            /*String filename = getClass().getResource("/application/image/logoBasso.png").toString();
-            Image image = Image.getInstance(filename);
-            image.scaleAbsolute(new Rectangle(50,50));
-            my_pdf.add(image);
-            
-            Paragraph paragrafo = new Paragraph("\n\n\nLista dei prodotti nel catalogo dell'app. \nDEVELOPED BY FRA_VUL69 \n\n\n", new Font(FontFamily.HELVETICA,18, Font.BOLDITALIC, new BaseColor(0, 0, 255)));
-            my_pdf.add(paragrafo);*/
-            
-            // Creating image by file name
             String filename = getClass().getResource("/application/image/logoBasso.png").toString();
             Image image = Image.getInstance(filename);
-            image.scaleAbsolute(new Rectangle(50,50));
-            my_pdf.add(image);
-                 
-            Paragraph paragrafo = new Paragraph("\n\n\nLista dei prodotti nel catalogo dell'app. \nDEVELOPED BY FRA_VUL69 \n\n\n", new Font(FontFamily.HELVETICA,18, Font.BOLDITALIC, new BaseColor(0, 0, 255)));
+            image.scaleAbsolute(new Rectangle(150,50));
+            Paragraph pe  = new Paragraph();
+            pe.add(image);
+            pe.add("Ciao");
+            my_pdf.add(pe);
+            Paragraph paragrafo = new Paragraph("\nLista dei prodotti nel catalogo dell'app. \nDEVELOPED BY FRA_VUL69 \n\n", new Font(FontFamily.HELVETICA,18, Font.BOLDITALIC, new BaseColor(0, 0, 0)));
             my_pdf.add(paragrafo);
             
-            Vector<Product> prodotti = Client.getInstance().getProduct("");
+            ArrayList<Product> prodotti = Client.getInstance().getProduct("");
 
-            PdfPTable my_report_table = new PdfPTable(3);
+            PdfPTable table = new PdfPTable(3);
 	        
 	        //create a cell object
 	        PdfPCell table_cell;
@@ -69,19 +62,19 @@ private static PdfGenerator generatore;
 	        String prezzo = "Prezzo prodotto";
 	        String img = "Immagine";
 	        table_cell = new PdfPCell(new Phrase(nome));
-	        my_report_table.addCell(table_cell);
+	        table.addCell(table_cell);
 	        table_cell = new PdfPCell(new Phrase(prezzo));
-	        my_report_table.addCell(table_cell);
+	        table.addCell(table_cell);
 	        table_cell = new PdfPCell(new Phrase(img));
-	        my_report_table.addCell(table_cell);
+	        table.addCell(table_cell);
 	        
 	        for(Product p : prodotti) {   
 	            String n = p.getNomeProdotto();
-	            table_cell=new PdfPCell(new Phrase(n));
-	            my_report_table.addCell(table_cell);
+	            table_cell = new PdfPCell(new Phrase(n));
+	            table.addCell(table_cell);
 	            String pre = p.getPrezzoGenerico() + "";
-	            table_cell=new PdfPCell(new Phrase(pre));
-	            my_report_table.addCell(table_cell);
+	            table_cell = new PdfPCell(new Phrase(pre));
+	            table.addCell(table_cell);
 	            
 	            Image imm;
 	            if(p.getImgProdotto() != null) {
@@ -92,17 +85,17 @@ private static PdfGenerator generatore;
 	            }
 	            imm.scaleToFit(100, 100);
 	            table_cell=new PdfPCell(imm);
-	            my_report_table.addCell(table_cell);
+	            table.addCell(table_cell);
 	            
 	        }
 	        
-	        my_pdf.add(my_report_table);                       
+	        my_pdf.add(table);                       
 	        my_pdf.close();
         } catch (FileNotFoundException e) {
         	System.out.println("File non trovato");
         } catch (DocumentException e) {
         	System.out.println("problemi col documento");
-        	e.printStackTrace();
+        	//e.printStackTrace();
         } catch (IOException e) {
         	System.out.println("problemi generici");
         }

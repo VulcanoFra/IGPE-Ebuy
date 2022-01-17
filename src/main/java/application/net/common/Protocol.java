@@ -8,9 +8,7 @@ public class Protocol {
 	
 	public final static String AUTHENTICATION_ERROR = "Errore durante l'autenticazione";
 	public final static String USER_ALREADY_LOGGED = "Utente già collegato";
-	public final static String LENGTH_PASSWORD_ERROR = "La password deve essere lunga almeno 8 caratteri";
 	
-	public final static String USERNAME_ERROR = "Username must be a number, lecter and _ or -";
 	public final static String ERROR = "Errore durante la conessione";
 	public final static String ERROR_DB = "Errore durante la conessione al DB";
 	public final static String OK = "Ok";
@@ -24,7 +22,6 @@ public class Protocol {
 	public final static String ADD_PRODUCT_IN_CATALOG = "Richiesta di aggiunta prodotto";
 	public final static String CANNOT_ADD_PRODUCT = "Impossibile aggiungere prodotto";
 	public final static String GET_PRODUCT = "Richiesta dei prodotti all'interno del DB";
-	public final static String GET_PRODUCT_FAILED = "I prodotti ricercati non sono presenti nel catalogo";
 	public final static String GET_PRODUCTS_BY_CATEGORY = "Richiesta dei prodotti per categoria all'interno del DB";
 	
 	public final static String ADD_PRODUCT_IN_CART = "Richiesta di inserimento del prodotto nel carrello del cliente";
@@ -46,7 +43,7 @@ public class Protocol {
 	
 	public final static String GET_TREND_PRODUCT = "Dammi l'andamento delle vendite del prodotto";
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
-
+	
 	public final static String GET_ALL_CATEGORIES = "Restituisci tutte le categorie";
 	
 	public final static String CHECK_AND_DISCOUNT = "Controlla la quantità e imposta sconto";
