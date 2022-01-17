@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.model.DatiAndamentoProdotto;
+import application.model.Ordine;
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
@@ -54,7 +55,7 @@ public class CommunicationHandler implements Runnable {
 	@Override
 	public void run() {
 		try {
-			if (in == null)
+			if(in == null)
 				in = new ObjectInputStream(socket.getInputStream());
 
 			while (!loggato) {
@@ -123,28 +124,16 @@ public class CommunicationHandler implements Runnable {
 					}
 				} else if (input.equals(Protocol.GET_PRODUCT)) {
 					String parametro = (String) in.readObject();
-					// String parametro = (String) in.readObject();
 					ArrayList<Product> prodotti = new ArrayList<Product>();
 					prodotti = DatabaseHandler.getInstance().listaProdotti(parametro);
 
-					if (prodotti == null) {
-						closeStreams();
-						return;
-					}
-
 					sendObject(prodotti);
-					System.out.println("[SERVER] Prodotti inviati");
 				} else if(input.equals(Protocol.GET_PRODUCTS_BY_CATEGORY)) {
 					String categoria = (String) in.readObject();
 					
 					ArrayList<Product> prodotti = new ArrayList<Product>();
 					prodotti = DatabaseHandler.getInstance().getProductsByCategory(categoria);
 					
-					if (prodotti == null) {
-						// sendMessage(Protocol.GET_PRODUCT_FAILED);
-						closeStreams();
-						return;
-					}
 					sendObject(prodotti);
 				} else if (input.equals(Protocol.ADD_PRODUCT_IN_CART)) {
 					String nomeProdotto = (String) in.readObject();
@@ -164,7 +153,6 @@ public class CommunicationHandler implements Runnable {
 					prodotti = DatabaseHandler.getInstance().getProductInCart(usernameLoggato);
 					if (prodotti == null) {
 						System.out.println("Non invio prodotti in cart");
-						// sendMessage(Protocol.GET_PRODUCT_FAILED);
 						closeStreams();
 						return;
 					}
@@ -189,7 +177,6 @@ public class CommunicationHandler implements Runnable {
 					}
 				} else if (input.equals(Protocol.PROCEED_TO_ORDER)) {
 					String usernameUtenteDaProcessare = usernameLoggato;
-					//String numberCard = (String) in.readObject();
 
 					String rispostaDB = DatabaseHandler.getInstance().proceedToOrder(usernameUtenteDaProcessare);
 
@@ -238,6 +225,10 @@ public class CommunicationHandler implements Runnable {
 					String rispostaDB = DatabaseHandler.getInstance().updatePassword(oldPassword, newPassword, usernameLoggato);
 					
 					sendMessage(rispostaDB);
+				} else if(input.equals(Protocol.GET_ORDERS_OF_USER)) {				
+					ArrayList<Ordine> ordini = DatabaseHandler.getInstance().getOrdersOfUser(usernameLoggato);
+					
+					sendObject(ordini);
 				} else if (input.equals(Protocol.EXIT)) {
 					System.out.println(usernameLoggato + " si è scollegato");
 					disconnect();

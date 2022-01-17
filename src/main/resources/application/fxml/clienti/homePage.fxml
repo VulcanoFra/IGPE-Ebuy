@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.image.*?>
@@ -17,36 +18,25 @@
       <VBox fx:id="slider" alignment="TOP_CENTER" prefHeight="656.0" prefWidth="170.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="7.0" prefWidth="99.0" />
-            <Button fx:id="btnDashboard" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickDashboardbtn" prefHeight="37.0" prefWidth="170.0" text="DashBoard">
-               <graphic>
-                  <FontAwesomeIcon glyphName="HOME" size="1.8em" />
-               </graphic>
-            </Button>
             <Button fx:id="btnCatalogo" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickCatalogoBtn" prefWidth="170.0" text="Catalogo">
                <graphic>
                   <FontAwesomeIcon glyphName="BOOK" size="1.5em" />
-               </graphic></Button>
-            <Separator prefHeight="3.0" prefWidth="40.0">
+               </graphic>
                <VBox.margin>
-                  <Insets bottom="25.0" right="20.0" top="20.0" />
-               </VBox.margin>
-            </Separator>
-            <Button fx:id="downloadProductBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickDownloadProductPDF" prefWidth="170.0" text="Scarica PDF inventario">
+                  <Insets top="50.0" />
+               </VBox.margin></Button>
+            <Button fx:id="downloadProductBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickDownloadProductPDF" prefWidth="170.0" text="PDF ricevuta ordini">
                <graphic>
                   <FontAwesomeIcon glyphName="FILE" size="1.5em" />
                </graphic>
             </Button>
-            <Button fx:id="btnInfo" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="33.0" prefWidth="170.0" text="Info" textFill="#221212">
-               <graphic>
-                  <FontAwesomeIcon glyphName="INFO" size="1.5em" />
-               </graphic></Button>
-            <Button fx:id="btnContatti" alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="31.0" prefWidth="170.0" text="Contattaci" textFill="#221212">
+            <Button fx:id="btnContatti" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickContatti" prefHeight="31.0" prefWidth="170.0" text="Contattaci" textFill="#221212">
                <graphic>
                   <FontAwesomeIcon glyphName="PHONE" size="1.5em" />
                </graphic></Button>
             <Separator prefWidth="200.0">
                <VBox.margin>
-                  <Insets bottom="25.0" right="20.0" top="20.0" />
+                  <Insets bottom="35.0" right="20.0" top="30.0" />
                </VBox.margin>
             </Separator>
             <MenuButton fx:id="btnProfilo" mnemonicParsing="false" prefWidth="170.0" text="Profilo" VBox.vgrow="ALWAYS">
@@ -71,10 +61,13 @@
       <HBox fx:id="hBox" alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="60.0" prefWidth="35.0" />
-            <ImageView fx:id="imgLogo" fitHeight="60.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imgLogo" fitHeight="60.0" fitWidth="180.0" onMouseReleased="#clickLogo" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <Pane prefHeight="69.0" prefWidth="49.0" HBox.hgrow="ALWAYS" />
             <ComboBox fx:id="comboBoxCategoria" onAction="#clickCategorie" prefHeight="31.0" prefWidth="125.0" promptText="Categoria" HBox.hgrow="ALWAYS" />

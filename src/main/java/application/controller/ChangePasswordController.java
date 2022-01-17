@@ -79,10 +79,11 @@ public class ChangePasswordController {
     	
     	String risposta = Client.getInstance().updatePassword(lblOldPassword.getText(), lblNewPassword.getText());
     	
-    	if(risposta.equals(Protocol.OK))
+    	
+    	if(risposta != null && risposta.equals(Protocol.OK))
     		SceneHandler.getInstance().showInfo("Password cambiata con successo");
     	else {
-    		SceneHandler.getInstance().showError(risposta);
+    		SceneHandler.getInstance().showError("");
     	}
     	
     	clearField();

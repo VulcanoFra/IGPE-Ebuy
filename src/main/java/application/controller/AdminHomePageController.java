@@ -2,6 +2,7 @@ package application.controller;
 
 import java.util.Optional;
 
+import application.model.PdfGenerator;
 import application.net.client.Client;
 import application.net.common.Protocol;
 import application.view.SceneHandler;
@@ -25,9 +26,9 @@ import javafx.util.Pair;
 
 public class AdminHomePageController {
 
-    @FXML
-    private Button btnDownloadCatalogo;
-
+	@FXML
+    private Button btnDownloadPdf;
+	
     @FXML
     private MenuItem btnLogOut;
 
@@ -49,17 +50,19 @@ public class AdminHomePageController {
     @FXML
     private MenuButton btnProfilo;
 
-    @FXML
-    private Button btnAggiungiAdmin;
     
     @FXML
     void initialize() {
-    	borderPaneHomeAdmin.getStylesheets().add(getClass().getResource("/application/css/homePage.css").toExternalForm());
+    	borderPaneHomeAdmin.getStylesheets().add(getClass().getResource("/application/css/adminHomePage.css").toExternalForm());
     	btnProfilo.getStyleClass().add("Profilo");
     }
     
     @FXML
     void clickAggiungiProdotto(ActionEvent event) {
+    	setPageAggiungiProdotti();
+    }
+    
+    public void setPageAggiungiProdotti() {
     	SceneHandler.getInstance().setGestioneProdottiAdmin(stackPaneAdminHome);
     }
     
@@ -142,12 +145,16 @@ public class AdminHomePageController {
     @FXML
     void clickChangePassword(ActionEvent event) {
     	SceneHandler.getInstance().setChangePassword(stackPaneAdminHome);
-
     }
     
+
     @FXML
-    void clickAggiungiAdmin(ActionEvent event) {
-    	SceneHandler.getInstance().setAggiungiAdminPage(stackPaneAdminHome);
+    void clickDownloadPdf(ActionEvent event) {
+    	String res = PdfGenerator.getInstance().pdfCatalog();
+		
+		if(!res.equals(Protocol.OK)) {
+			SceneHandler.getInstance().showWarning(res);
+		}
     }
 }
 

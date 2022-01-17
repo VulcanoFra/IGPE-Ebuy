@@ -21,6 +21,9 @@ import javafx.scene.image.ImageView;
 
 public class ProductCartController {
 
+	@FXML
+    private Button btnremoveProduct;
+
     @FXML
     private ImageView imgProduct;
     
@@ -70,7 +73,7 @@ public class ProductCartController {
     	Integer number = Integer.parseInt(quantità.getText()) - 1;
     	if(number == 0) {
     		Alert alert = new Alert(AlertType.CONFIRMATION);
-    		alert.setTitle("Confirmation Dialog");
+    		alert.setTitle("Rimuovi prodotto?");
 
     		alert.setHeaderText("Vuoi rimuovere il prodotto dal carrello?");
     		alert.setContentText("Premi OK per rimuovere");
@@ -83,7 +86,7 @@ public class ProductCartController {
         			SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
     			}
     		} else {
-    			System.out.println("NO");
+    			
     		}
     		
     	} else {
@@ -115,6 +118,26 @@ public class ProductCartController {
     				+ number +" richiesta, non è disponibile");
     		quantità.setText(risposta + "");
     	}
+    }
+    
+    @FXML
+    void clickRemoveProduct(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Rimuovi prodotto?");
+
+		alert.setHeaderText("Vuoi rimuovere il prodotto dal carrello?");
+		alert.setContentText("Premi OK per rimuovere");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		
+		if (result.get() == ButtonType.OK){
+			quantità.setText(0 + "");
+			if(Client.getInstance().removeProductFromCart(lblNomeProdotto.getText())) {
+    			SceneHandler.getInstance().setCartInHome(StackPaneHome.getInstance());
+			}
+		} else {
+			
+		}
     }
 }
 

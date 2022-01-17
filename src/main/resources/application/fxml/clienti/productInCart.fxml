@@ -9,7 +9,6 @@
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 
-
 <VBox style="-fx-background-color: linear-gradient(to bottom,#3c536e, #232f3e); -fx-background-radius: 15; -fx-border-radius: 15;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ProductCartController">
    <children>
       <Label fx:id="lblNomeProdotto" alignment="TOP_LEFT" prefHeight="35.0" prefWidth="469.0" text="Nome prodotto" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
@@ -27,10 +26,13 @@
             <Pane prefHeight="198.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
             <VBox prefHeight="198.0" prefWidth="240.0" spacing="15.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="126.0" text="Rimuovi">
+                  <Button fx:id="btnremoveProduct" mnemonicParsing="false" onAction="#clickRemoveProduct" opacity="0.89" prefHeight="33.0" prefWidth="42.0" style="-fx-background-color: rgb(255, 50,50); -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-border-width: 0 0 0 0;">
                      <VBox.margin>
-                        <Insets left="100.0" />
+                        <Insets left="170.0" />
                      </VBox.margin>
+                     <graphic>
+                        <FontAwesomeIcon glyphName="TRASH" size="1.5em" />
+                     </graphic>
                   </Button>
                   <Label fx:id="lblPrezzo" alignment="CENTER" prefHeight="27.0" prefWidth="200.0" text="Prezzo" textFill="WHITE">
                      <VBox.margin>

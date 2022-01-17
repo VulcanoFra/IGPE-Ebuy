@@ -41,6 +41,7 @@ public class Protocol {
 	public final static String IMPOSSIBLE_PROCEED_ORDER = "Impossibile procedere all'ordine";
 	public final static String SOME_PRODUCT_ARE_UNAVAILABLE = "Attenzione! Qualche prodotto non è disponibile nella quantità richiesta";
 	
+	public final static String GET_ORDERS_OF_USER = "Dammi gli ordini effettuati dall'utente";
 	public final static String GET_TREND_PRODUCT = "Dammi l'andamento delle vendite del prodotto";
 	public final static String PROCEED_TO_ORDER = "Procedi all'ordine";
 	

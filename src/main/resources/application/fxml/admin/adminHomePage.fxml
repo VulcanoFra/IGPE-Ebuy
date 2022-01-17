@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -19,10 +20,13 @@
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="btnAggiungiAdmin" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickAggiungiAdmin" prefWidth="172.0" text="Aggiungi Admin" VBox.vgrow="ALWAYS">
+            <Button fx:id="btnDownloadPdf" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#clickDownloadPdf" prefWidth="172.0" text="Download catalogo" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <graphic>
+                  <FontAwesomeIcon glyphName="FILE" />
+               </graphic>
             </Button>
             <Separator prefWidth="200.0" VBox.vgrow="ALWAYS">
                <VBox.margin>

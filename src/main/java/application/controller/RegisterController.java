@@ -142,7 +142,6 @@ public class RegisterController {
 				SceneHandler.getInstance().showError("Cannot load the page");
 			}
     	}else if(res.equals(Rules.USERNAME_CORTO)){
-    		//SceneHandlerVecchio.getInstance().showError(res);
     		if(!labelUsername.isVisible())
     			labelUsername.setVisible(true);
     		labelUsername.setText("Username deve essere di almeno 4 caratteri");

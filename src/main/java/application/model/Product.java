@@ -32,6 +32,11 @@ public class Product implements Serializable {
 		this.descrizione = descrizione;
 	}
 	
+	public Product(String nomeP, byte[] img) {
+		this.nomeProdotto = nomeP;
+		this.imgProdotto = img;
+	}
+
 	public byte[] getImgProdotto() {
 		return imgProdotto;
 	}

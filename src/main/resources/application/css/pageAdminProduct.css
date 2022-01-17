@@ -2,7 +2,6 @@
 
 #btnAddProduct, #btnScegliImage{
 	/*-fx-background-color: rgba(255,255,255,1.5);*/
-	-fx-background-color: rgba(179, 179, 179, 1);
 	-fx-background-radius: 5em ;
 	-fx-border-radius: 5em;
 	-fx-border-color: #808080;
@@ -10,30 +9,44 @@
 	-fx-effect: dropShadow(three-pass-box, rgba(0,0,0,0.1), 10.0, 0.0, 0.0, 10.0 );
 	-fx-text-fill: white;
 }
-#btnAddProduct:hover, #btnScegliImage:hover{
+
+#btnAddProduct{
+	-fx-background-color: rgba(12, 98, 131, 1);
+
+}
+
+#btnScegliImage{
+	-fx-background-color: rgba(179, 179, 179, 1);
+}
+
+#btnScegliImage:hover{
 	-fx-cursor: hand;
 	-fx-background-color: rgba(179, 179, 179, 0.5);
 }
 
-#btnAddProduct:pressed, #btnScegliImage:pressed{
-	-fx-scale-y: 0.9;
-    -fx-scale-x: 0.9;
-	-fx-background-color: rgb(134, 134, 134);
+#btnAddProduct:hover{
+	-fx-cursor: hand;
+	-fx-background-color: rgba(12, 98, 131, 0.7);
+}
+
+.combo-box{
+	-fx-background-color: transparent;
+	-fx-background-radius: 15px ;
+	-fx-border-width: 0 0 2 0;
+	-fx-border-color: rgba(0, 0, 0, 0.2);
 }
 
 
-
 .combo-box-base .text{
-	-fx-fill: rgba(0, 0, 0, 1);
+	-fx-fill: black;
 }
 
 .combo-box .list-view .list-cell{
 	-fx-background-color: rgba(211, 211, 211, 0.4);
 }
-.text-field, .combo-box{
+
+.text-field{
 	-fx-background-color: transparent;
-	-fx-background-radius: 15px ;
-	/*-fx-background-color: rgba(255,255,255,0.4);*/
 	-fx-border-color: rgba(0, 0, 0, 0.2);
 	-fx-border-width: 0 0 2 0;
 	-fx-prompt-text-fill: rgba(0, 0, 0, 0.4);
@@ -45,14 +58,13 @@
 .text-area {
     -fx-font-size: 15;
     -fx-text-fill: rgb(0, 0, 0);
-    /*-fx-display-caret: true;*/
     -fx-background-color: transparent;
 
 }
 
 .text-area .content {
     -fx-background-color: transparent;
-	-fx-border-color: rgba(255,255,255,0.4);
+	-fx-border-color: rgba(0, 0, 0, 0.2);
 	-fx-border-width: 0 0 2 0;
 }
 

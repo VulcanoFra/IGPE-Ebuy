@@ -40,7 +40,7 @@ public class GestioneProdottiAdminController {
     private Button btnAddProduct;
 
     @FXML
-    private ComboBox<String> comboBoxCategoria;
+    private ComboBox<String> comboCategorie;
     
     @FXML
     private Button btnScegliImage;
@@ -113,7 +113,7 @@ public class GestioneProdottiAdminController {
 
     public void clearField() {
     	nomeField.setText("");
-    	comboBoxCategoria.setPromptText("Categoria");
+    	comboCategorie.setPromptText("Categoria");
     	quantitaField.setText("");
     	prezzoField.setText("");
     	descrizioneTextArea.setText("");
@@ -124,7 +124,7 @@ public class GestioneProdottiAdminController {
     
     @FXML
     void clickAddProduct(ActionEvent event) {
-    	if(nomeField.getText().equals("") || prezzoField.getText().equals("") || quantitaField.getText().equals("") || comboBoxCategoria.getValue() == null) {
+    	if(nomeField.getText().equals("") || prezzoField.getText().equals("") || quantitaField.getText().equals("") || comboCategorie.getValue() == null) {
     		SceneHandler.getInstance().showError("Hai lasciato dei campi vuoti");
     		return;
     	}
@@ -140,7 +140,7 @@ public class GestioneProdottiAdminController {
     			prezzoAttuale = prezzoGenerico;
     		
     		Product p = new Product( nomeField.getText(), prezzoGenerico, prezzoAttuale, quantita, 
-    				imgCurrentProduct, comboBoxCategoria.getValue(), descrizioneTextArea.getText());
+    				imgCurrentProduct, comboCategorie.getValue(), descrizioneTextArea.getText());
     		
     		String res = Client.getInstance().addProduct(p);
     		
@@ -158,13 +158,17 @@ public class GestioneProdottiAdminController {
 
 	public void riempiCombo() {
 		ArrayList<String> categorie = Client.getInstance().getCategories();
+		
+		if(categorie == null)
+			return;
+		
     	for(String i : categorie) {
-    		comboBoxCategoria.getItems().add(i);
+    		comboCategorie.getItems().add(i);
     	}
 	}
 
 	public void pulisciCombo() {
-		comboBoxCategoria.getItems().clear();
+		comboCategorie.getItems().clear();
 	}
     
 }

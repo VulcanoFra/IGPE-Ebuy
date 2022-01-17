@@ -32,7 +32,6 @@ public class DatiAndamentoProdotto implements Comparable<DatiAndamentoProdotto>,
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return data + " : " + quantit‡Venduta;
 	}
 	

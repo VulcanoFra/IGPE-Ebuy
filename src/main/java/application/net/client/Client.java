@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import application.model.DatiAndamentoProdotto;
+import application.model.Ordine;
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
@@ -28,7 +29,7 @@ public class Client implements Runnable{
 			out = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			out = null;
-			SceneHandler.getInstance().showError("Client cannot connect");
+			SceneHandler.getInstance().showError("Connessione persa");
 		}
 	}
 	
@@ -188,7 +189,6 @@ public class Client implements Runnable{
 			return prodotti;
 		}
 		catch(Exception e) {
-			e.printStackTrace();
 			out = null;
 			return null;
 		}	
@@ -213,7 +213,6 @@ public class Client implements Runnable{
 				return;
 			}
 		} catch (Exception e) {
-			SceneHandler.getInstance().showError(Protocol.ERROR);
 			out = null;
 		}
 	}
@@ -226,14 +225,12 @@ public class Client implements Runnable{
 	
 	public String procediAllOrdine() {
 		sendMessageString(Protocol.PROCEED_TO_ORDER);
-		//sendMessageString(carta);
-		
+
 		try {
 			String rispostaServer = (String) in.readObject();
 			return rispostaServer;
 			
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
 			out = null;
 			return Protocol.ERROR;
 		}
@@ -246,13 +243,11 @@ public class Client implements Runnable{
 		
 		try {
 			String res = (String) in.readObject();
-			if(res.equals(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART)) {
+			if(res.equals(Protocol.PRODUCT_CORRECTLY_REMOVED_FROM_CART)) 
 				return true;
-			} else {
-				System.out.println("Stamo nell'altrimenti");
-			}
+			
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			out = null;
 		}
 		return false;
@@ -273,8 +268,6 @@ public class Client implements Runnable{
 			
 			return Integer.parseInt(quantitaDisponibile);
 		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-
-			e.printStackTrace();
 			out = null;
 			return null;
 		} 
@@ -287,9 +280,9 @@ public class Client implements Runnable{
 			ArrayList<String> categorie = (ArrayList<String>) in.readObject();
 			return categorie;
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			out = null;
+			return null;
 		}
-		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -301,9 +294,9 @@ public class Client implements Runnable{
 			ArrayList<DatiAndamentoProdotto> dati = (ArrayList<DatiAndamentoProdotto>) in.readObject();
 			return dati;
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			out = null;
+			return null;
 		}
-		return null;
 	}
 
 	public boolean addQuantityOfProduct(String nomeProdotto, Integer quantita) {
@@ -317,7 +310,7 @@ public class Client implements Runnable{
 			if(risultato.equals(Protocol.OK))
 				return true;
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			out = null;
 		}
 		return false;
 	}
@@ -331,15 +324,26 @@ public class Client implements Runnable{
 		try {
 			risposta = (String) in.readObject();
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			risposta = Protocol.ERROR;
+			out = null;
 		}
 		return risposta;
 	}
-
-	/*public ArrayList<Product> getOrderComplete(String username) {
-		sendMessageString(Protocol.GET_ORDER_COMPLETE);
-		sendMessageString(username);
-	}*/
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Ordine> getOrdersUser() {
+		sendMessageString(Protocol.GET_ORDERS_OF_USER);
+		
+		try {
+			ArrayList<Ordine> ordini = (ArrayList<Ordine>) in.readObject();
+			
+			if(ordini != null)
+				return ordini;
+		} catch (ClassNotFoundException | IOException e) {
+		}
+		
+		return null;
+	}
 }
 	
 	

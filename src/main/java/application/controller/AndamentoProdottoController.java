@@ -1,8 +1,10 @@
 package application.controller;
 
 import java.util.List;
+
 import application.model.DatiAndamentoProdotto;
 import application.model.ServiceDatiAndamentoProdotto;
+import application.net.common.Protocol;
 import application.view.SceneHandler;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
@@ -57,7 +59,7 @@ public class AndamentoProdottoController {
 
 			@Override
 			public void handle(WorkerStateEvent event) {
-				SceneHandler.getInstance().showError("ERROREE");
+				SceneHandler.getInstance().showError(Protocol.ERROR);
 			}
 		});
     }

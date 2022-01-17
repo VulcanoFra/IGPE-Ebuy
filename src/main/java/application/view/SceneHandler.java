@@ -3,6 +3,7 @@ package application.view;
 import java.io.IOException;
 import java.util.Optional;
 
+import application.controller.AdminHomePageController;
 import application.controller.AllProductController;
 import application.controller.AndamentoProdottoController;
 import application.controller.CartController;
@@ -33,11 +34,11 @@ public class SceneHandler {
 	private AnchorPane productPane;
 	private BorderPane cartPane;
 	private BorderPane adminHomePage;
+	private AdminHomePageController adminController;
 	private AllProductController prdContrl;
 	private CartController cartController;
 	private VBox gestioneProdottiAdminPane;
 	private GestioneProdottiAdminController gestioneProdottiAdminController;
-	private AnchorPane dashboard;
 	private AnchorPane changePasswordPage;
 	
 	private static SceneHandler instance = null;
@@ -67,11 +68,10 @@ public class SceneHandler {
 		cartController = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/adminHomePage.fxml"));
 		adminHomePage = (BorderPane) loader.load();
+		adminController = loader.getController();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/admin/gestioneProdottiAdmin.fxml"));
 		gestioneProdottiAdminPane = (VBox) loader.load();
 		gestioneProdottiAdminController = loader.getController();
-		loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/dashboard.fxml"));
-		dashboard = (AnchorPane) loader.load();
 		loader = new FXMLLoader(getClass().getResource("/application/fxml/common/changePassword.fxml"));
 		changePasswordPage = (AnchorPane) loader.load();
 		
@@ -80,22 +80,26 @@ public class SceneHandler {
 		stage.setMinWidth(700);
     	stage.setMinHeight(575);
 		stage.setTitle("E-Commerce");
-		//stage.setResizable(false);
 		stage.show();	
 	}
 	
 	public Stage getStage() {
 		return stage;
 	}
+	
+	public Scene getScena() {
+		return scena;
+	}
+	
 	private void initScene() throws Exception {
 		
 		scena = new Scene(loginPage,700,575);
 	}
 	
 	public void setLoginScene() throws Exception {
-		//if(scena.getRoot() == homePage || scena.getRoot() == adminHomePage) {
+		if(scena.getRoot() != registerPage)
 			stage.hide();
-		//}
+		
 		scena.setRoot(loginPage);
     	//stage.setResizable(false);
     	stage.setWidth(700);
@@ -106,7 +110,8 @@ public class SceneHandler {
 	}
 	
 	public void setRegisterScene() throws Exception {
-		stage.hide();
+		
+		//stage.hide();
 		scena.setRoot(registerPage);
     	//stage.setResizable(false);
     	stage.setWidth(700);
@@ -121,14 +126,15 @@ public class SceneHandler {
     	t.setDaemon(true);
     	t.start();
 		
+    	controllerHomePage.pulisciCombo();
+		controllerHomePage.riempiCombo();
+		
 		if(scena.getRoot() == loginPage)
 			stage.hide();
 		stage.hide();
 		scena.setRoot(homePage);
+		
 		setProductInHome("");
-		controllerHomePage.riempiCombo();
-		//StackPaneHome.getInstance().getChildren().add(dashboard);
-    	//stage.setResizable(false);
     	stage.setWidth(900);
     	stage.setHeight(750);
     	stage.setMinWidth(900);
@@ -146,19 +152,12 @@ public class SceneHandler {
 		
 		stage.hide();
 		scena.setRoot(adminHomePage);
-    	//stage.setResizable(false);
+		adminController.setPageAggiungiProdotti();
     	stage.setWidth(970);
     	stage.setHeight(750);
     	stage.setMinWidth(900);
     	stage.setMinHeight(750);
     	stage.show();
-	}
-
-	public void setDashboardInHome() {
-		if(StackPaneHome.getInstance().getChildren().contains(dashboard)) {
-			StackPaneHome.getInstance().getChildren().remove(dashboard);
-		}
-		StackPaneHome.getInstance().getChildren().add(dashboard);
 	}
 
 	public void setProductInHome(String parametro) {
@@ -171,7 +170,7 @@ public class SceneHandler {
 		try {
 			prdContrl.setProdottiPane(parametro);	
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			System.out.println("NON POSSO CARICARE PRODOTTI");
 		}
 	
@@ -180,10 +179,8 @@ public class SceneHandler {
 	public void setProductInHomeByCategory(String category) {
 		if(StackPaneHome.getInstance().getChildren().contains(productPane)) {
 			StackPaneHome.getInstance().getChildren().remove(productPane);
-			//allProductPane.getChildren().get(2).;
 		}
 		StackPaneHome.getInstance().getChildren().add(productPane);
-		//System.out.println(allProductPane.getChildren().get(1));
 		try {
 			prdContrl.setProdottiPaneByCategory(category);	
 		} catch (Exception e) {
@@ -195,9 +192,7 @@ public class SceneHandler {
 	
 	public void setCartInHome(StackPane stackPaneHome) {
 
-		System.out.println("CartHome");
 		boolean trovati = cartController.setProdottiInCart();
-		System.out.println("DOPO");
 		if(!trovati) {
 			showInfo("Non è presente alcun articolo nel carrello");
 			setProductInHome("");
@@ -210,8 +205,6 @@ public class SceneHandler {
 	}
 	
 	public void setGestioneProdottiAdmin(StackPane stackPaneHome) {
-		stackPaneHome.prefWidthProperty().bind(homePage.widthProperty().multiply(0.8));
-		//stackPane.prefHeightProperty().bind(homePage.heightProperty());
 		if(stackPaneHome.getChildren().contains(gestioneProdottiAdminPane)) {
 			stackPaneHome.getChildren().remove(gestioneProdottiAdminPane);
 			gestioneProdottiAdminController.pulisciCombo();
@@ -229,12 +222,6 @@ public class SceneHandler {
 		stackPaneHome.getChildren().add(changePasswordPage);
 	}
 	
-	public void setAggiungiAdminPage(StackPane stackPaneAdminHome) {
-		//if(stackPaneAdminHome.getChildren().contains(stackPaneAdminHome))
-			//TODO LO FAI?
-		
-	}
-	
 	public void getPaneAndamentoProdotto(String nome) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/fxml/clienti/andamentoProdotto.fxml"));
@@ -243,15 +230,15 @@ public class SceneHandler {
 			AndamentoProdottoController controller = loader.getController();
 			controller.setNomeProdotto(nome);
 			controller.setEvent();
-			Stage stage = new Stage();
+			Stage stageAndamento = new Stage();
 			Scene s = new Scene(pane);
-			stage.setScene(s);
-			
-			stage.showAndWait();
+			stageAndamento.setScene(s);
+
+			stageAndamento.setResizable(false);
+			stageAndamento.showAndWait();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			showError("Non è possibile visualizzare l'andamento del prodotto! Riprova più tardi");
 		}
 		
 	}
@@ -264,17 +251,16 @@ public class SceneHandler {
 			ProductDetailsController controller = loader.getController();
 			controller.setData(nome, descrizione, prezzo, img);
 			
-			Stage stage = new Stage();
+			Stage stageDeatils = new Stage();
 			Scene s = new Scene(pane);
-			stage.setScene(s);
+			stageDeatils.setScene(s);
 			
-			stage.showAndWait();
+			stageDeatils.setResizable(false);
+			stageDeatils.showAndWait();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			showError("Non è possibile visualizzare i dettagli del prodotto! Riprova più tardi");
 		}
-		
 	}
 	
 	public void resetPage(StackPane stackPaneHome) {

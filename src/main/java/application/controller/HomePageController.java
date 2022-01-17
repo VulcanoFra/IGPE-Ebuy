@@ -33,9 +33,6 @@ public class HomePageController {
     private BorderPane borderPaneHome;
 
     @FXML
-    private Button btnInfo;
-
-    @FXML
     private Button btnCatalogo;
 
     @FXML
@@ -49,9 +46,6 @@ public class HomePageController {
 
     @FXML
     private MenuItem itemChangePassword;
-    
-    @FXML
-    private Button btnDashboard;
 
     @FXML
     private Button btnContatti;
@@ -81,65 +75,6 @@ public class HomePageController {
     	return ricercaField.getText();
     }
     
-    /*private void handler() {
-    	lblMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				TranslateTransition slide = new TranslateTransition();
-				slide.setDuration(Duration.seconds(UtilitiesView.DURATA_SLIDE_MENUHOMEPAGE));
-				slide.setNode(slider);
-				
-				slide.setToX(0);
-				slide.play();
-				
-				slider.setTranslateX(UtilitiesView.DIM_X_SLIDER_HOMEPAGE * -1);				
-				StackPaneHome.getInstance().setTranslateX(0);
-				
-				slide.setOnFinished(new EventHandler<ActionEvent>(){
-					@Override
-					public void handle(ActionEvent event) {
-						lblMenu.setVisible(false);
-						lblMenuClose.setVisible(true);
-					}
-					
-				});
-			}
-		});
-    	
-    	lblMenuClose.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				TranslateTransition slide = new TranslateTransition();
-				slide.setDuration(Duration.seconds(UtilitiesView.DURATA_SLIDE_MENUHOMEPAGE));
-				slide.setNode(slider);
-				
-				slide.setToX(UtilitiesView.DIM_X_SLIDER_HOMEPAGE * -1);
-				slide.play();
-				
-				slider.setTranslateX(0);
-				
-				slide.setOnFinished(new EventHandler<ActionEvent>(){
-					@Override
-					public void handle(ActionEvent event) {
-						StackPaneHome.getInstance().setTranslateX(UtilitiesView.DIM_X_SLIDER_HOMEPAGE * -1);
-						lblMenu.setVisible(true);
-						lblMenuClose.setVisible(false);
-					}
-					
-				});
-				
-			}
-		});
-    }
-    */
-    
-    @FXML
-    void clickDashboardbtn(ActionEvent event) {
-    	SceneHandler.getInstance().setDashboardInHome();
-    }
-    
     @FXML
     void clickCatalogoBtn(ActionEvent event) throws Exception {
     	SceneHandler.getInstance().setProductInHome("");
@@ -147,7 +82,6 @@ public class HomePageController {
     
     @FXML
     void clickExit(ActionEvent event) {
-    	pulisciCombo();
     	ricercaField.setText("");
     	SceneHandler.getInstance();
     	Client.getInstance().exit();
@@ -166,14 +100,17 @@ public class HomePageController {
     
     @FXML
     void clickDownloadProductPDF(ActionEvent event) {
-
-			PdfGenerator.getInstance().pdfs();
-		
+    	String res = PdfGenerator.getInstance().pdfOrderUser();
+			
+		if(!res.equals(Protocol.OK)) {
+			SceneHandler.getInstance().showWarning(res);
+		}
     }
     
     @FXML
     void clickCategorie(ActionEvent event) {
-    	SceneHandler.getInstance().setProductInHomeByCategory(comboBoxCategoria.getValue());
+    	if(SceneHandler.getInstance().getScena().getRoot() == borderPaneHome)
+    		SceneHandler.getInstance().setProductInHomeByCategory(comboBoxCategoria.getValue());
     }
     
     @FXML
@@ -184,6 +121,16 @@ public class HomePageController {
     @FXML
     void clickChangePassword(ActionEvent event) {
     	SceneHandler.getInstance().setChangePassword(StackPaneHome.getInstance());
+    }
+    
+    @FXML
+    void clickLogo(ActionEvent event) {
+    	SceneHandler.getInstance().setProductInHome("");
+    }
+    
+    @FXML
+    void clickContatti(ActionEvent event) {
+    	SceneHandler.getInstance().showInfo("Contattaci al numero 3297222868 oppure all'email: francescovulcano7@gmail.com");
     }
     
 	public void riempiCombo() {
@@ -197,6 +144,7 @@ public class HomePageController {
 	public void pulisciCombo() {
 		comboBoxCategoria.getSelectionModel().clearSelection();
 		comboBoxCategoria.getItems().clear();
+		comboBoxCategoria.setValue("Categorie");
 	}
 
 }

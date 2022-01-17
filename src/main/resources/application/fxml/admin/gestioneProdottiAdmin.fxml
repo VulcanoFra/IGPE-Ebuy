@@ -15,7 +15,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: rgb(240,240,240);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
+<VBox fx:id="vBoxAddProduct" prefHeight="631.0" prefWidth="730.0" spacing="20.0" style="-fx-background-color: e2dbe2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GestioneProdottiAdminController">
    <children>
       <Label prefHeight="28.0" prefWidth="538.0" text="Aggiungi un prodotto" VBox.vgrow="ALWAYS">
          <font>
@@ -30,12 +30,12 @@
             <Insets left="100.0" right="100.0" />
          </VBox.margin>
       </TextField>
-      <TextArea fx:id="descrizioneTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Descrizione">
+      <TextArea fx:id="descrizioneTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Descrizione" wrapText="true">
          <VBox.margin>
             <Insets left="100.0" right="100.0" />
          </VBox.margin>
       </TextArea>
-      <ComboBox fx:id="comboBoxCategoria" maxWidth="1.7976931348623157E308" promptText="Categoria" VBox.vgrow="ALWAYS">
+      <ComboBox fx:id="comboCategorie" maxWidth="1.7976931348623157E308" promptText="Categoria" VBox.vgrow="ALWAYS">
          <VBox.margin>
             <Insets left="100.0" right="100.0" />
          </VBox.margin>

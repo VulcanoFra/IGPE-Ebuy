@@ -86,7 +86,6 @@ public class CartController {
 						   + "Totale = " + new DecimalFormat("##.##").format(totale + 5.0) + "$");
 			return true;
 		} catch (IOException e) {
-			System.out.println("Errore nel cart controller" + e.getMessage());
 			return false;
 		}
 	}

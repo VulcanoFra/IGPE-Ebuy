@@ -14,7 +14,6 @@ public class Server implements Runnable {
 	private ExecutorService executorService;
 	private HashMap<String, ObjectOutputStream> utentiLoggati;
 	
-	
 	public Server() {
 		executorService = Executors.newCachedThreadPool();
 		utentiLoggati = new HashMap<String, ObjectOutputStream>();
@@ -46,7 +45,7 @@ public class Server implements Runnable {
 				CommunicationHandler handler = new CommunicationHandler(socket, this);
 				executorService.submit(handler);
 			} catch (IOException e) {
-				System.out.println("[SERVER] Close of server...");
+				System.out.println("[SERVER] Close of the server...");
 				return;
 			}
 		}

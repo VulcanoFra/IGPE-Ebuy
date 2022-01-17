@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import application.model.DatiAndamentoProdotto;
+import application.model.Ordine;
 import application.model.Product;
 import application.model.ProductInCart;
 import application.model.User;
@@ -300,7 +301,7 @@ public class DatabaseHandler {
 			int id = getIdCartUser(username);
 			
 			if(id != 0) {
-				String query = "INSERT INTO include VALUES(" + id + ", ?, 1)";
+				String query = "INSERT INTO include VALUES(" + id + ", ?, 1, null)";
 				PreparedStatement p = con.prepareStatement(query);
 				p.setString(1, nomeProdotto);
 				
@@ -468,8 +469,7 @@ public class DatabaseHandler {
 			if(!quantityOfEachProductInCartIsAvailable(idOrdine)) {
 				return Protocol.SOME_PRODUCT_ARE_UNAVAILABLE;
 			}
-			
-			
+					
 			String query = "SELECT nome_prodotto, quantita FROM include WHERE id_ordine=" + idOrdine;
 			PreparedStatement pr = con.prepareStatement(query);
 			ResultSet rs = pr.executeQuery();
@@ -482,6 +482,16 @@ public class DatabaseHandler {
 				Statement st = con.createStatement();
 				st.executeUpdate(update);
 				
+				Double prezzoProduct = getPrice(rs.getString("nome_prodotto"));
+				if(prezzoProduct  != null) {
+					String update2 = "UPDATE include SET prezzo=? WHERE id_ordine="+ idOrdine + " AND nome_prodotto=?";
+					PreparedStatement pr2 = con.prepareStatement(update2);
+					
+					pr2.setDouble(1, prezzoProduct);
+					pr2.setString(2, rs.getString("nome_prodotto"));
+					
+					pr2.executeUpdate();
+				}
 			}
 			
 			String chiudiOrdine = "Update ordini set data=date('now') where ID=\"" + idOrdine + "\"";
@@ -500,6 +510,29 @@ public class DatabaseHandler {
 		}
 	}
 	
+	private Double getPrice(String nomeProdotto) {
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "SELECT * FROM prodotto WHERE nome=?";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, nomeProdotto);
+			ResultSet rs = pr.executeQuery();
+			
+			while(rs.next()) {
+				Double prezzoG = rs.getDouble("prezzo_generico");
+				Double prezzoA = rs.getDouble("prezzo_attuale");
+				
+				if(prezzoG == prezzoA)
+					return prezzoG;
+				return prezzoA;
+			}
+		} catch(SQLException e) {
+		}
+		return null;
+	}
+
 	public synchronized ArrayList<String> getAllCategories(){
 		try {
 			if(con == null || con.isClosed()) 
@@ -632,10 +665,7 @@ public class DatabaseHandler {
 				} else {
 					prezzo = prezzoGenerico * 0.50;
 				}
-				
-			/*	DecimalFormat dfZero = new DecimalFormat("0.00");
-				double p = Double.parseDouble(dfZero.format(prezzo));*/
-				
+
 				pr1.setDouble(1, prezzo);
 				pr1.executeUpdate();
 			}
@@ -643,5 +673,64 @@ public class DatabaseHandler {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private synchronized ArrayList<ProductInCart> getProductInOrder(int id) {
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			ArrayList<ProductInCart> prodotti = new ArrayList<ProductInCart>();
+						
+			String query = "SELECT * FROM include, prodotto WHERE id_ordine=" + id + " AND nome_prodotto=nome;";
+
+			PreparedStatement pr = con.prepareStatement(query);
+			
+			ResultSet rs = pr.executeQuery();
+			
+			while(rs.next()) {
+				String nomeP = rs.getString("nome");
+				byte img[] = rs.getBytes("immagine");
+				int quantita = rs.getInt("quantita");
+				double prezzoAcquisto = rs.getDouble("prezzo");
+				
+				ProductInCart product = new ProductInCart(nomeP, img, quantita, prezzoAcquisto);
+				prodotti.add(product);
+			}
+
+			return prodotti;
+		}
+		catch(SQLException e) {
+			return null;
+		}	
+	}
+
+	public synchronized ArrayList<Ordine> getOrdersOfUser(String username) {
+		try {
+			if(con == null || con.isClosed()) 
+				return null;
+			
+			String query = "SELECT * FROM ordini WHERE username_utente=? AND data IS NOT NULL;";
+			PreparedStatement pr = con.prepareStatement(query);
+			pr.setString(1, username);
+	
+			ResultSet rs = pr.executeQuery();
+			
+			ArrayList<Ordine> ordini = new ArrayList<Ordine>();
+			while(rs.next()) {
+				int id = rs.getInt("ID");
+				Ordine o = new Ordine(id);
+				
+				ArrayList<ProductInCart> prodotti = this.getProductInOrder(id);
+				o.setProdottiOrdine(prodotti);
+				
+				ordini.add(o);
+			}
+			
+			return ordini;
+		} catch(SQLException e) {
+			return null;
+		}
+		
 	}
 }

@@ -21,6 +21,9 @@ public class ServiceDatiAndamentoProdotto extends Service<ArrayList<DatiAndament
 			@Override
 			protected ArrayList<DatiAndamentoProdotto> call() throws Exception {
 				ArrayList<DatiAndamentoProdotto> array =  Client.getInstance().getTrendProduct(nomeProdotto);
+				if(array == null)
+					return null;
+				
 				for(DatiAndamentoProdotto d : array)
 					System.out.println(d);
 				return array;
