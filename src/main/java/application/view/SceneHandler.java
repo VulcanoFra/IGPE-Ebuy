@@ -125,8 +125,7 @@ public class SceneHandler {
 		Thread t = new Thread(Client.getInstance());
     	t.setDaemon(true);
     	t.start();
-		
-    	controllerHomePage.pulisciCombo();
+    	
 		controllerHomePage.riempiCombo();
 		
 		if(scena.getRoot() == loginPage)

@@ -82,12 +82,13 @@ public class HomePageController {
     
     @FXML
     void clickExit(ActionEvent event) {
+    	pulisciCombo();
     	ricercaField.setText("");
     	SceneHandler.getInstance();
     	Client.getInstance().exit();
     	try {		
 			SceneHandler.getInstance().resetPage(StackPaneHome.getInstance());
-			SceneHandler.getInstance().setLoginScene();
+			SceneHandler.getInstance().setLoginScene();	    	
 		} catch (Exception e) {
 			SceneHandler.getInstance().showError(Protocol.ERROR);
 		}
